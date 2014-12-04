@@ -1,4 +1,4 @@
-json.array!(@nouns) do |noun|
-  json.extract! noun, :id, :name, :parent_id, :description, :aquired_on, :cost, :value
-  json.url noun_url(noun, format: :json)
+json.array!(@things) do |thing|
+  json.extract! thing, :id, :name, :parent_id, :description, :aquired_on, :cost, :value
+  json.url thing_url(thing, format: :json)
 end

@@ -1,7 +1,7 @@
 class CreateNouns < ActiveRecord::Migration
   def change
     execute "create extension hstore"
-    create_table :nouns do |t|
+    create_table :things do |t|
       t.text :name
       t.integer :parent_id, index: true
       t.text :description

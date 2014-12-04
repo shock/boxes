@@ -16,17 +16,17 @@
   </thead>
 
   <tbody>
-    <% @nouns.each do |noun| %>
+    <% @things.each do |thing| %>
       <tr>
-        <td><%= noun.name %></td>
-        <td><%= noun.parent_id %></td>
-        <td><%= noun.description %></td>
-        <td><%= noun.aquired_on %></td>
-        <td><%= noun.cost %></td>
-        <td><%= noun.value %></td>
-        <td><%= link_to 'Show', noun %></td>
-        <td><%= link_to 'Edit', edit_noun_path(noun) %></td>
-        <td><%= link_to 'Destroy', noun, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%= thing.name %></td>
+        <td><%= thing.parent_id %></td>
+        <td><%= thing.description %></td>
+        <td><%= thing.aquired_on %></td>
+        <td><%= thing.cost %></td>
+        <td><%= thing.value %></td>
+        <td><%= link_to 'Show', thing %></td>
+        <td><%= link_to 'Edit', edit_thing_path(thing) %></td>
+        <td><%= link_to 'Destroy', thing, method: :delete, data: { confirm: 'Are you sure?' } %></td>
       </tr>
     <% end %>
   </tbody>
@@ -34,4 +34,4 @@
 
 <br>
 
-<%= link_to 'New Noun', new_noun_path %>
+<%= link_to 'New Noun', new_thing_path %>

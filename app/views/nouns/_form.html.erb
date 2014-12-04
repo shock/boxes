@@ -1,10 +1,10 @@
-<%= form_for(@noun) do |f| %>
-  <% if @noun.errors.any? %>
+<%= form_for(@thing) do |f| %>
+  <% if @thing.errors.any? %>
     <div id="error_explanation">
-      <h2><%= pluralize(@noun.errors.count, "error") %> prohibited this noun from being saved:</h2>
+      <h2><%= pluralize(@thing.errors.count, "error") %> prohibited this thing from being saved:</h2>
 
       <ul>
-      <% @noun.errors.full_messages.each do |message| %>
+      <% @thing.errors.full_messages.each do |message| %>
         <li><%= message %></li>
       <% end %>
       </ul>

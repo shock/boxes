@@ -11,14 +11,14 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141204182232) do
+ActiveRecord::Schema.define(version: 20141204173452) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
   enable_extension "hstore"
 
-  create_table "nouns", force: true do |t|
-    t.text     "name"
+  create_table "things", force: true do |t|
+    t.string   "name"
     t.integer  "parent_id"
     t.text     "description"
     t.date     "aquired_on"
@@ -30,14 +30,11 @@ ActiveRecord::Schema.define(version: 20141204182232) do
     t.hstore   "properties"
     t.datetime "created_at",                                        null: false
     t.datetime "updated_at",                                        null: false
-    t.integer  "flags"
-    t.integer  "user_id"
   end
 
-  add_index "nouns", ["depth"], name: "index_nouns_on_depth", using: :btree
-  add_index "nouns", ["lft"], name: "index_nouns_on_lft", using: :btree
-  add_index "nouns", ["parent_id"], name: "index_nouns_on_parent_id", using: :btree
-  add_index "nouns", ["rgt"], name: "index_nouns_on_rgt", using: :btree
-  add_index "nouns", ["user_id"], name: "index_nouns_on_user_id", using: :btree
+  add_index "things", ["depth"], name: "index_things_on_depth", using: :btree
+  add_index "things", ["lft"], name: "index_things_on_lft", using: :btree
+  add_index "things", ["parent_id"], name: "index_things_on_parent_id", using: :btree
+  add_index "things", ["rgt"], name: "index_things_on_rgt", using: :btree
 
 end

@@ -2,33 +2,33 @@
 
 <p>
   <strong>Name:</strong>
-  <%= @noun.name %>
+  <%= @thing.name %>
 </p>
 
 <p>
   <strong>Parent:</strong>
-  <%= @noun.parent_id %>
+  <%= @thing.parent_id %>
 </p>
 
 <p>
   <strong>Description:</strong>
-  <%= @noun.description %>
+  <%= @thing.description %>
 </p>
 
 <p>
   <strong>Aquired on:</strong>
-  <%= @noun.aquired_on %>
+  <%= @thing.aquired_on %>
 </p>
 
 <p>
   <strong>Cost:</strong>
-  <%= @noun.cost %>
+  <%= @thing.cost %>
 </p>
 
 <p>
   <strong>Value:</strong>
-  <%= @noun.value %>
+  <%= @thing.value %>
 </p>
 
-<%= link_to 'Edit', edit_noun_path(@noun) %> |
-<%= link_to 'Back', nouns_path %>
+<%= link_to 'Edit', edit_thing_path(@thing) %> |
+<%= link_to 'Back', things_path %>

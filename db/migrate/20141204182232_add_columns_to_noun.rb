@@ -1,7 +1,7 @@
 class AddColumnsToNoun < ActiveRecord::Migration
   def change
-    add_column :nouns, :flags, :integer
-    add_column :nouns, :user_id, :integer
-    add_index :nouns, :user_id
+    add_column :things, :flags, :integer
+    add_column :things, :user_id, :integer
+    add_index :things, :user_id
   end
 end
