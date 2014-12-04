@@ -1,2 +1,2 @@
-module NounsHelper
+module ThingsHelper
 end

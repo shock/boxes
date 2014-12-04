@@ -1,10 +1,10 @@
-class NounsController < ApplicationController
+class ThingsController < ApplicationController
   before_action :set_thing, only: [:show, :edit, :update, :destroy]
 
   # GET /things
   # GET /things.json
   def index
-    @things = Noun.all
+    @things = Thing.all
   end
 
   # GET /things/1
@@ -14,7 +14,7 @@ class NounsController < ApplicationController
 
   # GET /things/new
   def new
-    @thing = Noun.new
+    @thing = Thing.new
   end
 
   # GET /things/1/edit
@@ -24,11 +24,11 @@ class NounsController < ApplicationController
   # POST /things
   # POST /things.json
   def create
-    @thing = Noun.new(thing_params)
+    @thing = Thing.new(thing_params)
 
     respond_to do |format|
       if @thing.save
-        format.html { redirect_to @thing, notice: 'Noun was successfully created.' }
+        format.html { redirect_to @thing, notice: 'Thing was successfully created.' }
         format.json { render :show, status: :created, location: @thing }
       else
         format.html { render :new }
@@ -42,7 +42,7 @@ class NounsController < ApplicationController
   def update
     respond_to do |format|
       if @thing.update(thing_params)
-        format.html { redirect_to @thing, notice: 'Noun was successfully updated.' }
+        format.html { redirect_to @thing, notice: 'Thing was successfully updated.' }
         format.json { render :show, status: :ok, location: @thing }
       else
         format.html { render :edit }
@@ -56,7 +56,7 @@ class NounsController < ApplicationController
   def destroy
     @thing.destroy
     respond_to do |format|
-      format.html { redirect_to things_url, notice: 'Noun was successfully destroyed.' }
+      format.html { redirect_to things_url, notice: 'Thing was successfully destroyed.' }
       format.json { head :no_content }
     end
   end
@@ -64,7 +64,7 @@ class NounsController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_thing
-      @thing = Noun.find(params[:id])
+      @thing = Thing.find(params[:id])
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
