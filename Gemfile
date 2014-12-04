@@ -35,6 +35,7 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 # Boxes gems
 
 gem 'awesome_nested_set'
+gem 'hirb'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
