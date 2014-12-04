@@ -1,4 +1,4 @@
-class AddColumnsToNoun < ActiveRecord::Migration
+class AddColumnsToThing < ActiveRecord::Migration
   def change
     add_column :things, :flags, :integer
     add_column :things, :user_id, :integer

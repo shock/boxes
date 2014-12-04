@@ -1,4 +1,4 @@
-class CreateNouns < ActiveRecord::Migration
+class CreateThings < ActiveRecord::Migration
   def change
     execute "create extension hstore"
     create_table :things do |t|
