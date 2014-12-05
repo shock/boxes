@@ -4,17 +4,17 @@
       <%=h @thing.name %>
       <span id="marked" class="action">
         <%= link_to(toggle_marked_thing_path(@thing), title: 'Toggle Marked', id: "#{@thing.id}_marked", remote: true, data: {type: 'script'}) do %>
-          <%= icon('check-square', '', class: @thing.marked ? "dimmed marked" : "dimmed") %>
+          <%= icon(icon_marked, '', class: @thing.marked ? "dimmed marked" : "dimmed") %>
         <% end %>
       </span>
       <span id="edit" class="action">
         <%= link_to(edit_thing_path(@thing, ref: CGI::escape(request.fullpath)), title: "Edit #{@thing.name}", class: "thickbox") do %>
-          <%= icon('edit', '') %>
+          <%= icon(icon_edit, '') %>
         <% end %>
       </span>
       <span id="delete" class="action">
         <%= link_to(@thing, confirm: "Are you sure you want to delete #{@thing.name}?", method: :delete, title: "Delete #{@thing.name}" ) do %>
-          <%= icon('minus-square', '', class: "danger")  %>
+          <%= icon(icon_delete, '', class: "danger")  %>
         <% end %>
       </span>
 
@@ -67,7 +67,11 @@
     <div id="header">
       <span id="contains">Contains:</span>
       <div id="toolbar">
-        <span class="action"><%= link_to '<img src="/images/icons/add.png">', url_for(:controller=>:things, :action=>:new, :container_id=>@thing.id, :width=>"300", :ref=>CGI::escape(request.fullpath)), :title=>'Add Contained Thing', :class=>"thickbox" %></span>
+        <span class="action">
+          <%= link_to(new_thing_path(parent_id: @thing, ref: CGI::escape(request.fullpath)), title: 'Add Contained Thing', class: "thickbox") do %>
+            <%= icon(icon_add, '', class: "success") %>
+          <% end %>
+        </span>
       </div>
     </div>
     <div id="things-list">
