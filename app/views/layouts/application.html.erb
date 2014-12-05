@@ -9,7 +9,11 @@
 <body>
 
   <div id="main-container" class="container">
-    <div id="header" class="row"><%= yield :header %></div>
+    <div id="header" class="row">
+      <div class="col-md-12">
+        <%= render 'layouts/navigation' %>
+      </div>
+    </div>
     <div id="content" class="row">
       <div class="col-md-12">
         <%= yield %>

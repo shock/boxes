@@ -73,7 +73,9 @@ class ThingsController < ApplicationController
   def toggle_marked
     @thing = Thing.find(params[:id])
     @thing.update_attributes!( :marked=>!@thing.marked )
-    render text: "OK", status: 200
+    respond_to do |format|
+      format.js {}
+    end
   end
 
   private

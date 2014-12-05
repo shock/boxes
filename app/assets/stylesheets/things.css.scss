@@ -42,6 +42,17 @@
       color: #666;
       padding: 4px;
     }
+    .action a {
+      margin-right: 0.6em;
+      i.fa {
+        font-size: 2em;
+        font-weight: bold;
+        &.marked {
+          color: $marked-color;
+        }
+      }
+    }
+
   }
   #container {
     color: #888;
@@ -98,8 +109,18 @@
     .actions {
       float: right;
       position: relative;
-      top: 3px;
+      top: 0.1em;
       a#marked! {}
+      a {
+        margin-right: 0.6em;
+        i.fa {
+          font-size: 1.5em;
+          font-weight: bold;
+          &.marked {
+            color: $marked-color;
+          }
+        }
+      }
     }
     &.odd {
       background: #F0E6E3;

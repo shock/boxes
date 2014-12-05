@@ -1,0 +1,11 @@
+i.fa {
+  &.dimmed {
+    color: $dimmed-color;
+  }
+  &.success {
+    color: $btn-success-bg;
+  }
+  &.danger {
+    color: $btn-danger-bg;
+  }
+}

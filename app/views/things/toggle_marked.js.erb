@@ -1,0 +1,6 @@
+var marked = <%= @thing.marked %>;
+var element = $('#<%= @thing.id %>_marked i');
+if(marked)
+  element.addClass('marked');
+else
+  element.removeClass('marked');
