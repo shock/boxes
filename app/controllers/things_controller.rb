@@ -4,7 +4,12 @@ class ThingsController < ApplicationController
   # GET /things
   # GET /things.json
   def index
-    @things = Thing.all
+    if params[:query]
+      @things = Thing.where("name iLIKE '%#{params[:query].gsub('*', '%')}%' OR description iLIKE '%#{params[:query].gsub('*', '%')}%'")
+    else
+      @things = Thing.all
+    end
+    @things.order!(:parent_id)
   end
 
   # GET /things/1
@@ -15,10 +20,15 @@ class ThingsController < ApplicationController
   # GET /things/new
   def new
     @thing = Thing.new
+    @thing.container_id = params[:container_id]
+    @thing.category_id = Thing.find(params[:container_id]).category_id if !params[:container_id].blank?
+    @containers = Thing.all(:order=>:name)
   end
 
   # GET /things/1/edit
   def edit
+    @thing = Thing.find(params[:id])
+    @containers = Thing.all(:order=>:name)
   end
 
   # POST /things
@@ -61,6 +71,11 @@ class ThingsController < ApplicationController
     end
   end
 
+  def toggle_marked
+    @thing = Thing.find(params[:id])
+    @thing.update_attributes!( :marked=>!@thing.marked )
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_thing
@@ -69,6 +84,6 @@ class ThingsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def thing_params
-      params.require(:thing).permit(:name, :parent_id, :description, :aquired_on, :cost, :value)
+      params.require(:thing).permit(:name, :parent_id, :description, :acquired_on, :cost, :value)
     end
 end

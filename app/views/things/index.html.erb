@@ -1,37 +1,12 @@
-<p id="notice"><%= notice %></p>
+<h1>Listing things</h1>
+<% if params[:query].present? %>
+<h4>Matching '<%= params[:query] %>'</h2>
+<% end %>
+<div id="things-list">
+<% @things.each do |thing| %>
+  <%= render :partial=>'thing_row', locals: {thing: thing, odd_even: (cycle("odd","even")), show_container:  true} %>
+<% end %>
+</div>
+<br />
 
-<h1>Listing Things</h1>
-
-<table>
-  <thead>
-    <tr>
-      <th>Name</th>
-      <th>Parent</th>
-      <th>Description</th>
-      <th>Aquired on</th>
-      <th>Cost</th>
-      <th>Value</th>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
-
-  <tbody>
-    <% @things.each do |thing| %>
-      <tr>
-        <td><%= thing.name %></td>
-        <td><%= thing.parent_id %></td>
-        <td><%= thing.description %></td>
-        <td><%= thing.aquired_on %></td>
-        <td><%= thing.cost %></td>
-        <td><%= thing.value %></td>
-        <td><%= link_to 'Show', thing %></td>
-        <td><%= link_to 'Edit', edit_thing_path(thing) %></td>
-        <td><%= link_to 'Destroy', thing, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
-
-<br>
-
-<%= link_to 'New Thing', new_thing_path %>
+<%= render :partial=>'quick_search' %>

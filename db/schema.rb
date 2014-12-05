@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141204182232) do
+ActiveRecord::Schema.define(version: 20141205044545) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -21,7 +21,7 @@ ActiveRecord::Schema.define(version: 20141204182232) do
     t.text     "name"
     t.integer  "parent_id"
     t.text     "description"
-    t.date     "aquired_on"
+    t.date     "acquired_on"
     t.decimal  "cost",        precision: 8, scale: 2, default: 0.0
     t.decimal  "value",       precision: 8, scale: 2, default: 0.0
     t.integer  "lft"

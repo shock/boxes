@@ -17,15 +17,15 @@
   </div>
   <div class="field">
     <%= f.label :parent_id %><br>
-    <%= f.number_field :parent_id %>
+    <%= f.select :parent_id, containers.collect {|p| [ p.name, p.id ] } %>
   </div>
   <div class="field">
     <%= f.label :description %><br>
     <%= f.text_area :description %>
   </div>
   <div class="field">
-    <%= f.label :aquired_on %><br>
-    <%= f.date_select :aquired_on %>
+    <%= f.label :acquired_on %><br>
+    <%= f.date_field :acquired_on %>
   </div>
   <div class="field">
     <%= f.label :cost %><br>

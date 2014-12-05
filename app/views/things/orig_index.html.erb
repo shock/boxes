@@ -1,0 +1,39 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Listing Things</h1>
+
+<table class="table table-condensed table-hover table-responsive" >
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Parent</th>
+      <th>Description</th>
+      <th>Aquired on</th>
+      <th>Cost</th>
+      <th>Value</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @things.each do |thing| %>
+      <tr>
+        <td><%= thing.name %></td>
+        <td><%= thing.parent_id %></td>
+        <td><%= thing.description %></td>
+        <td><%= thing.acquired_on %></td>
+        <td><%= thing.cost %></td>
+        <td><%= thing.value %></td>
+        <td><%= link_to 'Show', thing, class: "btn btn-info btn-xs" %></td>
+        <td><%= link_to 'Edit', edit_thing_path(thing), class: "btn btn-info btn-xs" %></td>
+        <td><%= link_to 'Destroy', thing, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-info btn-xs" %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to new_thing_path, :class => "btn btn-success"  do %>
+  <%= icon('plus', 'New Thing') %>
+<% end %>
