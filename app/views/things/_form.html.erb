@@ -17,7 +17,7 @@
   </div>
   <div class="field">
     <%= f.label :parent_id %><br>
-    <%= f.select :parent_id, containers.collect {|p| [ p.name, p.id ] } %>
+    <%= f.select :parent_id, @containers.collect {|p| [ p.name, p.id ] } %>
   </div>
   <div class="field">
     <%= f.label :description %><br>

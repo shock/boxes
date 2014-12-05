@@ -7,7 +7,7 @@ class ThingsController < ApplicationController
     if params[:query]
       @things = Thing.where("name iLIKE '%#{params[:query].gsub('*', '%')}%' OR description iLIKE '%#{params[:query].gsub('*', '%')}%'")
     else
-      @things = Thing.all
+      @things = Thing.root.descendants
     end
     @things.order!(:parent_id)
   end
@@ -20,15 +20,14 @@ class ThingsController < ApplicationController
   # GET /things/new
   def new
     @thing = Thing.new
-    @thing.container_id = params[:container_id]
-    @thing.category_id = Thing.find(params[:container_id]).category_id if !params[:container_id].blank?
-    @containers = Thing.all(:order=>:name)
+    @thing.parent_id = params[:parent_id]
+    @containers = Thing.root.descendants
   end
 
   # GET /things/1/edit
   def edit
     @thing = Thing.find(params[:id])
-    @containers = Thing.all(:order=>:name)
+    @containers = Thing.root.descendants
   end
 
   # POST /things
@@ -74,6 +73,7 @@ class ThingsController < ApplicationController
   def toggle_marked
     @thing = Thing.find(params[:id])
     @thing.update_attributes!( :marked=>!@thing.marked )
+    render text: "OK", status: 200
   end
 
   private

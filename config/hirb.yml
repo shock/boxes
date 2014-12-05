@@ -1,0 +1,13 @@
+:output:
+  Thing: &thing
+    :options:
+      :fields:
+        - id
+        - name
+        - parent_id
+        - marked
+        - lft
+        - rgt
+        - tree_depth
+        - created_at
+        - updated_at

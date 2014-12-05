@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141205044545) do
+ActiveRecord::Schema.define(version: 20141205053859) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -26,7 +26,7 @@ ActiveRecord::Schema.define(version: 20141205044545) do
     t.decimal  "value",       precision: 8, scale: 2, default: 0.0
     t.integer  "lft"
     t.integer  "rgt"
-    t.integer  "depth"
+    t.integer  "tree_depth"
     t.hstore   "properties"
     t.datetime "created_at",                                        null: false
     t.datetime "updated_at",                                        null: false
@@ -34,10 +34,10 @@ ActiveRecord::Schema.define(version: 20141205044545) do
     t.integer  "user_id"
   end
 
-  add_index "things", ["depth"], name: "index_things_on_depth", using: :btree
   add_index "things", ["lft"], name: "index_things_on_lft", using: :btree
   add_index "things", ["parent_id"], name: "index_things_on_parent_id", using: :btree
   add_index "things", ["rgt"], name: "index_things_on_rgt", using: :btree
+  add_index "things", ["tree_depth"], name: "index_things_on_tree_depth", using: :btree
   add_index "things", ["user_id"], name: "index_things_on_user_id", using: :btree
 
 end

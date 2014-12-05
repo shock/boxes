@@ -1,13 +1,13 @@
 <div class="child <%= odd_even %>">
   <% if defined? show_container && show_container %>
-    <% if thing.container %>
+    <% if thing.parent_id && thing.tree_depth > 0 && thing.container %>
       <a href="<%= url_for(thing.container) %>" title="<%= thing.container.description %>"><%= thing.container.name %></a> <span class="num_contained" title="number of contained things">(<%= thing.container.num_contained %>)</span> >
     <% else %>
     <% end -%>
   <% end -%>
   <a href="<%= url_for(thing) %>" title="<%= thing.description %>"><%= thing.name %></a> <span class="num_contained" title="number of contained things">(<%= thing.num_contained %>)</span>
   <span class="actions action">
-    <%=raw link_to(raw("<img src='/images/icons/lightbulb#{ thing.marked ? "" : "_off" }.png' height=12px width=12px>"), toggle_marked_thing_path(thing), :title=>'Add Contained Thing', :id=>"#{thing.id}_marked", :class=>"remote") %>
+    <%=raw link_to(raw("<img src='/images/icons/lightbulb#{ thing.marked ? "" : "_off" }.png' height=12px width=12px>"), toggle_marked_thing_path(thing), :title=>'Toggle Marked', :id=>"#{thing.id}_marked", :class=>"remote") %>
     <%=raw link_to(raw('<img src="/images/icons/add.png" height=12px width=12px>'), url_for(:controller=>:things, :action=>:new, :container_id=>thing.id, :width=>"300", :ref=>CGI::escape(request.fullpath)), :title=>'Add Contained Thing', :id=>'add', :class=>"thickbox") %>
     <%=raw link_to(raw('<img src="/images/icons/delete.png" height=12px width=12px>'), thing, :confirm => "Are you sure you want to delete #{thing.name}?", :method => :delete, :id=>'delete', :title=>"Delete #{thing.name}" ) %>
   </span>
