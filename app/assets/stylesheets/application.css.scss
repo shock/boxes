@@ -1,12 +1,16 @@
 // "bootstrap-sprockets" must be imported before "bootstrap" and "bootstrap/variables"
 @import "bootstrap-sprockets";
+
+// SASS doesn't allow variables in imports.  To change themes, you need
+// to the theme name on each line before and after the bootstrap import.
+@import "themes/darkly/variables.scss";
 @import "bootstrap";
+@import "themes/darkly/bootswatch.scss";
 
 @import "font-awesome-sprockets";
 @import "font-awesome";
 
-$dimmed-color: #bbb;
-$marked-color: #222;
+@import "styleguide";
 
 @import "fonts";
 @import "things";
