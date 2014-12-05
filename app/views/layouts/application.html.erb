@@ -8,7 +8,15 @@
 </head>
 <body>
 
-<%= yield %>
+  <div id="main-container" class="container">
+    <div id="header" class="row"><%= yield :header %></div>
+    <div id="content" class="row">
+      <div class="col-md-12">
+        <%= yield %>
+      </div>
+    </div>
+    <div id="footer" class="row"><%= yield :footer %></div>
+  </div>
 
 </body>
 </html>

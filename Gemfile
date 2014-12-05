@@ -34,12 +34,16 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 
 # Boxes gems
 
+gem 'autoprefixer-rails'
 gem 'awesome_nested_set'
+gem 'bootstrap-sass', '~> 3.3.1'
+gem 'flag_shih_tzu'
+gem 'font-awesome-sass', '~> 4.2.0'
 gem 'hirb'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
-  gem 'byebug'
+  gem 'pry-byebug'
 
   # Access an IRB console on exception pages or by using <%= console %> in views
   gem 'web-console', '~> 2.0'
