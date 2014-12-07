@@ -1,31 +1,26 @@
-// "bootstrap-sprockets" must be imported before "bootstrap" and "bootstrap/variables"
-@import "bootstrap-sprockets";
+//= require bootstrap_and_overrides
+//= require jqtree
+//= require_self
+//= require ./things
 
-// SASS doesn't allow variables in imports.  To change themes, you need
-// to the theme name on each line before and after the bootstrap import.
-@import "themes/paper/variables.scss";
-@import "bootstrap";
-@import "themes/paper/bootswatch.scss";
+@import "base";
+@import "font_awesome";
 
-@import "font-awesome-sprockets";
-@import "font-awesome";
-
-@import "jqtree";
-
-@import "styleguide";
-
-@import "fonts";
-@import "things";
-
-// .actions {
-//   display: inline;
-//   opacity: 0.5;
-//   margin-left: 0.5em;
-// }
+.op25 {
+  opacity: 0.25;
+}
+.op50 {
+  opacity: 0.5;
+}
+.op75 {
+  opacity: 0.75;
+}
+.op90 {
+  opacity: 0.90;
+}
 
 .panel-heading {
   h3 {
     margin-top: 10px;
   }
 }
-
