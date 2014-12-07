@@ -2,20 +2,20 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
-.action a {
-  font-size: 9px;
-  color: #666;
-  img {
-    filter: alpha(opacity = 50);
-    -moz-opacity: 0.50;
-    opacity: 0.50;
-    &:hover {
-      filter: alpha(opacity = 100);
-      -moz-opacity: 1.0;
-      opacity: 1.0;
-    }
-  }
-}
+// .action a {
+//   font-size: 9px;
+//   color: #666;
+//   img {
+//     filter: alpha(opacity = 50);
+//     -moz-opacity: 0.50;
+//     opacity: 0.50;
+//     &:hover {
+//       filter: alpha(opacity = 100);
+//       -moz-opacity: 1.0;
+//       opacity: 1.0;
+//     }
+//   }
+// }
 
 /*******************************
  Thing Details */
@@ -33,7 +33,7 @@
     display: inline-block;
     width: 390px;
     #name {
-      font-size: 22px;
+      font-size: 1.5em;
       color: #222;
       padding-top: 4px;
     }
@@ -42,17 +42,25 @@
       color: #666;
       padding: 4px;
     }
-    .action a {
-      margin-right: 0.6em;
-      i.fa {
-        font-size: 2em;
-        font-weight: bold;
-        &.marked {
-          color: $marked-color;
+    .actions {
+      margin-left: 1em;
+      display: inline;
+      padding: 0.1em;
+      background: $gray-light;
+      border-radius: 3px;
+      .action a {
+        font-size: 1em;
+        // @extend .btn;
+        // @extend .btn-primary;
+        // @extend .btn-xs;
+        // margin-right: 0.6em;
+        i.fa {
+          // font-size: 2em;
+          // font-weight: bold;
+          @extend .fa-fw;
         }
       }
     }
-
   }
   #container {
     color: #888;
@@ -78,14 +86,6 @@
       float: right;
       padding: 0px;
       margin-right: 4px;
-      a img {
-        /*  border: 1px solid #ccc; */
-        padding: 0px;
-        /*  background: #ddd;*/
-        filter: alpha(opacity = 80);
-        -moz-opacity: 0.80;
-        opacity: 0.80;
-      }
     }
   }
 }
@@ -101,7 +101,7 @@
   .child {
     padding: 1px 3px;
     border-bottom: 1px solid #aaa;
-    font-size: 11px;
+    // font-size: 11px;
     color: #666;
     .num_contained {
       color: #666;
@@ -109,13 +109,13 @@
     .actions {
       float: right;
       position: relative;
-      top: 0.1em;
+      // top: 0.1em;
       a#marked! {}
       a {
         margin-right: 0.6em;
         i.fa {
-          font-size: 1.5em;
-          font-weight: bold;
+          // font-size: 1.5em;
+          // font-weight: bold;
           &.marked {
             color: $marked-color;
           }

@@ -2,6 +2,21 @@ i.fa {
   &.dimmed {
     color: $dimmed-color;
   }
+  &.marked {
+    color: $marked-color;
+  }
+  &.default {
+    color: $btn-default-bg;
+  }
+  &.info {
+    color: $btn-info-bg;
+  }
+  &.warning {
+    color: $btn-warning-bg;
+  }
+  &.primary {
+    color: $btn-primary-bg;
+  }
   &.success {
     color: $btn-success-bg;
   }

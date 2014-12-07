@@ -7,14 +7,14 @@
   <% end -%>
   <a href="<%= url_for(thing) %>" title="<%= thing.description %>"><%= thing.name %></a> <span class="num_contained" title="number of contained things">(<%= thing.num_contained %>)</span>
   <span class="actions action">
-    <%= link_to(toggle_marked_thing_path(thing), title: 'Toggle Marked', id: "#{thing.id}_marked", remote: true) do %>
+    <%= link_to(toggle_marked_thing_path(thing), title: 'Toggle Marked', class: "#{thing.id}_marked", remote: true) do %>
       <%= icon(icon_marked, '', class: thing.marked ? "dimmed marked" : "dimmed") %>
+    <% end %>
+    <%= link_to(edit_thing_path(thing, ref: CGI::escape(request.fullpath)), title: "Edit #{thing.name}", class: "thickbox") do %>
+      <%= icon(icon_edit, '', class: 'primary') %>
     <% end %>
     <%= link_to(new_thing_path(parent_id: thing, ref: CGI::escape(request.fullpath)), title: 'Add Contained Thing', class: "thickbox") do %>
       <%= icon(icon_add, '', class: "success") %>
-    <% end %>
-    <%= link_to(thing, confirm: "Are you sure you want to delete #{thing.name}?", method: :delete, title: "Delete #{thing.name}" ) do %>
-      <%= icon(icon_delete, '', class: "danger")  %>
     <% end %>
   </span>
 </div>

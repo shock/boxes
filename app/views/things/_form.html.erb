@@ -1,41 +1,48 @@
-<%= form_for(@thing) do |f| %>
-  <% if @thing.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@thing.errors.count, "error") %> prohibited this thing from being saved:</h2>
+<% if @thing.errors.any? %>
+  <div id="error_explanation">
+    <h2><%= pluralize(@thing.errors.count, "error") %> prohibited this thing from being saved:</h2>
 
-      <ul>
-      <% @thing.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
-      <% end %>
-      </ul>
-    </div>
-  <% end %>
-
-  <div class="field">
-    <%= f.label :name %><br>
-    <%= f.text_field :name %>
-  </div>
-  <div class="field">
-    <%= f.label :parent_id %><br>
-    <%= f.select :parent_id, @containers.collect {|p| [ p.name, p.id ] } %>
-  </div>
-  <div class="field">
-    <%= f.label :description %><br>
-    <%= f.text_area :description %>
-  </div>
-  <div class="field">
-    <%= f.label :acquired_on %><br>
-    <%= f.date_field :acquired_on %>
-  </div>
-  <div class="field">
-    <%= f.label :cost %><br>
-    <%= f.text_field :cost %>
-  </div>
-  <div class="field">
-    <%= f.label :value %><br>
-    <%= f.text_field :value %>
-  </div>
-  <div class="actions">
-    <%= f.submit %>
+    <ul>
+    <% @thing.errors.full_messages.each do |message| %>
+      <li><%= message %></li>
+    <% end %>
+    </ul>
   </div>
 <% end %>
+
+<div class="form-group">
+  <%= f.label :name, class: "col-lg-3 control-label" %>
+  <div class="col-lg-9">
+    <%= f.text_field :name, class: "form-control", placeholder: "Name" %>
+  </div>
+</div>
+<div class="form-group">
+  <%= f.label :parent_id, class: "col-lg-3 control-label" %>
+  <div class="col-lg-9">
+    <%= f.select :parent_id, @containers.collect {|p| [ p.name, p.id ] }, {}, class: "form-control" %>
+  </div>
+</div>
+<div class="form-group">
+  <%= f.label :description, class: "col-lg-3 control-label" %>
+  <div class="col-lg-9">
+    <%= f.text_area :description, class: "form-control", placeholder: "Description" %>
+  </div>
+</div>
+<div class="form-group">
+  <%= f.label :acquired_on, class: "col-lg-3 control-label" %>
+  <div class="col-lg-9">
+    <%= f.date_field :acquired_on, class: "form-control" %>
+  </div>
+</div>
+<div class="form-group">
+  <%= f.label :cost, class: "col-lg-3 control-label" %>
+  <div class="col-lg-9">
+    <%= f.text_field :cost, class: "form-control" %>
+  </div>
+</div>
+<div class="form-group">
+  <%= f.label :value, class: "col-lg-3 control-label" %>
+  <div class="col-lg-9">
+    <%= f.text_field :value, class: "form-control" %>
+  </div>
+</div>

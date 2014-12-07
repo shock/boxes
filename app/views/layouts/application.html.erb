@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Boxes</title>
+  <title>Cascade</title>
   <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
   <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
   <%= csrf_meta_tags %>
@@ -9,11 +9,7 @@
 <body>
 
   <div id="main-container" class="container">
-    <div id="header" class="row">
-      <div class="col-md-12">
-        <%= render 'layouts/navigation' %>
-      </div>
-    </div>
+    <%= render 'layouts/navigation' %>
     <div id="content" class="row">
       <div class="col-md-12">
         <%= yield %>

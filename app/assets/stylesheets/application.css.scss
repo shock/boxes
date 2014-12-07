@@ -3,9 +3,9 @@
 
 // SASS doesn't allow variables in imports.  To change themes, you need
 // to the theme name on each line before and after the bootstrap import.
-@import "themes/darkly/variables.scss";
+@import "themes/paper/variables.scss";
 @import "bootstrap";
-@import "themes/darkly/bootswatch.scss";
+@import "themes/paper/bootswatch.scss";
 
 @import "font-awesome-sprockets";
 @import "font-awesome";
@@ -14,4 +14,16 @@
 
 @import "fonts";
 @import "things";
+
+// .actions {
+//   display: inline;
+//   opacity: 0.5;
+//   margin-left: 0.5em;
+// }
+
+.panel-heading {
+  h3 {
+    margin-top: 10px;
+  }
+}
 

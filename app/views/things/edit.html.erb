@@ -1,6 +1,22 @@
 <h1>Editing Thing</h1>
 
-<%= render 'form', locals: {containers: @containers} %>
+<%= form_for(@thing) do |f| %>
+  <div class="row">
+    <div class="col-lg-6">
+      <%= render partial: 'form', locals: {containers: @containers, f: f} %>
+      <div class="actions">
+        <%= f.submit "Update" %>
+        <%= link_to(@thing, confirm: "Are you sure you want to delete #{@thing.name}?", method: :delete, title: "Delete #{@thing.name}", class: "btn btn-danger btn-sm" ) do %>
+          <%= icon('minus-square-o', 'Delete')  %>
+        <% end %>
+      </div>
+    </div>
+  </div>
+<% end %>
 
+<br>
+<p>
+  </a>
+</p>
 <%= link_to 'Show', @thing %> |
 <%= link_to 'Back', things_path %>
