@@ -29,6 +29,41 @@ class Thing < ActiveRecord::Base
 
   has_flags 1 => :marked
 
+  def json_ltree_builder( json )
+    json.id id
+    json.label name
+    children = self.children
+    unless children.empty?
+      json.children do
+        json.array! children do |child|
+          child.json_ltree_builder( json )
+        end
+      end
+    end
+    json
+  end
+
+  def to_builder
+    Jbuilder.new do |json|
+      json.array! [self] do |thing|
+        thing.json_ltree_builder( json )
+      end
+    end
+  end
+
+  def to_tree
+    tree = HashObj.new
+    tree.id = id
+    tree.label = name
+    tree.description = description
+    tree.children = children.map(&:to_tree)
+    tree
+  end
+
+  def to_json
+    to_tree.to_json
+  end
+
 private
 
   def default_root

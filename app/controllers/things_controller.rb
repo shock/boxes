@@ -15,6 +15,12 @@ class ThingsController < ApplicationController
   # GET /things/1
   # GET /things/1.json
   def show
+    respond_to do |format|
+      format.html {}
+      format.json do
+        render :json => @thing.to_builder.target!
+      end
+    end
   end
 
   # GET /things/new
