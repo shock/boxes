@@ -6,6 +6,9 @@ class ThingsController < ApplicationController
   def index
     if params[:query]
       @things = Thing.where("name iLIKE '%#{params[:query].gsub('*', '%')}%' OR description iLIKE '%#{params[:query].gsub('*', '%')}%'")
+    elsif params[:node]
+      @thing = Thing.find(params[:node])
+      render json: @thing.to_builder.target!
     else
       @things = Thing.root.descendants
     end
@@ -28,12 +31,14 @@ class ThingsController < ApplicationController
     @thing = Thing.new
     @thing.parent_id = params[:parent_id]
     @containers = Thing.root.descendants
+    render :new, layout: false
   end
 
   # GET /things/1/edit
   def edit
     @thing = Thing.find(params[:id])
     @containers = Thing.root.descendants
+    render :edit, layout: false
   end
 
   # POST /things

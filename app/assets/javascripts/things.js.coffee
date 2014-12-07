@@ -6,3 +6,6 @@ $ ->
   $('#tree').tree
     dragAndDrop: true
     autoOpen: 2
+
+$(document).on 'click', '.a-form-commit', ->
+  $(@).parents('form').submit()

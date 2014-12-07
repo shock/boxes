@@ -1,22 +1,21 @@
-<h1>Editing Thing</h1>
+<div class="modal-header">
+  <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+  <h4 class="modal-title" id="myModalLabel">Update</h4>
+</div>
 
-<%= form_for(@thing) do |f| %>
-  <div class="row">
-    <div class="col-lg-6">
-      <%= render partial: 'form', locals: {containers: @containers, f: f} %>
-      <div class="actions">
-        <%= f.submit "Update" %>
-        <%= link_to(@thing, confirm: "Are you sure you want to delete #{@thing.name}?", method: :delete, title: "Delete #{@thing.name}", class: "btn btn-danger btn-sm" ) do %>
-          <%= icon('minus-square-o', 'Delete')  %>
-        <% end %>
+<%= form_for(@thing, html: {class: "form-horizontal"}) do |f| %>
+  <div class="modal-body">
+    <div class="row">
+      <div class="col-lg-12">
+        <%= render partial: 'form', locals: {containers: @containers, f: f} %>
       </div>
     </div>
   </div>
+  <div class="modal-footer">
+    <%= link_to(@thing, confirm: "Are you sure you want to delete #{@thing.name}?", method: :delete, title: "Delete #{@thing.name}", class: "btn btn-danger" ) do %>
+      <%= icon('minus-square-o', 'Delete')  %>
+    <% end %>&nbsp;
+    <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+    <button type="button" class="btn btn-primary a-form-commit">Save changes</button>
+  </div>
 <% end %>
-
-<br>
-<p>
-  </a>
-</p>
-<%= link_to 'Show', @thing %> |
-<%= link_to 'Back', things_path %>

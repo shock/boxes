@@ -1,13 +1,18 @@
-<h1>New Thing</h1>
+<div class="modal-header">
+  <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+  <h4 class="modal-title" id="myModalLabel">Create</h4>
+</div>
+
 <%= form_for(@thing, html: {class: "form-horizontal"}) do |f| %>
-  <div class="row">
-    <div class="col-lg-6">
-      <%= render partial: 'form', locals: {containers: @containers, f: f} %>
-      <div class="actions">
-        <%= f.submit "Create", class: "btn btn-success" %>
+  <div class="modal-body">
+    <div class="row">
+      <div class="col-lg-12">
+        <%= render partial: 'form', locals: {containers: @containers, f: f} %>
       </div>
     </div>
   </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+    <button type="button" class="btn btn-primary a-form-commit">Save changes</button>
+  </div>
 <% end %>
-
-<%= link_to 'Back', things_path %>
