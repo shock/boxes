@@ -1,150 +1,72 @@
-<div class="panel panel-default">
-  <div class="panel-heading">
-    <h5>
-      <%= link_to(edit_thing_path(@thing, ref: CGI::escape(request.fullpath)), title: "Edit #{@thing.name}", class: "thickbox") do %>
-        <%=h @thing.name %>
-      <% end %>
-      <div class="actions">
-        <span id="marked" class="action">
-          <%= link_to(toggle_marked_thing_path(@thing), title: 'Toggle Marked', class: "#{@thing.id}_marked", remote: true, data: {type: 'script'}) do %>
-            <%= icon(icon_marked, '', class: @thing.marked ? "dimmed marked" : "dimmed") %>
-          <% end %>
-        </span>
-        <span class="action">
-          <%= link_to(new_thing_path(parent_id: @thing, ref: CGI::escape(request.fullpath)), title: 'Add Contained Thing', class: "thickbox") do %>
-            <%= icon(icon_add, '', class: "success") %>
-          <% end %>
-        </span>
-      </div>
-    </h5>
-    <div id="description">
-      <%=h @thing.description %>
-    </div>
-    <div id="container">
-      <% parent = @thing.container %>
-      <% if parent %>
-        <div id="path">
-          <% while parent && parent.tree_depth > 0%>
-          < <a href='<%=url_for(parent)%>'><%=parent.name%></a>
-          <% parent = parent.container %>
-          <% end %>
+<div class="">
+  <div class="thing panel panel-default">
+    <div class="panel-heading">
+      <div class="name-bar">
+        <%=
+          link_to(edit_thing_path(@thing, ref: CGI::escape(request.fullpath)), title: "Edit #{@thing.name}",
+            class: "thickbox",
+            :"data-toggle" => "modal",
+            :"data-target" => "#basicModal") do %>
+          <%=h @thing.name %>
+        <% end %>
+        <div class="actions op50">
+          <span id="marked" class="action">
+            <%= link_to(toggle_marked_thing_path(@thing), title: 'Toggle Marked', class: "#{@thing.id}_marked", remote: true, data: {type: 'script'}) do %>
+              <%= icon(icon_marked, '', class: @thing.marked ? "dimmed marked" : "dimmed") %>
+            <% end %>
+          </span>
+          <span class="action">
+            <%= link_to(new_thing_path(parent_id: @thing, ref: CGI::escape(request.fullpath)), title: 'Add Contained Thing',
+            :"data-toggle" => "modal",
+            :"data-target" => "#basicModal") do %>
+              <%= icon(icon_add, '', class: "success") %>
+            <% end %>
+          </span>
         </div>
-      <% else %>
-        <b>No container</b>
-      <% end -%>
-    </div>
-  </div>
-  <div class="panel-body">
-    <div id="contained">
-      <div id="header">
-        <div id="toolbar">
-        </div>
-      </div>
-      <div id="things-list">
-        <% if !@thing.contained.blank? %>
-          <% @thing.contained.each do |thing| %>
-            <%= render :partial=>'thing_row', locals: {thing: thing, odd_even: (cycle("odd","even"))} %>
-          <% end -%>
+      </div class="name-bar">
+
+      <div id="container">
+        <% parent = @thing.container %>
+        <% if parent %>
+          <div id="path">
+            <% while parent && parent.tree_depth > 0%>
+            < <a href='<%=url_for(parent)%>'><%=parent.name%></a>
+            <% parent = parent.container %>
+            <% end %>
+          </div>
         <% else %>
-          <span id="nothing">Does not contain anything.</span>
+          <b>No container</b>
         <% end -%>
       </div>
-    </div>
 
-  </div>
-</div>
-
-<div id="thing-details">
-  <div id="name-description">
-    <div id="name">
-      <span><%=h @thing.name %></span>
-      <div class="actions">
-        <span id="marked" class="action">
-          <%= link_to(toggle_marked_thing_path(@thing), title: 'Toggle Marked', class: "#{@thing.id}_marked", remote: true, data: {type: 'script'}) do %>
-            <%= icon(icon_marked, '', class: @thing.marked ? "dimmed marked" : "dimmed") %>
-          <% end %>
-        </span>
-        <span id="edit" class="action">
-          <%= link_to(edit_thing_path(@thing, ref: CGI::escape(request.fullpath)), title: "Edit #{@thing.name}", class: "thickbox") do %>
-            <%= icon(icon_edit, '') %>
-          <% end %>
-        </span>
-        <span id="delete" class="action">
-          <%= link_to(@thing, confirm: "Are you sure you want to delete #{@thing.name}?", method: :delete, title: "Delete #{@thing.name}" ) do %>
-            <%= icon(icon_delete, '', class: "danger")  %>
-          <% end %>
-        </span>
+      <div id="description">
+        <%=h @thing.description %>
       </div>
-    </div>
 
-    <div id="description">
-      <%=h @thing.description %>
     </div>
-    <div id="container">
-      <% parent = @thing.container %>
-      <% if parent %>
-        <div id="path">
-          <% while parent && parent.tree_depth > 0%>
-          < <a href='<%=url_for(parent)%>'><%=parent.name%></a>
-          <% parent = parent.container %>
-          <% end %>
+    <div class="panel-body">
+      <div id="contained">
+        <div id="header">
+          <div id="toolbar">
+          </div>
         </div>
-      <% else %>
-        <b>No container</b>
-      <% end -%>
-    </div>
-  </div>
-
-
-
-  <div id="cost">
-    <b>Cost:</b>
-    <%=h @thing.cost %>
-  </div>
-
-  <div id="value">
-    <b>Value:</b>
-    <%=h @thing.value %>
-  </div>
-
-  <div id="dimensions">
-    <%=h @thing.depth %>"x<%=h @thing.width %>"x<%=h @thing.height %>"
-  </div>
-
-  <div id="weight">
-    <%=h @thing.weight %>
-  </div>
-
-  <div id="acquisition_date">
-    <b>Acquisition date:</b>
-    <%=h @thing.acquired_on %>
-  </div>
-
-  <div id="contained">
-    <div id="header">
-      <span id="contains">Contains:</span>
-      <div id="toolbar">
-        <span class="action">
-          <%= link_to(new_thing_path(parent_id: @thing, ref: CGI::escape(request.fullpath)), title: 'Add Contained Thing', class: "thickbox") do %>
-            <%= icon(icon_add, '', class: "success") %>
-          <% end %>
-        </span>
+        <div id="things-list" class="">
+          <% if !@thing.contained.blank? %>
+            <% @thing.contained.each do |thing| %>
+              <%= render :partial=>'thing_row', locals: {thing: thing, odd_even: (cycle("odd","even"))} %>
+            <% end -%>
+          <% else %>
+            <span id="nothing">Does not contain anything.</span>
+          <% end -%>
+        </div>
       </div>
+
     </div>
-    <div id="things-list">
-      <% if !@thing.contained.blank? %>
-        <% @thing.contained.each do |thing| %>
-          <%= render :partial=>'thing_row', locals: {thing: thing, odd_even: (cycle("odd","even"))} %>
-        <% end -%>
-      <% else %>
-        <span id="nothing">Does not contain anything.</span>
-      <% end -%>
-    </div>
+
+    <br/>
+    <%= render :partial=>'quick_search' %>
+
+    <br>
+    <div id="tree" data-url="/things/8.json"></div>
   </div>
 </div>
-
-<br/>
-<%= render :partial=>'quick_search' %>
-
-<br>
-<div id="tree" data-url="/things/8.json"></div>

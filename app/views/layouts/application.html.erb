@@ -1,7 +1,10 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Cascade</title>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Containers</title>
   <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
   <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
   <%= csrf_meta_tags %>
@@ -11,12 +14,12 @@
   <div id="main-container" class="container">
     <%= render 'layouts/navigation' %>
     <div id="content" class="row">
-      <div class="col-md-12">
+      <div class="col-xs-12">
         <%= yield %>
       </div>
     </div>
     <div id="footer" class="row"><%= yield :footer %></div>
   </div>
-
+  <%= render "layouts/modal_templates" %>
 </body>
 </html>

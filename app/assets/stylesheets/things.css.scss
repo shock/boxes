@@ -1,8 +1,13 @@
 // @import "base";
 @import "styleguide";
 
+.name-bar {
+  font-size: 1.5em;
+  margin-bottom: 0.1em;
+}
+
 #things-list {
-  width: 400px;
+  // width: 400px;
   border: 2px solid #888;
   padding: 0px;
   min-height: 400px;
