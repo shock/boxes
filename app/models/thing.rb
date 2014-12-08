@@ -8,7 +8,7 @@ class Thing < ActiveRecord::Base
     find_or_create_by(name: ROOT_NAME, parent_id: nil)
   end
 
-  before_save :default_root
+  before_save :default_root, :squish
   after_save :move_to_parent
 
   include FlagShihTzu
@@ -32,7 +32,7 @@ class Thing < ActiveRecord::Base
 
   def json_ltree_builder( json, load_children_on_demand=false )
     json.id id
-    json.label name
+    json.label "#{name} (#{children.count})"
     children = self.children
     unless children.empty?
       json.load_on_demand load_children_on_demand
@@ -66,7 +66,7 @@ class Thing < ActiveRecord::Base
   def to_tree
     tree = HashObj.new
     tree.id = id
-    tree.label = name
+    tree.label = "#{name} (#{children.count})"
     tree.description = description
     tree.children = children.map(&:to_tree)
     tree
@@ -77,6 +77,10 @@ class Thing < ActiveRecord::Base
   end
 
 private
+
+  def squish
+    self.name = self.name.squish
+  end
 
   def default_root
     self.parent_id ||= self.root.id unless self.name == ROOT_NAME
