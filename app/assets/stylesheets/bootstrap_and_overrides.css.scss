@@ -3,3 +3,9 @@
 @import "bootstrap";
 @import "themes/sandstone/bootswatch.scss";
 
+.btn-clear {
+  &:hover, &:focus, &.focus {
+    color: $link-hover-color;
+    text-decoration: none;
+  }
+}
