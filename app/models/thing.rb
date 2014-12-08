@@ -1,5 +1,6 @@
 class Thing < ActiveRecord::Base
   acts_as_nested_set depth_column: :tree_depth
+  include PrefixNameSearch
 
   ROOT_NAME = "<none>"
 

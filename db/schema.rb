@@ -11,11 +11,17 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141205053859) do
+ActiveRecord::Schema.define(version: 20141208045002) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
   enable_extension "hstore"
+
+  create_table "nouns", force: true do |t|
+    t.string "name"
+  end
+
+  add_index "nouns", ["name"], name: "index_nouns_on_name", unique: true, using: :btree
 
   create_table "things", force: true do |t|
     t.text     "name"

@@ -15,6 +15,18 @@ class ThingsController < ApplicationController
     @things.order!(:parent_id)
   end
 
+  def name_search
+    respond_to do |format|
+      format.json do
+        query = params[:query]
+        render(json: []) and return unless query.present?
+        matches = Thing.find_by_prefix(query)
+        matches += Noun.find_by_prefix(query)
+        render json: matches.uniq
+      end
+    end
+  end
+
   def tree
     respond_to do |format|
       format.json {

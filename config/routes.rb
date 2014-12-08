@@ -5,6 +5,7 @@ Rails.application.routes.draw do
     end
     collection do
       get :tree
+      get :name_search
     end
   end
 
