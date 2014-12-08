@@ -1,12 +1,17 @@
-<h1>My Things</h1>
-<% if params[:query].present? %>
-<h4>Matching '<%= params[:query] %>'</h2>
-<% end %>
-<div id="things-list">
-<% @things.each do |thing| %>
-  <%= render :partial=>'thing_row', locals: {thing: thing, odd_even: (cycle("odd","even")), show_container:  true} %>
-<% end %>
+<div class="row">
+  <div class="thing col-md-4">
+    <% if params[:query].present? %>
+    <h4>Matching '<%= params[:query] %>'</h2>
+    <% end %>
+    <div id="things-list">
+    <% @things.each do |thing| %>
+      <%= render :partial=>'thing_row', locals: {thing: thing, odd_even: (cycle("odd","even")), show_container:  true} %>
+    <% end %>
+    </div>
+    <br />
+  </div>
+  <div class="thing col-md-4">
+  </div>
+    <%= render :partial=>'quick_search' %>
+  <div class="thing col-md-4">
 </div>
-<br />
-
-<%= render :partial=>'quick_search' %>
