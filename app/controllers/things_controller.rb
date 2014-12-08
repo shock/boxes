@@ -4,8 +4,9 @@ class ThingsController < ApplicationController
   # GET /things
   # GET /things.json
   def index
-    if params[:query]
-      @things = Thing.where("name iLIKE '%#{params[:query].gsub('*', '%')}%' OR description iLIKE '%#{params[:query].gsub('*', '%')}%'")
+    if query = params[:query]
+      query = query.squish
+      @things = Thing.where("name iLIKE '%#{query.gsub('*', '%')}%' OR description iLIKE '%#{query.gsub('*', '%')}%'")
     elsif params[:node]
       @thing = Thing.find(params[:node])
       render json: @thing.to_builder.target!
@@ -69,7 +70,7 @@ class ThingsController < ApplicationController
 
     respond_to do |format|
       if @thing.save
-        format.html { redirect_to @thing, notice: 'Thing was successfully created.' }
+        format.html { redirect_to :back, notice: 'Thing was successfully created.' }
         format.json { render :show, status: :created, location: @thing }
       else
         format.html { render :new }
@@ -83,7 +84,7 @@ class ThingsController < ApplicationController
   def update
     respond_to do |format|
       if @thing.update(thing_params)
-        format.html { redirect_to @thing, notice: 'Thing was successfully updated.' }
+        format.html { redirect_to :back, notice: 'Thing was successfully updated.' }
         format.json { render :show, status: :ok, location: @thing }
       else
         format.html { render :edit }
