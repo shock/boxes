@@ -58,12 +58,16 @@
   max-height: 300px;
 }
 
-.thing.panel {
-  .panel-heading {
+.thing {
+  .thing-heading {
+    .name {
+      margin-right: 0.5em;
+    }
     .actions {
       // opacity: 0.5;
       display: inline;
-      margin-left: 0.5em;
+      white-space: nowrap;
     }
+    margin-bottom: 0.5em;
   }
 }

@@ -2,6 +2,7 @@
 //= require jqtree
 //= require_self
 //= require ./things
+//= require ./jquery-ui
 
 @import "base";
 @import "font_awesome";
@@ -23,4 +24,9 @@
   h3 {
     margin-top: 10px;
   }
+}
+
+.hidden {
+  visibility: none;
+  display: none;
 }

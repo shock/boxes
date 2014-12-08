@@ -3,9 +3,13 @@
 # You can use CoffeeScript in this file: http://coffeescript.org/
 
 $ ->
-  $('#tree').tree
+  tree = $('#tree')
+  tree.tree
     dragAndDrop: true
-    autoOpen: 2
+    autoOpen: 1
+
+  tree.bind 'tree.click', (e) ->
+    e.preventDefault()
 
 $(document).on 'click', '.a-form-commit', ->
   $(@).parents('form').submit()
