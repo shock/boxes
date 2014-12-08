@@ -42,6 +42,8 @@ gem 'font-awesome-sass', '~> 4.2.0'
 gem 'hirb'
 
 group :development, :test do
+  gem 'quiet_assets'
+
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'pry-byebug'
 
