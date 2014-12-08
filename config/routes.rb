@@ -3,6 +3,9 @@ Rails.application.routes.draw do
     member do
       get :toggle_marked
     end
+    collection do
+      get :tree
+    end
   end
 
   get '/example', to: "system#example_layout", as: :example_layout

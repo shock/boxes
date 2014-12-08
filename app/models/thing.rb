@@ -29,24 +29,35 @@ class Thing < ActiveRecord::Base
 
   has_flags 1 => :marked
 
-  def json_ltree_builder( json )
+  def json_ltree_builder( json, load_children_on_demand=false )
     json.id id
     json.label name
     children = self.children
     unless children.empty?
-      json.children do
-        json.array! children do |child|
-          child.json_ltree_builder( json )
+      json.load_on_demand load_children_on_demand
+      unless load_children_on_demand
+        json.children do
+          json.array! children do |child|
+            child.json_ltree_builder( json )
+          end
         end
       end
     end
     json
   end
 
+  def children_to_builder
+    Jbuilder.new do |json|
+      json.array! children do |thing|
+        thing.json_ltree_builder( json, true )
+      end
+    end
+  end
+
   def to_builder
     Jbuilder.new do |json|
       json.array! [self] do |thing|
-        thing.json_ltree_builder( json )
+        thing.json_ltree_builder( json, false )
       end
     end
   end

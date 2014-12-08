@@ -15,6 +15,15 @@ class ThingsController < ApplicationController
     @things.order!(:parent_id)
   end
 
+  def tree
+    respond_to do |format|
+      format.json {
+        @thing = Thing.find_by_id(params[:node]) || Thing.root
+        render json: @thing.children_to_builder.target!
+      }
+    end
+  end
+
   # GET /things/1
   # GET /things/1.json
   def show
