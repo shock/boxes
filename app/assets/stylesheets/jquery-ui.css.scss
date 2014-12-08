@@ -21,7 +21,7 @@
   cursor: default;
 }
 .ui-front {
-  z-index: 100;
+  z-index: 1100;
 }
 
 .ui-helper-hidden-accessible {
@@ -44,4 +44,21 @@
   /* support: IE7; */
   /* support: IE10, see #8844; */
   list-style-image: url("data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7");
+}
+
+.ui-state-hover, .ui-widget-content .ui-state-hover, .ui-widget-header .ui-state-hover, .ui-state-focus, .ui-widget-content .ui-state-focus, .ui-widget-header .ui-state-focus {
+  border: 1px solid #999999;
+  background: #dadada 50% 50% repeat-x;
+  font-weight: normal;
+  color: #212121;
+}
+
+.ui-menu .ui-state-focus, .ui-menu .ui-state-active {
+  margin: -1px;
+}
+
+.ui-widget.ui-menu {
+  max-height: 16.5em;
+  overflow-x: hidden;
+  overflow-y: auto;
 }
