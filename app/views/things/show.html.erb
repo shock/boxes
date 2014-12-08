@@ -1,14 +1,12 @@
-<div class="">
-  <div class="thing panel panel-default">
-    <div class="panel-heading">
+<div class="row">
+  <div class="thing col-md-4">
+    <div class="thing-heading">
       <div class="name-bar">
-        <%=
-          link_to(edit_thing_path(@thing, ref: CGI::escape(request.fullpath)), title: "Edit #{@thing.name}",
-            class: "thickbox",
+        <%= link_to(edit_thing_path(@thing, ref: CGI::escape(request.fullpath)), title: "Edit #{@thing.name}",
+            class: "name",
             :"data-toggle" => "modal",
             :"data-target" => "#basicModal") do %>
-          <%=h @thing.name %>
-        <% end %>
+          <%=h @thing.name %><% end %>
         <div class="actions op50">
           <span id="marked" class="action">
             <%= link_to(toggle_marked_thing_path(@thing), title: 'Toggle Marked', class: "#{@thing.id}_marked", remote: true, data: {type: 'script'}) do %>
@@ -23,7 +21,7 @@
             <% end %>
           </span>
         </div>
-      </div class="name-bar">
+      </div>
 
       <div id="container">
         <% parent = @thing.container %>
@@ -44,7 +42,7 @@
       </div>
 
     </div>
-    <div class="panel-body">
+    <div class="thing-body">
       <div id="contained">
         <div id="header">
           <div id="toolbar">
@@ -63,10 +61,11 @@
 
     </div>
 
-    <br/>
+  </div>
+  <div class="col-md-4">
+    <div id="tree" data-url="/things/tree.json"></div>
+  </div>
+  <div class="col-md-4">
     <%= render :partial=>'quick_search' %>
-
-    <br>
-    <div id="tree" data-url="/things/8.json"></div>
   </div>
 </div>
