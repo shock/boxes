@@ -7,9 +7,10 @@ $ ->
   tree.tree
     dragAndDrop: true
     autoOpen: 1
+    useContextMenu: false
 
   tree.bind 'tree.click', (e) ->
     e.preventDefault()
-
-$(document).on 'click', '.a-form-commit', ->
-  $(@).parents('form').submit()
+    node = e.node
+    id = node.id
+    window.location = "/things/#{id}"
