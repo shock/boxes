@@ -63,7 +63,7 @@
 
   </div>
   <div class="col-md-4">
-    <div id="tree" data-url="/things/tree.json"></div>
+    <div id="tree" data-url="/things/tree.json?current=<%= @thing.id %>"></div>
   </div>
   <div class="col-md-4">
     <%= render :partial=>'quick_search' %>
