@@ -11,7 +11,7 @@ class ThingsController < ApplicationController
       @thing = Thing.find(params[:node])
       render json: @thing.to_builder.target!
     else
-      @things = Thing.root.descendants
+      redirect_to Thing.find(8) and return
     end
     @things.order!(:parent_id)
   end
