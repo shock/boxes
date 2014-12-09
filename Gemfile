@@ -41,6 +41,11 @@ gem 'flag_shih_tzu'
 gem 'font-awesome-sass', '~> 4.2.0'
 gem 'hirb'
 
+# For production on Heroku
+
+gem 'rails_12factor', group: :production
+
+
 group :development, :test do
   gem 'ruby-prof'
   gem 'quiet_assets'
