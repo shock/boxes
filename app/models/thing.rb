@@ -8,6 +8,10 @@ class Thing < ActiveRecord::Base
     find_or_create_by(name: ROOT_NAME, parent_id: nil)
   end
 
+  def self.world
+    find_or_create_by(name: "The World", parent_id: self.root.id)
+  end
+
   before_save :default_root, :squish
   after_save :move_to_parent
 
