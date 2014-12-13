@@ -11,6 +11,8 @@ Rails.application.routes.draw do
 
   get '/example', to: "system#example_layout", as: :example_layout
 
+  root to: 'things#index'
+
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
