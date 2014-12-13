@@ -103,7 +103,7 @@ class ThingsController < ApplicationController
   def destroy
     @thing.destroy
     respond_to do |format|
-      format.html { redirect_to things_url, notice: 'Thing was successfully destroyed.' }
+      format.html { redirect_to :back, notice: 'Thing was successfully destroyed.' }
       format.json { head :no_content }
     end
   end
