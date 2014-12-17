@@ -16,4 +16,5 @@
 #= require turbolinks
 #= require tree.jquery
 #= require jquery-ui
+#= require select2
 #= require_tree .
