@@ -1,3 +1,5 @@
+# Cross-browser function for putting the cursor at the end of
+# an input.
 jQuery.fn.putCursorAtEnd = ->
   @each ->
     $(this).focus()
@@ -21,3 +23,8 @@ jQuery.fn.putCursorAtEnd = ->
     # (Necessary for Firefox and Google Chrome)
     @scrollTop = 999999
     return
+
+jQuery.fn.focusFirstInput = ->
+  input = this.find("input[type='text']")[0]
+  input && $(input).putCursorAtEnd()
+  this
