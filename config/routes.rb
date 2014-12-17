@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  resources :tags
+
   resources :things do
     member do
       get :toggle_marked
