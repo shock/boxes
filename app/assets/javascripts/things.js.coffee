@@ -20,8 +20,8 @@ $(document).on 'shown.bs.modal', '.modal', ->
   $('#thing_name').autoWordComplete()
   $('#thing_name').putCursorAtEnd()
   $('#show-more').click ->
-    $('#more').toggle();
-    $(this).hide();
+    $('#more').toggle()
+    $(this).hide()
     false
 
   modal = $(this)
