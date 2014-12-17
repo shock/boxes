@@ -3,9 +3,11 @@
 //= require_self
 //= require ./things
 //= require ./jquery-ui
+//= require select2
 
 @import "base";
 @import "font_awesome";
+@import "select2";
 
 .op25 {
   opacity: 0.25;

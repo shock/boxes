@@ -1,0 +1,25 @@
+.select2-results {
+  text-align: left;
+}
+
+.select2-drop {
+  font-family: sans-serif;
+}
+
+@mixin select2-tag ($color: #eee) {
+  .select2-container-multi .select2-choices .select2-search-choice {
+    background-color: $color;
+    $color1: lighten($color, 4%);
+    $color2: lighten($color, 1%);
+    $color3: darken($color, 1%);
+    @include background-image(linear-gradient($color1, $color1 20%, $color2 50%, $color3 52%, $color));
+  }
+  .select2-container-multi .select2-choices .select2-search-choice-focus {
+    background: darken($color, 4%);
+  }
+
+}
+
+.tag-select {
+  @include select2-tag(#c8efd1);
+}
