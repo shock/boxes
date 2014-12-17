@@ -75,7 +75,10 @@ class ThingsController < ApplicationController
 
     respond_to do |format|
       if @thing.save
-        format.html { redirect_to :back, notice: 'Thing was successfully created.' }
+        format.html {
+          flash[:success] = 'Thing was successfully created.'
+          redirect_to :back
+        }
         format.json { render :show, status: :created, location: @thing }
       else
         format.html { render :new }
@@ -89,7 +92,16 @@ class ThingsController < ApplicationController
   def update
     respond_to do |format|
       if @thing.update(thing_params)
-        format.html { redirect_to :back, notice: 'Thing was successfully updated.' }
+        tag_ids = (params.delete(:tags) || "").split(',')
+        ThingTag.delete_all(:thing_id => @thing.id)
+        tag_ids.each do |tag_id|
+          ThingTag.create!(:tag_id => tag_id, :thing => @thing)
+        end
+
+        format.html {
+          flash[:success] = 'Thing was successfully updated.'
+          redirect_to :back
+        }
         format.json { render :show, status: :ok, location: @thing }
       else
         format.html { render :edit }
@@ -103,7 +115,10 @@ class ThingsController < ApplicationController
   def destroy
     @thing.destroy
     respond_to do |format|
-      format.html { redirect_to :back, notice: 'Thing was successfully destroyed.' }
+      format.html {
+        flash[:success] = 'Thing was successfully destroyed.'
+        redirect_to :back
+      }
       format.json { head :no_content }
     end
   end

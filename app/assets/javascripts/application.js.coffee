@@ -18,3 +18,7 @@
 #= require jquery-ui
 #= require select2
 #= require_tree .
+
+setTimeout ->
+  $('.alert').fadeOut(1000)
+, 3000
