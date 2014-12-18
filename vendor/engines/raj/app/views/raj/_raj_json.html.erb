@@ -1,0 +1,10 @@
+<script type="text/javascript">
+  $(function() {
+    <%- @raj_json.each do |key, value| -%>
+      RAJ.data.<%= key %> = <%=raw value.to_json %>;
+    <%- end -%>
+    $.raj.withErrorReporting( function() {
+      RAJ.loadFromJson();
+    });
+  })
+</script>

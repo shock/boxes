@@ -1,12 +1,40 @@
+#= require_tree .
+#= require_self
+
+class _RAJ
+  constructor: ->
+
+  loadFromJson: ->
+    # convert all JSON dates to real Javascript Date instances
+    json_datenames = []
+    for json_datename in json_datenames
+      date = window.RAJ.data[json_datename]
+      window.RAJ.data[json_datename] = dateFromString(date) if date? && !$.raj.isDate(date)
+    json_timenames = []
+    for json_timename in json_timenames
+      time = window.RAJ.data[json_timename]
+      window.RAJ.data[json_timename] = timeFromString(time) if time? && !$.raj.isDate(time)
+
+  today: new Date
+
+  for_controller_action: (c, a, callback) ->
+    $(document).ready ->
+      if RAJ.data.c == c && RAJ.data.a == a
+        callback()
+
+  data: {}
+
+window.RAJ = new _RAJ
+
 _withErrorReporting = ->
   try
     caller = "#{_withErrorReporting.caller}".split("\n")
-    $RAJ.data.exception_caller = caller
+    RAJ.data.exception_caller = caller
   catch _e
-    if $RAJ?.data?.env == 'd'
+    if RAJ?.data?.env == 'd'
       throw _e
     else
-      $RAJ.data.exception_caller = _e.name
+      RAJ.data.exception_caller = _e.name
   args = Array.prototype.slice.call(arguments, 0)
   reraise = true
   for arg in args
@@ -17,7 +45,7 @@ _withErrorReporting = ->
         callback = arg
       when "object"
         jqXHR = arg
-  if $RAJ?.data?.env == 'd'
+  if RAJ?.data?.env == 'd'
     callback.call()
   else
     try
