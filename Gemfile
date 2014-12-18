@@ -43,9 +43,11 @@ gem 'font-awesome-sass', '~> 4.2.0'
 gem 'hirb'
 gem 'select2-rails'
 
+gem 'raj', path: "vendor/engines/raj"
 # For production on Heroku
 
 gem 'rails_12factor', group: :production
+
 
 
 group :development, :test do
