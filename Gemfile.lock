@@ -2,6 +2,7 @@ PATH
   remote: vendor/engines/raj
   specs:
     raj (0.0.1)
+      compass-rails
       jquery-rails
       rails (>= 3.2)
 

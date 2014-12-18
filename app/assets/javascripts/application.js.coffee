@@ -17,6 +17,7 @@
 #= require tree.jquery
 #= require jquery-ui
 #= require select2
+#= require raj/base
 #= require_tree .
 
 setTimeout ->
