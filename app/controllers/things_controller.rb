@@ -5,15 +5,19 @@ class ThingsController < ApplicationController
   # GET /things.json
   def index
     if query = params[:query]
+      params[:tags] = params[:query].dup
       query = query.squish
       @things = Thing.where("name iLIKE '%#{query.gsub('*', '%')}%' OR description iLIKE '%#{query.gsub('*', '%')}%'")
+      tags = Tag.where(name: params[:tags].split(/[^\w]/).map(&:squish)).all
+      @things += tags.map(&:things).flatten
+      @things = @things.uniq
     elsif params[:node]
       @thing = Thing.find(params[:node])
       render json: @thing.to_builder.target!
     else
       redirect_to Thing.world and return
     end
-    @things.order!(:parent_id)
+    @things = @things.sort_by(&:lft)
   end
 
   def name_search
@@ -23,6 +27,7 @@ class ThingsController < ApplicationController
         render(json: []) and return unless query.present?
         matches = Thing.find_by_prefix(query)
         matches += Noun.find_by_prefix(query)
+        matches += Tag.find_by_prefix(query)
         render json: matches.uniq
       end
     end
