@@ -41,6 +41,7 @@ gem 'bootstrap-sass', '~> 3.3.1'
 gem 'flag_shih_tzu'
 gem 'font-awesome-sass', '~> 4.2.0'
 gem 'hirb'
+gem 'select2-rails'
 
 # For production on Heroku
 
