@@ -33,6 +33,22 @@ class ThingsController < ApplicationController
     end
   end
 
+  def move_to
+    node = Thing.find(params[:id])
+    target = Thing.find(params[:target_id])
+    position = params[:position]
+    case position
+    when 'before'
+      node.move_to target, :left
+    when 'after'
+      node.move_to target, :right
+    when 'inside'
+      node.update!(parent_id: target.id)
+    else
+      raise "unknown position: #{position}, target: #{target.name}, node: #{node.name}"
+    end
+  end
+
   def tree
     respond_to do |format|
       format.json do

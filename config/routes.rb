@@ -4,6 +4,7 @@ Rails.application.routes.draw do
   resources :things do
     member do
       get :toggle_marked
+      post :move_to
     end
     collection do
       get :tree
