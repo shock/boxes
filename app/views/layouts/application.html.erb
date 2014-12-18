@@ -8,7 +8,7 @@
   <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
   <%= csrf_meta_tags %>
 </head>
-<body>
+<body class="<%= Rails.env %>">
 
   <div id="main-container" class="container">
     <%= render 'layouts/navigation' %>

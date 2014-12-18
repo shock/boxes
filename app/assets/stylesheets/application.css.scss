@@ -33,3 +33,15 @@
   visibility: none;
   display: none;
 }
+
+body.development {
+  .navbar-inverse {
+    $development-color: #BF0360;
+    background-color: $development-color;
+    border-color: $development-color;
+    .navbar-nav li a {
+      color: #DA83D5;
+    }
+  }
+
+}
