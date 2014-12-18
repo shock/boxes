@@ -51,6 +51,18 @@ $(document).on 'shown.bs.modal', '.modal', ->
       multiple: true
       data: select2_data
 
+  # $("select#thing_parent_id").each ->
+  #   el = $(this)
+  #   # select2_data = Boxes.get_select2_tags_data()
+  #   # placeholder = "Click here to add tags"
+  #   el.select2
+  #     # placeholder: placeholder
+  #     allowClear: false
+  #     minimumInputLength: 0
+  #     minimumResultsForSearch: -1
+  #     # multiple: true
+  #     # data: select2_data
+
 $('a.a-move-to').click ->
   $tree = $('#tree')
   if selected_node = $tree.tree('getSelectedNode')

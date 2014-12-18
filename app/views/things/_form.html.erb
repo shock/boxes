@@ -19,7 +19,9 @@
 <div class="form-group">
   <%= f.label :parent_id, class: "col-lg-3 control-label" %>
   <div class="col-lg-9">
-    <%= f.select :parent_id, @containers.collect {|p| [ p.name, p.id ] }, {}, class: "form-control" %>
+    <%= f.select :parent_id, nested_set_options(Thing.world, @thing) {|i|
+        "#{'-' * i.level} #{i.name}"
+      }, {}, class: "form-control" %>
   </div>
 </div>
 <%= link_to "More...", '#', id: 'show-more'  %>
