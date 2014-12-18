@@ -11,6 +11,11 @@ Rails.application.routes.draw do
     end
   end
 
+  get "/marked_things", to: "marked_things#index", as: :marked_things
+  post "/marked_things/move", to: "marked_things#move", as: :move_marked_things
+  post "/marked_things/clear", to: "marked_things#clear", as: :clear_marked_things
+  post "/marked_things/destroy", to: "marked_things#destroy", as: :destroy_marked_things
+
   get '/example', to: "system#example_layout", as: :example_layout
 
   root to: 'things#index'

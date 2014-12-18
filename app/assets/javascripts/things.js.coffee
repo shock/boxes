@@ -50,3 +50,19 @@ $(document).on 'shown.bs.modal', '.modal', ->
       minimumResultsForSearch: -1
       multiple: true
       data: select2_data
+
+$('a.a-move-to').click ->
+  $tree = $('#tree')
+  if selected_node = $tree.tree('getSelectedNode')
+    container_id = selected_node.id
+    $.ajax
+      type: 'post'
+      url: "/marked_things/move"
+      data:
+        parent_id: container_id
+      success: ->
+        window.location = window.location
+  else
+    alert("Choose a container using the tree control to move selected objects inside of it.")
+  return false
+

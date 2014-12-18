@@ -1,0 +1,27 @@
+<div class="row">
+  <div class="things marked col-md-4">
+    <h4>Selected Objects</h2>
+    <div id="things-list">
+    <% @things.each do |thing| %>
+      <%= render :partial=>'things/thing_row', locals: {thing: thing, odd_even: (cycle("odd","even")), show_container:  true} %>
+    <% end %>
+    </div>
+    <br />
+  </div>
+  <div class="col-md-4">
+    <div class="select-actions">
+      <%= link_to "Move", "#", class: "a-move-to btn btn-sm btn-info" %>
+      <%= link_options = {data: {confirm: "Are you sure you want to unselect all objects?"},
+        method: :post, title: "Unselect All", class: "btn btn-warning btn-sm"}
+      (link_options[:disabled] = 'disabled') if @things.empty?
+      link_to "Clear", clear_marked_things_path, link_options %>
+      <%= link_options = {data: {confirm: "Are you sure you want to destroy all selected objects?"},
+        method: :post, title: "Destroy Selected", class: "btn btn-danger btn-sm"}
+      (link_options[:disabled] = 'disabled') if @things.empty?
+      link_to "Destroy", destroy_marked_things_path, link_options %>
+    </div>
+    <div id="tree" data-url="/things/tree.json?current=<%= Thing.world.id %>"></div>
+  </div>
+    <%= render :partial=>'things/quick_search' %>
+  <div class="col-md-4">
+</div>

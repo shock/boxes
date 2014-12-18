@@ -12,7 +12,17 @@ class Thing < ActiveRecord::Base
   end
 
   def self.world
-    find_or_create_by(name: "The World", parent_id: self.root.id)
+    world = find_by(name:"The World")
+    return world if world
+    world = create(name: "The World", parent_id: self.root.id)
+    world.move_to_child_of(self.root)
+  end
+
+  def self.orphaned
+    orphaned = find_by(name:"Orphaned")
+    return orphaned if orphaned
+    orphaned = create(name: "Orphaned", description: "Objects whose parent was destroyed.", parent_id: self.world.id)
+    orphaned.move_to_child_of(self.world)
   end
 
   before_save :default_root, :squish

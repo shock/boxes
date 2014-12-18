@@ -4,22 +4,22 @@
       <a class="navbar-brand" href="<%= things_path %>"><%= icon(icon_home, '', class: '') %></a>
     </div>
     <ul class="nav navbar-nav">
-      <li><a href="#move">Move</a></li>
-      <li><a href="/tags">Tags</a></li>
-      <% if false %>
-        <li class="dropdown">
-          <a href="#" class="dropdown-toggle" data-toggle="dropdown">Dropdown <b class="caret"></b></a>
-          <ul class="dropdown-menu">
-            <li><a href="#">Action</a></li>
-            <li><a href="#">Another action</a></li>
-            <li><a href="#">Something else here</a></li>
+      <li class="dropdown">
+        <a href="#" class="dropdown-toggle" data-toggle="dropdown"><%= icon(icon_marked, '', class: '') %>
+          (<span class="marked-count"><%= Thing.marked.count %></span>)
+          <b class="caret"></b></a>
+        <ul class="dropdown-menu">
+          <li><%= link_to "List", marked_things_path %></li>
+          <li><a href="#">Clear</a></li>
+          <% if false %>
             <li class="divider"></li>
             <li class="dropdown-header">Nav header</li>
             <li><a href="#">Separated link</a></li>
             <li><a href="#">One more separated link</a></li>
-          </ul>
-        </li>
-      <% end %>
+          <% end %>
+        </ul>
+      </li>
+      <li><a href="/tags">Tags</a></li>
     </ul>
   </div>
 </nav>

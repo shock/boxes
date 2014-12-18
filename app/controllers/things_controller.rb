@@ -131,6 +131,7 @@ class ThingsController < ApplicationController
   def toggle_marked
     @thing = Thing.find(params[:id])
     @thing.update_attributes!( :marked=>!@thing.marked )
+    @marked_count = Thing.marked.count
     respond_to do |format|
       format.js {}
     end

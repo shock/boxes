@@ -1,5 +1,5 @@
 <div class="row">
-  <div class="thing col-md-4">
+  <div class="things col-md-4">
     <% if params[:query].present? %>
     <h4>Matching '<%= params[:query] %>'</h2>
     <% end %>
@@ -10,8 +10,8 @@
     </div>
     <br />
   </div>
-  <div class="thing col-md-4">
+  <div class="col-md-4">
   </div>
     <%= render :partial=>'quick_search' %>
-  <div class="thing col-md-4">
+  <div class="col-md-4">
 </div>
