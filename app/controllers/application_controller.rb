@@ -6,6 +6,8 @@ class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
 
   include Raj::JsonHelper
+  include Raj::ControllerConcern
+
   before_filter :update_client_json
   around_filter :profile_request
 
