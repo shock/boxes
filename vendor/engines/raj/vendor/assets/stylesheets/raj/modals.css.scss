@@ -1,0 +1,168 @@
+// @import "mixins/modal";
+
+// $total-columns  : 12;
+// $column-width   : 30px;
+// $gutter-width   : 10px;
+// $grid-padding   : 10px;
+
+// .modal-backdrop {
+//   z-index: 1040 !important; // needed because introJs screws with the z-index otherwise
+// }
+
+// .modal, .modal.fade.in {
+//     top: 0; /* was 10% */
+//     margin-top: 30px !important;
+// }
+
+// .modal-actions {
+//   width: 100%;
+//   padding: 0 0 10px;
+//   a, button, input, p, span, div {
+//     margin: 5px;
+//   }
+//   text-align: center;
+//   @include clearfix;
+// }
+
+// .modal.general {
+//   border: none;
+//   margin-top: 190px !important;
+//   // position: relative;
+//   .modal-header { @extend %modal-header }
+//   .popup-header {
+//     @extend %popup-header;
+//     text-align: center;
+//     h5 {
+//       margin: 14px 0 0;
+//       font-size: 16px;
+//       font-weight: 800;
+//       width: 100%;
+//     }
+//     margin-bottom: 15px;
+//   }
+//   .modal-body {
+//     @extend %modal-body
+//   }
+//   .modal-body-content {
+//     margin: 10px;
+//     p {
+//       font-size: 15px;
+//       line-height: 1.5em !important;
+//       &.center {
+//         text-align: center;
+//       }
+//       &.error { color: #C50000; }
+//     }
+//   }
+//   .popup-actions {
+//     @extend %modal-popup-actions;
+//     padding: 10px 0 20px 0;
+//     .link {
+//       text-align: center;
+//       margin-top: 20px;
+//     }
+//   }
+//   .popup-checkbox {
+//     float: left;
+//     input {
+//       margin: -3px 0 0 10px;
+//     }
+//     label {
+//       display: inline-block;
+//       margin: 7px 0 0 5px;
+//     }
+//   }
+//   .popup-submit { @extend %popup-submit; margin-right: 10px; }
+//   .popup-cancel { @extend %popup-cancel; display:none; margin-right: 10px; }
+//   &.failure {
+//     .popup-header {
+//       background-image: image-url('schedule-popup-min.jpg');
+//     }
+//     .modal-body {
+//       // border: 5px solid #FBA8A8;
+//     }
+//   }
+//   &.success {
+//     .popup-header {
+//       // background-image: image-url('schedule-popup-skipped.jpg');
+//     }
+//     .modal-body {
+//       // border: 5px solid #FBA8A8;
+//     }
+//   }
+//   &.warning {
+//     .popup-header {
+//       background-image: image-url('confirm-background.jpg');
+//     }
+//     .modal-body {
+//       // border: 5px solid #333;
+//     }
+//   }
+//   .field {
+//     margin-bottom: 0;
+//     input, textarea {
+//       &.form-prompt {
+//         color: #bbb !important;
+//         font-weight: 500 !important;
+//         font-style: italic !important;
+//       }
+//     }
+//   }
+//   #error_explanation {
+//     width: 360px;
+//     border: none;
+//     padding: 0;
+//     padding-bottom: 0;
+//     margin-bottom: 20px;
+//     background-color: transparent;
+//     margin-left: 30px;
+//     h2 {
+//       text-align: left;
+//       font-weight: bold;
+//       padding: 0;
+//       font-size: 15px;
+//       margin: -7px;
+//       margin: 0;
+//       background-color: transparent;
+//       color: #7E0505;
+//       line-height: 22px;
+//     }
+//     ul li {
+//       font-size: 12px;
+//       list-style: none;
+//       line-height: 23px;
+//     }
+//     ul {
+//       margin: 10px 0 10px 15px;
+//       color: #7E0505;
+//     }
+//   }
+//   .field_with_errors {
+//     padding: 0;
+//     background-color: transparent;
+//     display: inline;
+//     input {
+//       @include box-shadow(0 0 5px rgba(255, 144, 144, 1));
+//     }
+//   }
+// }
+
+// .modal.general.resource {
+//   .modal-header {
+//     position: absolute;
+//     right: 0;
+//   }
+// }
+
+// .modal.modal-alert {
+//   width: 380px;
+//   margin-left: -200px;
+//   .modal-header {
+//   }
+//   .modal-body {
+//   }
+// }
+
+.modal.general .popup-actions .popup-cancel {
+  display: none;
+}

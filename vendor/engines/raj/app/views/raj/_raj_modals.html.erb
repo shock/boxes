@@ -1,0 +1,36 @@
+<% if false %>
+  <div class="modal general template" tabindex="-1">
+    <div class='modal-header'>
+      <button type="button" class="close" data-dismiss="modal" aria-hidden="true"><%= image_tag('modal-close.png')%></button>
+    </div>
+    <div class='modal-body'>
+      <div class="popup-header"></div>
+      <div class="modal-body-content"></div>
+      <div class="ajax-loader"></div>
+      <div class='popup-actions'>
+        <div class="popup-checkbox">
+          <input type="checkbox" name="again-checkbox"><label for="again-checkbox">Do not show again</label>
+        </div>
+        <a href="#" class="popup-cancel">Cancel</a>
+        <button class="popup-submit">Save</button>
+      </div>
+    </div>
+  </div>
+<% end %>
+
+<div class="modal general template fade" id="generalModal" tabindex="-1" role="dialog" aria-labelledby="generalModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+        <h4 class="modal-title" id="generalModalLabel">Title</h4>
+      </div>
+      <div class="modal-body">
+      </div>
+      <div class="modal-footer popup-actions">
+        <a href="#" class="popup-cancel">Cancel</a>
+        <button type="button" class="popup-submit btn btn-sm btn-primary">Send message</button>
+      </div>
+    </div>
+  </div>
+</div>

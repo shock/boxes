@@ -52,17 +52,14 @@ class window.GeneralModal
 
     @updateCss(options.css)
 
-    unless @options.modal_header
+    if @options.modal_header == false
       @modal.find('.modal-header').remove()
-
-    unless @options.checkbox
-      @modal.find('.popup-checkbox').remove()
 
     options.show = false
     @modal.modal options
 
   loadContent: (content) ->
-    body_content = @modal.find('.modal-body-content')
+    body_content = @modal.find('.modal-body')
     body_content.html(content ? @content)
     submit_button = @modal.find('.popup-submit')
     submit_button.html(@options.submit) if @options.submit
@@ -84,6 +81,7 @@ class window.GeneralModal
 
   setModalTitle: (title) ->
     @modal.find('.popup-header').html("<h5>#{title}</h5>")
+    @modal.find('.modal-header .modal-title').html(title)
 
   show: ->
     $('.modal').modal('hide')

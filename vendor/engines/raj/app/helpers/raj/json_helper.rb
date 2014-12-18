@@ -32,4 +32,8 @@ private
     render :partial => 'raj/raj_json'
   end
 
+  def render_raj_modal
+    render :partial => 'raj/raj_modals'
+  end
+
 end
