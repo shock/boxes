@@ -39,12 +39,12 @@ $('a.a-move-to').click ->
   $tree = $('#tree')
   if selected_node = $tree.tree('getSelectedNode')
     container_id = selected_node.id
-    $.ajax
+    jqXHR = $.raj.handleAjaxRequest
       type: 'post'
-      url: "/marked_things/move"
+      url: "<%= ::Rails.application.routes.url_helpers.move_marked_things_path %>"
       data:
         parent_id: container_id
-      success: ->
+    jqXHR.success (data)->
         window.location = window.location
   else
     alert("Choose a container using the tree control to move selected objects inside of it.")
