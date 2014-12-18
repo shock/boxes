@@ -25,6 +25,12 @@
 <%= link_to "More...", '#', id: 'show-more'  %>
 <div id="more" style="display: none">
   <div class="form-group">
+    <%= f.label :tags, class: "col-lg-3 control-label" %>
+    <div class="col-lg-9 tag-select">
+      <%= hidden_field_tag :tags, @thing.tags.map(&:id).join(','), class: '' -%>
+    </div>
+  </div>
+  <div class="form-group">
     <%= f.label :description, class: "col-lg-3 control-label" %>
     <div class="col-lg-9">
       <%= f.text_area :description, class: "form-control", placeholder: "Description" %>
@@ -49,14 +55,3 @@
     </div>
   </div>
 </div>
-
-<script type="text/javascript">
-  $('#thing_name').autoWordComplete();
-  $('.modal').on('shown.bs.modal', function() {
-    $('#thing_name').putCursorAtEnd();
-  })
-  $('#show-more').click(function() {
-    $('#more').toggle();
-    $(this).hide();
-  });
-</script>

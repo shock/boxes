@@ -74,15 +74,18 @@ class ThingsController < ApplicationController
     @thing = Thing.new(thing_params)
 
     respond_to do |format|
-      if @thing.save
-        format.html {
-          flash[:success] = 'Thing was successfully created.'
-          redirect_to :back
-        }
-        format.json { render :show, status: :created, location: @thing }
-      else
-        format.html { render :new }
-        format.json { render json: @thing.errors, status: :unprocessable_entity }
+      Thing.transaction do
+        if @thing.save
+          update_tags
+          format.html {
+            flash[:success] = 'Thing was successfully created.'
+            redirect_to :back
+          }
+          format.json { render :show, status: :created, location: @thing }
+        else
+          format.html { render :new }
+          format.json { render json: @thing.errors, status: :unprocessable_entity }
+        end
       end
     end
   end
@@ -91,21 +94,18 @@ class ThingsController < ApplicationController
   # PATCH/PUT /things/1.json
   def update
     respond_to do |format|
-      if @thing.update(thing_params)
-        tag_ids = (params.delete(:tags) || "").split(',')
-        ThingTag.delete_all(:thing_id => @thing.id)
-        tag_ids.each do |tag_id|
-          ThingTag.create!(:tag_id => tag_id, :thing => @thing)
+      Thing.transaction do
+        if @thing.update(thing_params)
+          update_tags
+          format.html {
+            flash[:success] = 'Thing was successfully updated.'
+            redirect_to :back
+          }
+          format.json { render :show, status: :ok, location: @thing }
+        else
+          format.html { render :edit }
+          format.json { render json: @thing.errors, status: :unprocessable_entity }
         end
-
-        format.html {
-          flash[:success] = 'Thing was successfully updated.'
-          redirect_to :back
-        }
-        format.json { render :show, status: :ok, location: @thing }
-      else
-        format.html { render :edit }
-        format.json { render json: @thing.errors, status: :unprocessable_entity }
       end
     end
   end
@@ -140,5 +140,13 @@ class ThingsController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def thing_params
       params.require(:thing).permit(:name, :parent_id, :description, :acquired_on, :cost, :value)
+    end
+
+    def update_tags
+      tag_ids = (params.delete(:tags) || "").split(',')
+      ThingTag.delete_all(:thing_id => @thing.id)
+      tag_ids.each do |tag_id|
+        ThingTag.create!(:tag_id => tag_id, :thing => @thing)
+      end
     end
 end

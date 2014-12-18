@@ -1,0 +1,10 @@
+<script type="text/javascript">
+  $RAJ.env = '<%= Rails.env %>'
+  if ($RAJ.data == undefined) $RAJ.data = {};
+  <%- @raj_json.each do |key, value| -%>
+    $RAJ.data.<%= key %> = <%=raw value.to_json %>;
+  <%- end -%>
+  // $.g.withErrorReporting( function() {
+    $RAJ.loadFromJson();
+  // });
+</script>

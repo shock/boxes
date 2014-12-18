@@ -25,14 +25,14 @@ $(document).on 'shown.bs.modal', '.modal', ->
     false
 
   modal = $(this)
-  $(".tag-select select").each ->
+  $("div.tag-select input").each ->
     el = $(this)
-    # select2_data = Greenling.get_select2_product_class_data()
+    select2_data = Boxes.get_select2_tags_data()
     placeholder = "Click here to add tags"
-    # el.select2
-    #   placeholder: placeholder
-    #   allowClear: true
-    #   minimumInputLength: 0
-    #   minimumResultsForSearch: -1
-    #   multiple: true
-    #   # data: select2_data
+    el.select2
+      placeholder: placeholder
+      allowClear: true
+      minimumInputLength: 0
+      minimumResultsForSearch: -1
+      multiple: true
+      data: select2_data

@@ -4,7 +4,7 @@ class TagsController < ApplicationController
   # GET /tags
   # GET /tags.json
   def index
-    @tags = Tag.all
+    @tags = Tag.order(:id).all
   end
 
   # GET /tags/1
@@ -28,7 +28,10 @@ class TagsController < ApplicationController
 
     respond_to do |format|
       if @tag.save
-        format.html { redirect_to @tag, notice: 'Tag was successfully created.' }
+        format.html {
+          flash[:success] = 'Tag was successfully created.'
+          redirect_to tags_url
+        }
         format.json { render :show, status: :created, location: @tag }
       else
         format.html { render :new }
@@ -42,7 +45,10 @@ class TagsController < ApplicationController
   def update
     respond_to do |format|
       if @tag.update(tag_params)
-        format.html { redirect_to @tag, notice: 'Tag was successfully updated.' }
+        format.html {
+          flash[:success] = 'Tag was successfully updated.'
+          redirect_to tags_url
+        }
         format.json { render :show, status: :ok, location: @tag }
       else
         format.html { render :edit }
@@ -56,7 +62,10 @@ class TagsController < ApplicationController
   def destroy
     @tag.destroy
     respond_to do |format|
-      format.html { redirect_to tags_url, notice: 'Tag was successfully destroyed.' }
+      format.html {
+        flash[:success] = 'Tag was successfully destroyed.'
+        redirect_to tags_url
+      }
       format.json { head :no_content }
     end
   end
