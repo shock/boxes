@@ -19,14 +19,18 @@ eventNodeClick = (e) ->
   $tree.tree('toggle', node) unless isOpen(node)
 
 eventNodeMove = (e) ->
-  console.log('moved_node', e.move_info.moved_node);
-  console.log('target_node', e.move_info.target_node);
-  console.log('position', e.move_info.position);
-  console.log('previous_parent', e.move_info.previous_parent);
-  e.move_info.moved_node
-  e.move_info.target_node
-  e.move_info.position
-  e.move_info.previous_parent
+  moved_node = e.move_info.moved_node
+  target_node = e.move_info.target_node
+  position = e.move_info.position
+  path_template = "<%= ::Rails.application.routes.url_helpers.move_to_thing_path('-ID-') %>"
+  path = path_template.replace('-ID-', "#{moved_node.id}")
+  jqXHR = $.raj.handleAjaxRequest
+    url: path
+    type: 'post'
+    dataType: 'json'
+    data:
+      position: position
+      target_id: target_node.id
 
 
 $ ->

@@ -7,7 +7,7 @@ class ThingsController < ApplicationController
     if query = params[:query]
       params[:tags] = params[:query].dup
       query = query.squish
-      @things = Thing.where("name iLIKE '%#{query.gsub('*', '%')}%' OR description iLIKE '%#{query.gsub('*', '%')}%'")
+      @things = Thing.root.descendants.where("name iLIKE '%#{query.gsub('*', '%')}%' OR description iLIKE '%#{query.gsub('*', '%')}%'")
       tags = Tag.where(name: params[:tags].split(/[^\w]/).map(&:squish)).all
       @things += tags.map(&:things).flatten
       @things = @things.uniq
@@ -39,13 +39,26 @@ class ThingsController < ApplicationController
     position = params[:position]
     case position
     when 'before'
+      show_node = target.parent
       node.move_to target, :left
     when 'after'
+      show_node = target.parent
       node.move_to target, :right
     when 'inside'
-      node.update!(parent_id: target.id)
+      show_node = target
+      node.parent_id = target.id
+      if first_child = target.children.first
+        node.move_to first_child, :left
+      else
+        node.move_to target, :child
+      end
     else
       raise "unknown position: #{position}, target: #{target.name}, node: #{node.name}"
+    end
+    respond_to do |format|
+      process_json_request(format) do
+        json_response.redirect_to = thing_path(show_node)
+      end
     end
   end
 

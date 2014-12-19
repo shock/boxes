@@ -11,18 +11,30 @@ class MarkedThingsController < ApplicationController
       @things.each do |thing|
         thing.update!(parent: new_parent)
       end
-      flash[:success] = "#{@things.count} objects moved into #{new_parent.name}."
+      respond_to do |format|
+        process_json_request(format) do
+        end
+        format.html do
+          flash[:success] = "#{@things.count} objects moved into #{new_parent.name}."
+          redirect_to :back
+        end
+      end
     end
-    redirect_to :back
   end
 
   def clear
     @things = Thing.marked
     Thing.transaction do
       @things.each {|t| t.update!(marked: false)}
-      flash[:success] = "All objects unselected"
+      respond_to do |format|
+        process_json_request(format) do
+        end
+        format.html do
+          flash[:success] = "All objects unselected"
+          redirect_to :back
+        end
+      end
     end
-    redirect_to :back
   end
 
   def destroy
@@ -34,8 +46,14 @@ class MarkedThingsController < ApplicationController
         end
         thing.destroy
       end
-      flash[:success] = "All selected objects destroyed"
+      respond_to do |format|
+        process_json_request(format) do
+        end
+        format.html do
+          flash[:success] = "All selected objects destroyed"
+          redirect_to :back
+        end
+      end
     end
-    redirect_to :back
   end
 end
