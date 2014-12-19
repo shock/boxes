@@ -33,7 +33,7 @@ class _ActionBlocker
     height = elem.innerHeight()
     container = _.find elem.parents(), (e) ->
       $(e).css('position') == 'relative'
-    container ?= $("#content-container")
+    container ?= $("body")
     container = $(container)
     container_position = container.offset()
     position = elem.offset()

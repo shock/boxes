@@ -30,9 +30,6 @@ problems, please contact customer service.  \n\nClick 'OK' to reload the page."]
       })
       begin
         yield
-        if Greenling.www?
-          json_response.data.products ||= @greenling_json[:products] if @greenling_json[:products].present?
-        end
         status = json_response.delete(:status) || 200
         render :json => json_response, :status => status
         begin
@@ -43,7 +40,7 @@ problems, please contact customer service.  \n\nClick 'OK' to reload the page."]
           logger.debug $!.inspect rescue nil
         end
       rescue Exception => ex
-        Greenling.notify_exception(ex)
+        raise ex
         render_json_500
       end
     end
