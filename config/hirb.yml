@@ -9,5 +9,5 @@
         - lft
         - rgt
         - tree_depth
-        - created_at
-        - updated_at
+        - created
+        - updated
