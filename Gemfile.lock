@@ -222,6 +222,7 @@ DEPENDENCIES
   jbuilder (~> 2.0)
   jquery-rails
   pg
+  pry
   pry-byebug
   quiet_assets
   rails (= 4.2.0.rc1)

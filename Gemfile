@@ -42,6 +42,7 @@ gem 'flag_shih_tzu'
 gem 'font-awesome-sass', '~> 4.2.0'
 gem 'hirb'
 gem 'select2-rails'
+gem 'pry', require: false
 
 gem 'raj', path: "vendor/engines/raj"
 # For production on Heroku
@@ -53,9 +54,8 @@ gem 'rails_12factor', group: :production
 group :development, :test do
   gem 'ruby-prof'
   gem 'quiet_assets'
-
-  # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'pry-byebug'
+
 
   # Access an IRB console on exception pages or by using <%= console %> in views
   gem 'web-console', '~> 2.0'
