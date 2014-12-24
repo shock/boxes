@@ -6,7 +6,7 @@
                   <span class="icon-bar"></span>
                   <span class="icon-bar"></span>
                 </button>
-      <a class="navbar-brand" href="<%= things_path %>"><%= icon(icon_home, '', class: '') %></a>
+      <a class="navbar-brand" href="<%= thing_path(Thing.world) %>"><%= icon(icon_home, '', class: '') %></a>
       <a href="<%= marked_things_path %>" class="navbar-brand"><%= icon(icon_marked, '', class: '') %>
         (<span class="marked-count"><%= Thing.marked.count %></span>)</a>
     </div>

@@ -7,6 +7,7 @@
   <title>Containers</title>
   <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
   <%= csrf_meta_tags %>
+  <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
 </head>
 <body class="<%= Rails.env %>">
 
@@ -27,7 +28,6 @@
     <div id="footer" class="row"><%= yield :footer %></div>
   </div>
   <%= render "layouts/modal_templates" %>
-  <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
   <%= render_raj_json %>
   <%= render_raj_modal %>
 </body>
