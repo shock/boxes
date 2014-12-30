@@ -147,11 +147,13 @@ class ThingsController < ApplicationController
   # DELETE /things/1
   # DELETE /things/1.json
   def destroy
+    parent = @thing.parent
+    parent = Thing.world if parent == Thing.root
     @thing.destroy
     respond_to do |format|
       format.html {
         flash[:success] = 'Thing was successfully destroyed.'
-        redirect_to :back
+        redirect_to thing_path(parent)
       }
       format.json { head :no_content }
     end
