@@ -4,7 +4,7 @@
 
 $(document).on 'shown.bs.modal', '.modal', ->
   $('#thing_name').autoWordComplete()
-  $('#thing_name').putCursorAtEnd()
+  # $('#thing_name').putCursorAtEnd() # causes weirdness on iOS
   $('#show-more').click ->
     $('#more').toggle()
     $(this).hide()
