@@ -1,4 +1,12 @@
 namespace :app do
+  namespace :things do |variable|
+    task :normalize => :environment do
+      Thing.find_each do |thing|
+        thing.normalize_name!
+      end
+    end
+  end
+
   namespace :nouns do
     task :load_from_json => :environment do
       json = File.read("#{Rails.root}/lib/nounlist.json")

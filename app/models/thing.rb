@@ -111,6 +111,22 @@ class Thing < ActiveRecord::Base
     to_tree.to_json
   end
 
+  # convert first character of each word to upper case
+  # doesn't modify subsequent characters of the words
+  def normalize_name
+    self.name = self.name.split(/\s+/).map do |word|
+      first_letter = word.slice(0,1)
+      first_letter = first_letter.capitalize
+      suffix = word.slice(1,word.length-1)
+      "#{first_letter}#{suffix}"
+    end.join(" ")
+  end
+
+  def normalize_name!
+    self.normalize_name
+    self.save!
+  end
+
 private
 
   def squish
