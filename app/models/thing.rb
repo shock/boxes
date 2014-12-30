@@ -25,7 +25,7 @@ class Thing < ActiveRecord::Base
     orphaned.move_to_child_of(self.world)
   end
 
-  before_save :default_root, :squish
+  before_save :default_root, :normalize_name
   after_save :move_to_parent
 
   include FlagShihTzu
@@ -114,6 +114,7 @@ class Thing < ActiveRecord::Base
   # convert first character of each word to upper case
   # doesn't modify subsequent characters of the words
   def normalize_name
+    self.name = self.name.squish
     self.name = self.name.split(/\s+/).map do |word|
       first_letter = word.slice(0,1)
       first_letter = first_letter.capitalize
@@ -128,10 +129,6 @@ class Thing < ActiveRecord::Base
   end
 
 private
-
-  def squish
-    self.name = self.name.squish
-  end
 
   def default_root
     self.parent_id ||= self.root.id unless self.name == ROOT_NAME
