@@ -44,19 +44,6 @@ module BoxesConsoleHelpers
     def updated; BoxesConsoleHelpers.simple_time(updated_at) rescue "nil"; end
   end
 
-  module HirbView
-    extend ActiveSupport::Concern
-    included do
-      class << self
-        alias :orig_render_output :render_output
-
-        def render_output(*args)
-          ::ActiveRecord::Base.logger.warn orig_render_output(*args)
-        end
-      end
-    end
-  end
-
 end
 
 class Object
@@ -112,7 +99,6 @@ class Object
   def hirb_on
     Hirb.enable :pager=>true
     Hirb.enable :formatter=>true
-    Hirb::View.send(:include, BoxesConsoleHelpers::HirbView)
   end
 
   def reload
