@@ -3,9 +3,7 @@
     <div class="thing-heading">
       <div class="name-bar">
         <%= link_to(edit_thing_path(@thing, ref: CGI::escape(request.fullpath)), title: "Edit #{@thing.name}",
-            class: "name",
-            :"data-toggle" => "modal",
-            :"data-target" => "#basicModal") do %>
+            class: "name a-edit-thing") do %>
           <%=h @thing.name %><% end %>
         <div class="actions op50">
           <span id="marked" class="action">
@@ -14,9 +12,7 @@
             <% end %>
           </span>
           <span class="action">
-            <%= link_to(new_thing_path(parent_id: @thing, ref: CGI::escape(request.fullpath)), title: 'Add Contained Thing',
-            :"data-toggle" => "modal",
-            :"data-target" => "#basicModal") do %>
+            <%= link_to(new_thing_path(parent_id: @thing, ref: CGI::escape(request.fullpath)), title: 'Add Contained Thing', class: 'a-new-thing') do %>
               <%= icon(icon_add, '', class: "success") %>
             <% end %>
           </span>

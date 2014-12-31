@@ -127,5 +127,5 @@ ConfirmModal.confirm = (message, confirm_callback, cancel_callback, options={}) 
   modal = new ConfirmModal message, options
   modal.show()
 
-window.confirm = ConfirmModal.confirm
-window.alert = AlertModal.alert
+# window.confirm = ConfirmModal.confirm
+# window.alert = AlertModal.alert
