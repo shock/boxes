@@ -24,14 +24,13 @@
       }, {}, class: "form-control" %>
   </div>
 </div>
-  <div class="form-group">
-    <%= f.label :tags, class: "col-lg-3 control-label" %>
-    <div class="col-lg-9 tag-select">
-      <%= hidden_field_tag :tags, @thing.tags.map(&:id).join(','), class: '' -%>
-    </div>
+<div class="form-group">
+  <%= f.label :tags, class: "col-lg-3 control-label" %>
+  <div class="col-lg-9 tag-select">
+    <%= hidden_field_tag :tags, @thing.tags.map(&:id).join(','), class: '' -%>
   </div>
-<%= link_to "More...", '#', id: 'show-more'  %>
-<div id="more" style="display: none">
+</div>
+<div id="more">
   <div class="form-group">
     <%= f.label :description, class: "col-lg-3 control-label" %>
     <div class="col-lg-9">
