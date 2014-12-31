@@ -62,7 +62,7 @@ _withErrorReporting = ->
   throw new Error("$.raj is already defined") if $.raj && $.raj?._signature? != 'RAJ'
   $.raj ?= {_signature: 'RAJ'}
 
-  user_hide_container = user_hide_callback = user_show_trigger = null
+  user_show_container = user_hide_callback = user_show_trigger = null
 
   _ =
 
@@ -173,14 +173,20 @@ _withErrorReporting = ->
         return false
 
     hide_on_mouseout_click_callback: (e) ->
-      # if the target of the click isn't the user_hide_container...
-      # ... nor a descendant of the user_hide_container
-      $.raj.hide_on_user_intent(e) if !user_show_trigger.is(e.target) and !user_hide_container.is(e.target) and user_hide_container.has(e.target).length is 0
+      # if the target of the click isn't the user_show_container...
+      # ... nor a descendant of the user_show_container
+      $.raj.hide_on_user_intent(e) if !user_show_trigger.is(e.target) and !user_show_container.is(e.target) and user_show_container.has(e.target).length is 0
+      return false
+
+    hide_on_touchstart_out_callback: (e) ->
+      # if the target of the touch_start isn't the user_show_container...
+      # ... nor a descendant of the user_show_container
+      $.raj.hide_on_user_intent(e) if !user_show_trigger.is(e.target) and !user_show_container.is(e.target) and user_show_container.has(e.target).length is 0
       return false
 
     bind_hide_on_user_intent_events: (trigger, container, callback) ->
       user_show_trigger = $(trigger)
-      user_hide_container = $(container)
+      user_show_container = $(container)
       user_hide_callback = callback
       $(document).on 'keyup', $.raj.hide_on_esc_callback
       $(document).on 'mouseup', $.raj.hide_on_mouseout_click_callback
@@ -190,7 +196,7 @@ _withErrorReporting = ->
       $(document).off 'keyup', $.raj.hide_on_esc_callback
       $(document).off 'mouseup', $.raj.hide_on_mouseout_click_callback
       user_hide_callback()
-      user_hide_container = user_show_trigger = user_hide_callback = null
+      user_show_container = user_show_trigger = user_hide_callback = null
       return false
 
     reloadWindow: ->
