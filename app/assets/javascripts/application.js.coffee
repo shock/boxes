@@ -25,3 +25,22 @@ Turbolinks.enableTransitionCache();
 setTimeout ->
   $('.alert').fadeOut(1000)
 , 3000
+
+statusMsgShown = false
+window.statusMsg = (msg) ->
+  unless statusMsgShown
+    statusMsgShown = true
+    div = $('<div id="status-msg"></div>')
+    div.css
+      position: 'fixed'
+      top: 0
+      right: 0
+      background: 'white'
+      color: 'black'
+    div.appendTo('body')
+  el = $('#status-msg')
+  el.html(msg)
+
+$ ->
+  # prevent touch to click delay on mobile devices
+  Origami.fastclick(document.body)
