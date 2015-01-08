@@ -2,26 +2,6 @@
 # All this logic will automatically be available in application.js.
 # You can use CoffeeScript in this file: http://coffeescript.org/
 
-$(document).on 'shown.bs.modal', '.modal', ->
-  $('#thing_name').autoWordComplete()
-  # $('#thing_name').putCursorAtEnd() # causes weirdness on iOS
-  $('#show-more').click ->
-    $('#more').toggle()
-    $(this).hide()
-    false
-
-  $("div.tag-select input").each ->
-    el = $(this)
-    select2_data = Boxes.get_select2_tags_data()
-    placeholder = "Click here to add tags"
-    el.select2
-      placeholder: placeholder
-      allowClear: true
-      minimumInputLength: 0
-      minimumResultsForSearch: -1
-      multiple: true
-      data: select2_data
-
 $(document).on 'click', 'a.a-move-to', ->
   $tree = $('#tree')
   if selected_node = $tree.tree('getSelectedNode')
@@ -37,47 +17,27 @@ $(document).on 'click', 'a.a-move-to', ->
     alert("Choose a container using the tree control to move selected objects inside of it.")
   return false
 
-$(document).on 'click', 'a.a-new-thing', ->
-  a = $(this)
-  href = a.attr('href')
-  jqXHR = $.ajax
-    url: href
-    dataType: 'html'
-    type: 'get'
-  jqXHR.success (data) ->
-    $('#inline-widget').hide()
-    $('#inline-widget').html(data)
-    $('#inline-widget').slideDown()
-  false
-
 class InlineWidget
   selector: '#inline-widget'
 
   constructor: ->
     @widget = $(@selector)
 
-  open: (html) =>
+  open: (html, callback) =>
     @widget.hide()
     @widget.html(html)
-    @widget.slideDown()
+    callback ?= ->
+      return
+    @widget.slideDown(callback)
 
-  close: =>
-    @widget.slideUp()
-    @widget.html('')
+  close: (callback) =>
+    @widget.slideUp =>
+      @widget.html('')
+      callback() if callback
 
-$(document).on "ready page:change", ->
-  window.inlineWidget = new InlineWidget
-
-$(document).on 'click', 'a.a-edit-thing', ->
-  a = $(this)
-  href = a.attr('href')
-  jqXHR = $.ajax
-    url: href
-    dataType: 'html'
-    type: 'get'
-  jqXHR.success (data) =>
-    inlineWidget.open(data)
+  setupThingForm: =>
     $('#thing_name').autoWordComplete()
+    $('#thing_name').focus()
     # $('#thing_name').putCursorAtEnd() # causes weirdness on iOS
     $('#show-more').click ->
       $('#more').toggle()
@@ -95,6 +55,33 @@ $(document).on 'click', 'a.a-edit-thing', ->
         minimumResultsForSearch: -1
         multiple: true
         data: select2_data
+
+$(document).on "ready page:change", ->
+  window.inlineWidget = new InlineWidget
+
+# $(document).on 'click', 'a.a-new-thing', ->
+#   a = $(this)
+#   href = a.attr('href')
+#   jqXHR = $.ajax
+#     url: href
+#     dataType: 'html'
+#     type: 'get'
+#   jqXHR.success (data) ->
+#     $('#inline-widget').hide()
+#     $('#inline-widget').html(data)
+#     $('#inline-widget').slideDown()
+
+#   false
+
+$(document).on 'click', 'a.a-edit-thing, a.a-new-thing', ->
+  a = $(this)
+  href = a.attr('href')
+  jqXHR = $.ajax
+    url: href
+    dataType: 'html'
+    type: 'get'
+  jqXHR.success (data) =>
+    inlineWidget.open data, inlineWidget.setupThingForm
     $.raj.bind_hide_on_user_intent_events(a, inlineWidget.widget, inlineWidget.close)
   false
 

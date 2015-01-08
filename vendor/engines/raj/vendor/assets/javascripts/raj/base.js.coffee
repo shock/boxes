@@ -175,14 +175,16 @@ _withErrorReporting = ->
     hide_on_mouseout_click_callback: (e) ->
       # if the target of the click isn't the user_show_container...
       # ... nor a descendant of the user_show_container
-      $.raj.hide_on_user_intent(e) if !user_show_trigger.is(e.target) and !user_show_container.is(e.target) and user_show_container.has(e.target).length is 0
-      return false
+      if !user_show_trigger.is(e.target) and !user_show_container.is(e.target) and user_show_container.has(e.target).length is 0
+        $.raj.hide_on_user_intent(e)
+        return false
 
     hide_on_touchstart_out_callback: (e) ->
-      # if the target of the touch_start isn't the user_show_container...
+      # if the target of the touch start isn't the user_show_container...
       # ... nor a descendant of the user_show_container
-      $.raj.hide_on_user_intent(e) if !user_show_trigger.is(e.target) and !user_show_container.is(e.target) and user_show_container.has(e.target).length is 0
-      return false
+      if !user_show_trigger.is(e.target) and !user_show_container.is(e.target) and user_show_container.has(e.target).length is 0
+        $.raj.hide_on_user_intent(e)
+        return false
 
     bind_hide_on_user_intent_events: (trigger, container, callback) ->
       user_show_trigger = $(trigger)
@@ -190,11 +192,13 @@ _withErrorReporting = ->
       user_hide_callback = callback
       $(document).on 'keyup', $.raj.hide_on_esc_callback
       $(document).on 'mouseup', $.raj.hide_on_mouseout_click_callback
+      $(document).on 'touchstart', $.raj.hide_on_touchstart_out_callback
 
     hide_on_user_intent: (e) ->
       e.stopImmediatePropagation()
       $(document).off 'keyup', $.raj.hide_on_esc_callback
       $(document).off 'mouseup', $.raj.hide_on_mouseout_click_callback
+      $(document).off 'touchstart', $.raj.hide_on_touchstart_out_callback
       user_hide_callback()
       user_show_container = user_show_trigger = user_hide_callback = null
       return false
