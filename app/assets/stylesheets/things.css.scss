@@ -21,8 +21,9 @@
     @include clearfix;
     // font-size: 11px;
     color: #666;
-    .num_contained {
-      color: #666;
+    .num-contained {
+      color: #aaa;
+      background: transparent;
     }
     .actions {
       float: right;
