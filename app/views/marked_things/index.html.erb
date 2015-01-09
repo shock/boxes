@@ -10,13 +10,13 @@
   </div>
   <div class="col-md-4">
     <div class="select-actions">
-      <%= link_to "Move", "#", class: "a-move-to btn btn-sm btn-info" %>
+      <%= link_to "Move", "#", class: "a-move-marked btn btn-sm btn-info" %>
       <%= link_options = {data: {confirm: "Are you sure you want to unselect all objects?"},
-        title: "Unselect All", class: "btn btn-warning btn-sm"}
+        title: "Unselect All", class: "btn btn-warning btn-sm a-clear-marked"}
       (link_options[:disabled] = 'disabled') if @things.empty?
       link_to "Clear", clear_marked_things_path, link_options %>
       <%= link_options = {data: {confirm: "Are you sure you want to destroy all selected objects?"},
-        title: "Destroy Selected", class: "btn btn-danger btn-sm"}
+        title: "Destroy Selected", class: "btn btn-danger btn-sm a-destroy-marked"}
       (link_options[:disabled] = 'disabled') if @things.empty?
       link_to "Destroy", destroy_marked_things_path, link_options %>
     </div>
