@@ -40,18 +40,30 @@ class InlineWidget
 
   constructor: ->
     @widget = $(@selector)
+    @original_scroll = 0
 
   open: (html, callback) =>
     @widget.hide()
     @widget.html(html)
+
     callback ?= ->
       return
-    @widget.slideDown(callback)
+
+    finished = =>
+      widget_top = $("#inline-widget").position().top
+      if @original_scroll > widget_top
+        $("body").scrollTop(widget_top)
+      callback()
+
+    @original_scroll = $("body").scrollTop()
+    @widget.slideDown(finished)
 
   close: (callback) =>
     @widget.slideUp =>
       @widget.html('')
       callback() if callback
+      $("body").scrollTop(@original_scroll)
+
 
   setupThingForm: =>
     $('#thing_name').autoWordComplete()
