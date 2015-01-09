@@ -192,13 +192,13 @@ _withErrorReporting = ->
       user_hide_callback = callback
       $(document).on 'keyup', $.raj.hide_on_esc_callback
       $(document).on 'mouseup', $.raj.hide_on_mouseout_click_callback
-      $(document).on 'touchstart', $.raj.hide_on_touchstart_out_callback
+      # $(document).on 'touchstart', $.raj.hide_on_touchstart_out_callback
 
     hide_on_user_intent: (e) ->
       e.stopImmediatePropagation()
       $(document).off 'keyup', $.raj.hide_on_esc_callback
       $(document).off 'mouseup', $.raj.hide_on_mouseout_click_callback
-      $(document).off 'touchstart', $.raj.hide_on_touchstart_out_callback
+      # $(document).off 'touchstart', $.raj.hide_on_touchstart_out_callback
       user_hide_callback()
       user_show_container = user_show_trigger = user_hide_callback = null
       return false
