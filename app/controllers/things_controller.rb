@@ -11,9 +11,6 @@ class ThingsController < ApplicationController
       tags = Tag.where(name: params[:tags].split(/[^\w]/).map(&:squish)).all
       @things += tags.map(&:things).flatten
       @things = @things.uniq
-    elsif params[:node]
-      @thing = Thing.find(params[:node])
-      render json: @thing.to_builder.target!
     else
       redirect_to Thing.world and return
     end
@@ -81,9 +78,6 @@ class ThingsController < ApplicationController
   def show
     respond_to do |format|
       format.html {}
-      format.json do
-        render :json => @thing.to_builder.target!
-      end
     end
   end
 
