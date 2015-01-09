@@ -91,7 +91,7 @@ $(document).on "ready page:change", ->
 
 #   false
 
-$(document).on 'click', 'a.a-edit-thing, a.a-new-thing', ->
+thingFormHandler = (e) ->
   a = $(this)
   href = a.attr('href')
   jqXHR = $.ajax
@@ -101,7 +101,11 @@ $(document).on 'click', 'a.a-edit-thing, a.a-new-thing', ->
   jqXHR.success (data) =>
     inlineWidget.open data, inlineWidget.setupThingForm
     # $.raj.bind_hide_on_user_intent_events(a, inlineWidget.widget, inlineWidget.close)
+    $tree.tree('selectNode', null);
   false
+
+$(document).on 'click', 'a.a-edit-thing, a.a-new-thing', thingFormHandler
 
 $(document).on 'click', 'a.a-close-widget', ->
   inlineWidget.close()
+  false

@@ -33,7 +33,8 @@ eventNodeMove = (e) ->
       target_id: target_node.id
 
 
-$(document).on "ready page:change", ->
+# $(document).on "ready page:change", (e) ->
+$(document).on "page:change", (e) ->
   window.$tree = $('#tree')
   $tree.tree
     dragAndDrop: false
