@@ -98,19 +98,6 @@ class Thing < ActiveRecord::Base
     end
   end
 
-  def to_tree
-    tree = HashObj.new
-    tree.id = id
-    tree.label = "#{name} (#{children.count})"
-    tree.description = description
-    tree.children = children.map(&:to_tree)
-    tree
-  end
-
-  def to_json
-    to_tree.to_json
-  end
-
   # convert first character of each word to upper case
   # doesn't modify subsequent characters of the words
   def normalize_name
