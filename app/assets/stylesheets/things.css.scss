@@ -101,11 +101,15 @@ em.actions {
   top: 1px;
   right: 1px;
   a {
-    margin: 0 0.2em;
+    margin: 0 0.3em;
   }
 }
 
 ul.jqtree-tree li.jqtree-selected > .jqtree-element,
 ul.jqtree-tree li.jqtree-selected > .jqtree-element:hover {
   background: #ddd;
+}
+
+.thing-body, #tree {
+  font-size: 18px;
 }

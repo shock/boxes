@@ -5,7 +5,7 @@
       link_options = {data: {confirm: "Are you sure you want to delete #{@thing.name}?"},
         method: :delete, title: "Delete #{@thing.name}", class: "btn btn-danger btn-sm"}
       (link_options[:disabled] = 'disabled') if @thing.children.any?
-      link_to "Delete", @thing, link_options
+      link_to "Del", @thing, link_options
     %>
     <%= f.submit 'Update', class: "btn btn-primary btn-sm" %>
   </div>
@@ -22,7 +22,7 @@
       link_options = {data: {confirm: "Are you sure you want to delete #{@thing.name}?"},
         method: :delete, title: "Delete #{@thing.name}", class: "btn btn-danger btn-sm"}
       (link_options[:disabled] = 'disabled') if @thing.children.any?
-      link_to "Delete", @thing, link_options
+      link_to "Del", @thing, link_options
     %>
     <%= f.submit 'Update', class: "btn btn-primary btn-sm" %>
   </div>
