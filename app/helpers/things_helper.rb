@@ -13,9 +13,26 @@ module ThingsHelper
     "#{thing.name} <i class='c-count d-#{thing.id}-contained'>#{thing.children.count}</i>".html_safe
   end
 
+  def thing_actions(thing)
+    id = thing.id
+    %Q{
+      <em class="actions action">
+        <a title="Toggle Marked" class="#{id}_marked" data-remote="true" href="/things/#{id}/toggle_marked">
+          <i class="fa fa-check-square dimmed"></i>
+        </a><a title="Edit #{thing.name}" class="a-edit-thing" href="/things/#{id}/edit">
+          <i class="fa fa-pencil-square primary"></i>
+        </a><a title="Add Contained Thing" class="a-new-thing" href="/things/new?parent_id=#{id}">
+          <i class="fa fa-cube success"></i>
+        </a>
+      </em>
+    }
+  end
+
   def json_ltree_builder( json, thing, children_to_open=[] )
     json.id thing.id
-    json.label thing_label(thing)
+    actions = thing_actions(thing)
+    # json.label "#{thing_label(thing)} #{actions}"
+    json.label "#{thing.name} #{actions}"
     children = thing.children
     unless children.empty?
       index = children_to_open.index(thing.id)

@@ -83,10 +83,22 @@
 .c-count {
   font-style: normal;
   font-size: 0.8em;
-  background: #CEDDE2;
+  background: #D9E0E4;
   padding: 0px 4px;
   border-radius: 4px;
   color: #fff;
   position: relative;
   top: -0.1em;
+}
+
+em.actions {
+  // margin-left: 0.2em;
+  background: #FFF;
+  padding: 0px 4px;
+  border-radius: 4px;
+}
+
+ul.jqtree-tree li.jqtree-selected > .jqtree-element,
+ul.jqtree-tree li.jqtree-selected > .jqtree-element:hover {
+  background: #ddd;
 }

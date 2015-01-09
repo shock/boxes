@@ -1,0 +1,10 @@
+<%= link_to(toggle_marked_thing_path(thing), title: 'Toggle Marked', class: "#{thing.id}_marked", remote: true) do %>
+  <%= icon(icon_marked, '', class: thing.marked ? "dimmed marked" : "dimmed") %>
+<% end %>
+<%= link_to(edit_thing_path(thing, ref: CGI::escape(request.fullpath)), title: "Edit #{thing.name}", class: 'a-edit-thing') do %>
+  <%= icon(icon_edit, '', class: 'primary') %>
+<% end %>
+<%= link_to(new_thing_path(parent_id: thing, ref: CGI::escape(request.fullpath)), title: 'Add Contained Thing',
+      class: 'a-new-thing') do %>
+  <%= icon(icon_add, '', class: "success") %>
+<% end %>
