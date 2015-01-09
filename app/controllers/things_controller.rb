@@ -64,10 +64,12 @@ class ThingsController < ApplicationController
       format.json do
         if params[:node]
           @thing = Thing.find_by_id(params[:node])
-          render json: @thing.children_to_builder.target!
+          # render json: @thing.children_to_builder.target!
+          render "children"
         else
           @thing = Thing.find_by_id(params[:current]) || Thing.root
-          render json: @thing.parents_to_builder.target!
+          # render json: @thing.parents_to_builder.target!
+          render "parents"
         end
       end
     end

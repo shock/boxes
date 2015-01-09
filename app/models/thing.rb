@@ -47,56 +47,36 @@ class Thing < ActiveRecord::Base
 
   has_flags 1 => :marked
 
-  def label
-    "#{name} (#{children.count})"
-  end
+  # def label
+  #   "#{name} (#{children.count})"
+  # end
 
-  def json_ltree_builder( json, children_to_open=[] )
-    json.id id
-    json.label label
-    children = self.children
-    unless children.empty?
-      index = children_to_open.index(id)
-      load_children_on_demand = index == nil
-      # load_children_on_demand ||= (index == children_to_open.length - 1)
-      json.load_on_demand load_children_on_demand
-      unless load_children_on_demand
-        json.children do
-          json.array! children do |child|
-            child.json_ltree_builder( json, children_to_open )
-          end
-        end
-      end
-    end
-    json
-  end
+  # def children_to_builder
+  #   Jbuilder.new do |json|
+  #     json.array! children do |thing|
+  #       thing.json_ltree_builder( json, [] )
+  #     end
+  #   end
+  # end
 
-  def children_to_builder
-    Jbuilder.new do |json|
-      json.array! children do |thing|
-        thing.json_ltree_builder( json, [] )
-      end
-    end
-  end
+  # def parents_to_builder
+  #   path = self.self_and_ancestors
+  #   path_ids = path.map(&:id)
+  #   Jbuilder.new do |json|
+  #     json.array! path.first.children do |thing|
+  #       thing.json_ltree_builder( json, path_ids )
+  #     end
+  #   end
 
-  def parents_to_builder
-    path = self.self_and_ancestors
-    path_ids = path.map(&:id)
-    Jbuilder.new do |json|
-      json.array! path.first.children do |thing|
-        thing.json_ltree_builder( json, path_ids )
-      end
-    end
+  # end
 
-  end
-
-  def to_builder
-    Jbuilder.new do |json|
-      json.array! [self] do |thing|
-        thing.json_ltree_builder( json, false )
-      end
-    end
-  end
+  # def to_builder
+  #   Jbuilder.new do |json|
+  #     json.array! [self] do |thing|
+  #       thing.json_ltree_builder( json, false )
+  #     end
+  #   end
+  # end
 
   # convert first character of each word to upper case
   # doesn't modify subsequent characters of the words
