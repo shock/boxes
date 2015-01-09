@@ -100,7 +100,7 @@ $(document).on 'click', 'a.a-edit-thing, a.a-new-thing', ->
     type: 'get'
   jqXHR.success (data) =>
     inlineWidget.open data, inlineWidget.setupThingForm
-    $.raj.bind_hide_on_user_intent_events(a, inlineWidget.widget, inlineWidget.close)
+    # $.raj.bind_hide_on_user_intent_events(a, inlineWidget.widget, inlineWidget.close)
   false
 
 $(document).on 'click', 'a.a-close-widget', ->
