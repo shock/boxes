@@ -96,6 +96,13 @@ em.actions {
   background: #FFF;
   padding: 0px 4px;
   border-radius: 4px;
+  float: right;
+  position: relative;
+  top: 1px;
+  right: 1px;
+  a {
+    margin: 0 0.2em;
+  }
 }
 
 ul.jqtree-tree li.jqtree-selected > .jqtree-element,
