@@ -1,4 +1,14 @@
+last_clicked_node = null
+double_click_timeout = 300
+click_timeout = true # first click of double click has timed out
+
+highlightNode = (node) ->
+  $('.jqtree-element.current').removeClass('current')
+  $(node.element).find('.jqtree-element').eq(0).addClass('current')
+
 eventNodeClick = (e) ->
+  click_event = e.click_event
+
   isOpen = (node) ->
     for open_id in $tree.tree('getState')['open_nodes']
       return true if open_id == node.id
@@ -6,17 +16,33 @@ eventNodeClick = (e) ->
 
   node = e.node
 
-  if selected_node = $tree.tree('getSelectedNode')
-    if selected_node.id == node.id
+  handleOpenClose = ->
+    if parent = node.parent
+      for sibling in parent.children
+        continue if sibling.id == node.id
+        $tree.tree('toggle', sibling) if isOpen(sibling)
+
+    $tree.tree('openNode', node) #unless isOpen(node)
+    highlightNode(node)
+
+  # load the clicked node on a double-click unless the click was in the actions <em>
+  unless $(click_event.target).parents("em.actions")[0]
+    # click was not in actions
+    # unless click_timeout
+    if last_clicked_node && last_clicked_node.id == node.id
+      # $tree.tree('selectNode', node)
+      highlightNode(node)
       window.location = "<%= ::Rails.application.routes.url_helpers.things_path %>/#{node.id}"
-      return
+    else
+      handleOpenClose()
+    #   # we got a first click
+    #   click_timeout = false
+    #   setTimeout ->
+    #     click_timeout = true
+    #     handleOpenClose()
+    #   , double_click_timeout
 
-  if parent = node.parent
-    for sibling in parent.children
-      continue if sibling.id == node.id
-      $tree.tree('toggle', sibling) if isOpen(sibling)
-
-  $tree.tree('toggle', node) unless isOpen(node)
+  last_clicked_node = node
 
 eventNodeMove = (e) ->
   moved_node = e.move_info.moved_node
@@ -32,6 +58,9 @@ eventNodeMove = (e) ->
       position: position
       target_id: target_node.id
 
+eventNodeOpen = (e) ->
+  node = e.node
+  highlightNode(node)
 
 # $(document).on "ready page:change", (e) ->
 $(document).on "page:change", (e) ->
@@ -41,7 +70,9 @@ $(document).on "page:change", (e) ->
     autoOpen: 1000
     useContextMenu: false
     selectable: true
+    selectable: false
     autoEscape: false
 
   $tree.bind 'tree.click', eventNodeClick
   $tree.bind 'tree.move', eventNodeMove
+  $tree.bind 'tree.open', eventNodeOpen

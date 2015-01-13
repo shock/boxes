@@ -113,3 +113,8 @@ ul.jqtree-tree li.jqtree-selected > .jqtree-element:hover {
 .thing-body, #tree {
   font-size: 18px;
 }
+
+// Tree compass
+.jqtree-element.current {
+  background: #ded;
+}
