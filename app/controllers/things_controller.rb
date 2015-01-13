@@ -4,11 +4,11 @@ class ThingsController < ApplicationController
   # GET /things
   # GET /things.json
   def index
-    if query = params[:query]
-      params[:tags] = params[:query].dup
+    if query = params[:query] || tag_list = params[:tags]
+      tag_list = query.dup unless tag_list
       query = query.squish
       @things = Thing.root.descendants.where("name iLIKE '%#{query.gsub('*', '%')}%' OR description iLIKE '%#{query.gsub('*', '%')}%'")
-      tags = Tag.where(name: params[:tags].split(/[^\w]/).map(&:squish)).all
+      tags = Tag.where(name: tag_list.split(/[^\w]/).map(&:squish).map(&:downcase)).all
       @things += tags.map(&:things).flatten
       @things = @things.uniq
     else
