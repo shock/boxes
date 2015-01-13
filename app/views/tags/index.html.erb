@@ -1,6 +1,26 @@
 <h1>Tags</h1>
 
-<%= render 'form' %>
+<%= form_for(@tag) do |f| %>
+  <% if @tag.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@tag.errors.count, "error") %> prohibited this tag from being saved:</h2>
+
+      <ul>
+      <% @tag.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="form-group">
+    <%= f.text_field :name %>
+    <%= f.submit %>
+  </div>
+  <%= yield :tag_form %>
+
+<% end %>
+
 
 <table class="table table-striped table-responsive">
   <thead>
