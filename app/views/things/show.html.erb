@@ -40,7 +40,7 @@
 
       <div id="tags">
         <ul><% @thing.tags.order(:name).each do |tag| %>
-          <li><%= tag.name %></li><% end %>
+          <li><span>•</span><%= tag.name %></li><% end %>
         </ul>
       </div>
 
