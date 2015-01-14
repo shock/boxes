@@ -42,7 +42,7 @@ class ThingsController < ApplicationController
       show_node = target.parent
       node.move_to target, :right
     when 'inside'
-      show_node = target
+      show_node = target.parent
       node.parent_id = target.id
       if first_child = target.children.first
         node.move_to first_child, :left
