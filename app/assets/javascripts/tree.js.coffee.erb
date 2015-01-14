@@ -1,70 +1,68 @@
-last_clicked_node = null
-double_click_timeout = 300
-click_timeout = true # first click of double click has timed out
+class _Tree
 
-highlightNode = (node) ->
-  $('.jqtree-element.current').removeClass('current')
-  $(node.element).find('.jqtree-element').eq(0).addClass('current')
+  selected_node: null
 
-eventNodeClick = (e) ->
-  click_event = e.click_event
+  highlightNode = (node) ->
+    $('.jqtree-element.current').removeClass('current')
+    el = $(node.element).find('.jqtree-element').eq(0)
+    el && el.addClass('current')
 
   isOpen = (node) ->
     for open_id in $tree.tree('getState')['open_nodes']
       return true if open_id == node.id
     return false
 
-  node = e.node
 
-  handleOpenClose = ->
-    if parent = node.parent
-      for sibling in parent.children
-        continue if sibling.id == node.id
-        $tree.tree('toggle', sibling) if isOpen(sibling)
+  eventNodeClick: (e) =>
+    handleOpenClose = ->
+      if parent = node.parent
+        for sibling in parent.children
+          continue if sibling.id == node.id
+          $tree.tree('toggle', sibling) if isOpen(sibling)
 
-    $tree.tree('openNode', node) #unless isOpen(node)
+      $tree.tree('openNode', node) #unless isOpen(node)
+      highlightNode(node)
+
+    click_event = e.click_event
+
+    node = e.node
+
+    # load the clicked unless the click was in the actions <em>
+    unless $(click_event.target).parents("em.actions")[0]
+      # click was not in actions
+      if @selected_node && @selected_node.id == node.id
+        # the node was already selected, so load it's page
+        # $tree.tree('selectNode', node)
+        highlightNode(node)
+        window.location = "<%= ::Rails.application.routes.url_helpers.things_path %>/#{node.id}"
+      else
+        handleOpenClose()
+
+    @selected_node = node
+
+  eventNodeMove: (e) =>
+    moved_node = e.move_info.moved_node
+    target_node = e.move_info.target_node
+    position = e.move_info.position
+    path_template = "<%= ::Rails.application.routes.url_helpers.move_to_thing_path('-ID-') %>"
+    path = path_template.replace('-ID-', "#{moved_node.id}")
+    jqXHR = $.raj.handleAjaxRequest
+      url: path
+      type: 'post'
+      dataType: 'json'
+      data:
+        position: position
+        target_id: target_node.id
+
+  eventNodeOpen: (e) =>
+    node = e.node
     highlightNode(node)
 
-  # load the clicked node on a double-click unless the click was in the actions <em>
-  unless $(click_event.target).parents("em.actions")[0]
-    # click was not in actions
-    # unless click_timeout
-    if last_clicked_node && last_clicked_node.id == node.id
-      # $tree.tree('selectNode', node)
-      highlightNode(node)
-      window.location = "<%= ::Rails.application.routes.url_helpers.things_path %>/#{node.id}"
-    else
-      handleOpenClose()
-    #   # we got a first click
-    #   click_timeout = false
-    #   setTimeout ->
-    #     click_timeout = true
-    #     handleOpenClose()
-    #   , double_click_timeout
-
-  last_clicked_node = node
-
-eventNodeMove = (e) ->
-  moved_node = e.move_info.moved_node
-  target_node = e.move_info.target_node
-  position = e.move_info.position
-  path_template = "<%= ::Rails.application.routes.url_helpers.move_to_thing_path('-ID-') %>"
-  path = path_template.replace('-ID-', "#{moved_node.id}")
-  jqXHR = $.raj.handleAjaxRequest
-    url: path
-    type: 'post'
-    dataType: 'json'
-    data:
-      position: position
-      target_id: target_node.id
-
-eventNodeOpen = (e) ->
-  node = e.node
-  highlightNode(node)
 
 # $(document).on "ready page:change", (e) ->
 $(document).on "page:change", (e) ->
   window.$tree = $('#tree')
+  window.Tree = new _Tree
   $tree.tree
     dragAndDrop: false
     autoOpen: 1000
@@ -73,6 +71,9 @@ $(document).on "page:change", (e) ->
     selectable: false
     autoEscape: false
 
-  $tree.bind 'tree.click', eventNodeClick
-  $tree.bind 'tree.move', eventNodeMove
-  $tree.bind 'tree.open', eventNodeOpen
+  $tree.bind 'tree.click', (e) ->
+    Tree.eventNodeClick(e)
+  $tree.bind 'tree.move', (e) ->
+    Tree.eventNodeMove(e)
+  $tree.bind 'tree.open', (e) ->
+    Tree.eventNodeOpen(e)

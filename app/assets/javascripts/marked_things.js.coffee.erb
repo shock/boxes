@@ -1,0 +1,33 @@
+$(document).on 'click', 'a.a-move-marked', ->
+  $tree = $('#tree')
+  if selected_node = $tree.tree('getSelectedNode')
+    container_id = selected_node.id
+    jqXHR = $.raj.handleAjaxRequest
+      type: 'post'
+      url: "<%= ::Rails.application.routes.url_helpers.move_marked_things_path %>"
+      data:
+        parent_id: container_id
+    jqXHR.success (data)->
+        window.location = window.location
+  else
+    alert("Choose a container using the tree control to move selected objects inside of it.")
+  return false
+
+$(document).on 'click', 'a.a-clear-marked', ->
+  $tree = $('#tree')
+  jqXHR = $.raj.handleAjaxRequest
+    type: 'post'
+    url: "<%= ::Rails.application.routes.url_helpers.clear_marked_things_path %>"
+  jqXHR.success (data)->
+      window.location = window.location
+  return false
+
+$(document).on 'click', 'a.a-destroy-marked', ->
+  $tree = $('#tree')
+  jqXHR = $.raj.handleAjaxRequest
+    type: 'post'
+    url: "<%= ::Rails.application.routes.url_helpers.destroy_marked_things_path %>"
+  jqXHR.success (data)->
+      window.location = window.location
+  return false
+

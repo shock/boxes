@@ -20,9 +20,9 @@ module ThingsHelper
         <a title="Toggle Marked" class="#{id}_marked" data-remote="true" href="/things/#{id}/toggle_marked">
           <i class="fa fa-check-square dimmed"></i>
         </a><a title="Edit #{thing.name}" class="a-edit-thing" href="/things/#{id}/edit">
-          <i class="fa fa-pencil-square primary"></i>
+          <i class="fa fa-pencil-square success"></i>
         </a><a title="Add Contained Thing" class="a-new-thing" href="/things/new?parent_id=#{id}">
-          <i class="fa fa-cube success"></i>
+          <i class="fa fa-cube primary"></i>
         </a>
       </em>
     }

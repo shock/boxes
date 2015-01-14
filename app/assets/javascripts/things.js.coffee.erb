@@ -1,40 +1,3 @@
-# Place all the behaviors and hooks related to the matching controller here.
-# All this logic will automatically be available in application.js.
-# You can use CoffeeScript in this file: http://coffeescript.org/
-
-$(document).on 'click', 'a.a-move-marked', ->
-  $tree = $('#tree')
-  if selected_node = $tree.tree('getSelectedNode')
-    container_id = selected_node.id
-    jqXHR = $.raj.handleAjaxRequest
-      type: 'post'
-      url: "<%= ::Rails.application.routes.url_helpers.move_marked_things_path %>"
-      data:
-        parent_id: container_id
-    jqXHR.success (data)->
-        window.location = window.location
-  else
-    alert("Choose a container using the tree control to move selected objects inside of it.")
-  return false
-
-$(document).on 'click', 'a.a-clear-marked', ->
-  $tree = $('#tree')
-  jqXHR = $.raj.handleAjaxRequest
-    type: 'post'
-    url: "<%= ::Rails.application.routes.url_helpers.clear_marked_things_path %>"
-  jqXHR.success (data)->
-      window.location = window.location
-  return false
-
-$(document).on 'click', 'a.a-destroy-marked', ->
-  $tree = $('#tree')
-  jqXHR = $.raj.handleAjaxRequest
-    type: 'post'
-    url: "<%= ::Rails.application.routes.url_helpers.destroy_marked_things_path %>"
-  jqXHR.success (data)->
-      window.location = window.location
-  return false
-
 class InlineWidget
   selector: '#inline-widget'
 
@@ -86,38 +49,51 @@ class InlineWidget
         multiple: true
         data: select2_data
 
-$(document).on "ready page:change", ->
+class _Things
+
+  formHandler: (e) ->
+    a = $(this)
+    href = a.attr('href')
+    jqXHR = $.ajax
+      url: href
+      dataType: 'html'
+      type: 'get'
+    jqXHR.success (data) =>
+      inlineWidget.open data, inlineWidget.setupThingForm
+      # $.raj.bind_hide_on_user_intent_events(a, inlineWidget.widget, inlineWidget.close)
+      $tree.tree('selectNode', null);
+    false
+
+  moveHandler: (e) ->
+    if target_node = Tree.selected_node
+      link = $(e.currentTarget)
+      path = link.attr('href')
+      id = $.raj.toInt(link.data('id'))
+      if id != target_node.id
+        jqXHR = $.raj.handleAjaxRequest
+          url: path
+          type: 'post'
+          dataType: 'json'
+          data:
+            position: 'inside'
+            target_id: target_node.id
+        jqXHR.success = (data) =>
+          Things.updateValues(data.things)
+    else
+      alert("Select a container using the tree first.")
+    return false
+
+  updateValues: (data) ->
+
+$(document).on "page:change", ->
   window.inlineWidget = new InlineWidget
 
-# $(document).on 'click', 'a.a-new-thing', ->
-#   a = $(this)
-#   href = a.attr('href')
-#   jqXHR = $.ajax
-#     url: href
-#     dataType: 'html'
-#     type: 'get'
-#   jqXHR.success (data) ->
-#     $('#inline-widget').hide()
-#     $('#inline-widget').html(data)
-#     $('#inline-widget').slideDown()
+window.Things = new _Things
 
-#   false
-
-thingFormHandler = (e) ->
-  a = $(this)
-  href = a.attr('href')
-  jqXHR = $.ajax
-    url: href
-    dataType: 'html'
-    type: 'get'
-  jqXHR.success (data) =>
-    inlineWidget.open data, inlineWidget.setupThingForm
-    # $.raj.bind_hide_on_user_intent_events(a, inlineWidget.widget, inlineWidget.close)
-    $tree.tree('selectNode', null);
-  false
-
-$(document).on 'click', 'a.a-edit-thing, a.a-new-thing', thingFormHandler
+$(document).on 'click', 'a.a-edit-thing, a.a-new-thing', Things.formHandler
 
 $(document).on 'click', 'a.a-close-widget', ->
   inlineWidget.close()
   false
+
+$(document).on 'click', 'a.a-move-thing', Things.moveHandler

@@ -12,8 +12,13 @@
             <% end %>
           </span>
           <span class="action">
+            <%= link_to(move_to_thing_path(@thing), title: 'Move To Selected', class: 'a-move-thing', :"data-id" => @thing.id) do %>
+              <%= icon('arrow-right', '', class: "success") %>
+            <% end %>
+          </span>
+          <span class="action">
             <%= link_to(new_thing_path(parent_id: @thing, ref: CGI::escape(request.fullpath)), title: 'Add Contained Thing', class: 'a-new-thing') do %>
-              <%= icon(icon_add, '', class: "success") %>
+              <%= icon(icon_add, '', class: "primary") %>
             <% end %>
           </span>
         </div>
