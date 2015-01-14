@@ -38,6 +38,12 @@
         <% end -%>
       </div>
 
+      <div id="tags">
+        <ul><% @thing.tags.order(:name).each do |tag| %>
+          <li><%= tag.name %></li><% end %>
+        </ul>
+      </div>
+
       <div id="description">
         <%=h @thing.description %>
       </div>
