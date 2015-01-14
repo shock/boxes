@@ -44,3 +44,8 @@ window.statusMsg = (msg) ->
 $ ->
   # prevent touch to click delay on mobile devices
   Origami.fastclick(document.body)
+
+$(document).on 'click', '.f-submit', ->
+  form = $(this).parents('form')
+  form.submit()
+  false

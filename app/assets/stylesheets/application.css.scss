@@ -37,7 +37,8 @@
 
 #quick-search {
   input[type="text"] {
-    margin-bottom: 10px;
+    position: relative;
+    top: 0.1em;
   }
 }
 
