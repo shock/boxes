@@ -4,10 +4,14 @@ class ThingsController < ApplicationController
   # GET /things
   # GET /things.json
   def index
-    if query = params[:query] || @tag_list = params[:tags]
+    query = params[:query] if params[:query].present?
+    @tag_list = params[:tags] if params[:tags].present?
+    if query || @tag_list
       @search = true
       @things = []
+
       if @tag_list || params[:search_tags]
+        params[:search_tags] = true
         @tag_list ||= query
         @tags = Tag.where(name: @tag_list.split(/[^\w]/).map(&:squish).map(&:downcase)).all
         @things += @tags.map(&:things).flatten

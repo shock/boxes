@@ -5,7 +5,7 @@
       <%= icon('search') %>
     <% end %>
     <br>
-    <input type="checkbox" name="search_tags" title="search tags" id="search_tags">
+    <input type="checkbox" name="search_tags" title="search tags" id="search_tags" <%= 'checked="checked"' if params[:search_tags] %>>
     <label for="search_tags">Search Tags Only</label>
     <input type="submit" name="commit" value="Search" class="hide">
   </form>
