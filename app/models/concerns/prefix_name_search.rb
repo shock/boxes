@@ -8,7 +8,7 @@ module PrefixNameSearch
       if prefix.downcase != prefix
         matches = matches.map{|e| e.gsub(/#{prefix}/i, prefix)} + matches
       end
-      matches
+      matches.sort.reverse
     end
   end
 end
