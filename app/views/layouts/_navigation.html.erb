@@ -12,6 +12,8 @@
       <a href="<%= marked_things_path %>" class="navbar-brand"><%= icon(icon_marked, '', class: '') %>
         <span class="d-marked-count"><%= Thing.marked.count %></span></a>
       <a href="<%= tags_path %>" class="navbar-brand"><%= icon('tags', '', class: '') %></a>
+      <a href="#" id="back-button" class="navbar-brand" title="back"><%= icon('arrow-left', '', class: '') %></a>
+      <a href="#" id="forward-button" class="navbar-brand" title="back"><%= icon('arrow-right', '', class: '') %></a>
     </div>
     <% if false %>
       <div class="navbar-collapse collapse">

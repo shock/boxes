@@ -49,3 +49,11 @@ $(document).on 'click', '.f-submit', ->
   form = $(this).parents('form')
   form.submit()
   false
+
+$(document).on 'click', '#back-button', ->
+  history.back()
+  false
+
+$(document).on 'click', '#forward-button', ->
+  history.forward()
+  false
