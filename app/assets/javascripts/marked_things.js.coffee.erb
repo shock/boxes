@@ -1,6 +1,6 @@
 $(document).on 'click', 'a.a-move-marked', ->
   $tree = $('#tree')
-  if selected_node = $tree.tree('getSelectedNode')
+  if selected_node = Tree.selected_node
     container_id = selected_node.id
     jqXHR = $.raj.handleAjaxRequest
       type: 'post'
