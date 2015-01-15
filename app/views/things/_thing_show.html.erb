@@ -38,7 +38,7 @@
 
   <div id="tags">
     <ul><% @thing.tags.order(:name).each do |tag| %>
-      <li><span>•</span><%= tag.name %></li><% end %>
+      <li><a href="<%= things_path(tags: tag.name)%>"><span>•</span><%= tag.name %></a></li><% end %>
     </ul>
   </div>
 
