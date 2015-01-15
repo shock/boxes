@@ -327,12 +327,6 @@ _withErrorReporting = ->
       jqXHR.success (data) ->
         $.raj.withErrorReporting $.extend(jqXHR, g_ajax_memo), =>
           if data.success == true
-            if data.data?.products
-              try
-                for product_attrs in data.data.products
-                  product = new Product(product_attrs)
-                  window.Products.add(product)
-              catch e
             if data.data?.load_modal
               $.raj.loadModal data.data
             else if data.alert
