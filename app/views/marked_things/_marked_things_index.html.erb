@@ -1,0 +1,7 @@
+<h4>Selected Objects</h2>
+<div id="things-list">
+<% @things.each do |thing| %>
+  <%= render :partial=>'things/thing_row', locals: {thing: thing, odd_even: (cycle("odd","even")), show_container:  true} %>
+<% end %>
+</div>
+<br />

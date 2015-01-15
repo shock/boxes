@@ -2,6 +2,13 @@ class MarkedThingsController < ApplicationController
 
   def index
     @things = Thing.marked.order(:lft).all
+    respond_to do |format|
+      format.html {}
+      process_json_request(format) do
+        self.formats << :html
+        json_response.html = render_to_string partial: "marked_things/marked_things_index"
+      end
+    end
   end
 
   def move

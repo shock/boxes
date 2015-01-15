@@ -1,0 +1,9 @@
+<% if @search %>
+<h4>Matching <%= @tag_list ? "tags: '#{@tag_list}'" : "name: '#{params[:query]}'" %></h4>
+<% end %>
+<div id="things-list">
+<% @things.each do |thing| %>
+  <%= render :partial=>'thing_row', locals: {thing: thing, odd_even: (cycle("odd","even")), show_container:  true} %>
+<% end %>
+</div>
+<br />

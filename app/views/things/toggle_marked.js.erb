@@ -5,3 +5,6 @@ if(marked)
 else
   element.removeClass('marked');
 $('.d-marked-count').html('<%= @marked_count %>');
+if(marked) {
+  window.raj_mt_loader.triggerLoad();
+}

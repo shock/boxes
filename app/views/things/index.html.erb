@@ -1,14 +1,11 @@
 <div class="row">
-  <div class="things col-md-4">
-    <% if @search %>
-    <h4>Matching <%= @tag_list ? "tags: '#{@tag_list}'" : "name: '#{params[:query]}'" %></h4>
-    <% end %>
-    <div id="things-list">
-    <% @things.each do |thing| %>
-      <%= render :partial=>'thing_row', locals: {thing: thing, odd_even: (cycle("odd","even")), show_container:  true} %>
-    <% end %>
-    </div>
-    <br />
+  <div id="thing-index" class="things col-md-4 raj-loader" data-raj-url="<%= things_path %>"
+    data-raj-params='<%=
+      {
+        query: params[:query],
+        tags: params[:tags]
+      }.to_json
+    %>'>
   </div>
   <div class="col-md-4">
     <div id="tree" data-url="/things/tree.json?current=<%= Thing.world.id %>"></div>

@@ -1,12 +1,5 @@
 <div class="row">
-  <div class="things marked col-md-4">
-    <h4>Selected Objects</h2>
-    <div id="things-list">
-    <% @things.each do |thing| %>
-      <%= render :partial=>'things/thing_row', locals: {thing: thing, odd_even: (cycle("odd","even")), show_container:  true} %>
-    <% end %>
-    </div>
-    <br />
+  <div class="things marked col-md-4 raj-mt-loader" data-raj-url="<%= marked_things_path %>">
   </div>
   <div class="col-md-4">
     <div class="select-actions">

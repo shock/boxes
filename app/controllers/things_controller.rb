@@ -20,6 +20,13 @@ class ThingsController < ApplicationController
       redirect_to Thing.world and return
     end
     @things = @things.sort_by(&:lft)
+    respond_to do |format|
+      format.html {}
+      process_json_request(format) do
+        self.formats << :html
+        json_response.html = render_to_string partial: 'things/thing_index'
+      end
+    end
   end
 
   def name_search
@@ -36,30 +43,35 @@ class ThingsController < ApplicationController
   end
 
   def move_to
-    node = Thing.find(params[:id])
-    target = Thing.find(params[:target_id])
-    position = params[:position]
-    case position
-    when 'before'
-      show_node = target.parent
-      node.move_to target, :left
-    when 'after'
-      show_node = target.parent
-      node.move_to target, :right
-    when 'inside'
-      show_node = target.parent
-      node.parent_id = target.id
-      if first_child = target.children.first
-        node.move_to first_child, :left
-      else
-        node.move_to target, :child
-      end
-    else
-      raise "unknown position: #{position}, target: #{target.name}, node: #{node.name}"
-    end
     respond_to do |format|
       process_json_request(format) do
-        json_response.redirect_to = request.referer.to_s
+        begin
+          node = Thing.find(params[:id])
+          target = Thing.find(params[:target_id])
+          position = params[:position]
+          case position
+          when 'before'
+            show_node = target.parent
+            node.move_to target, :left
+          when 'after'
+            show_node = target.parent
+            node.move_to target, :right
+          when 'inside'
+            show_node = target.parent
+            node.parent_id = target.id
+            if first_child = target.children.first
+              node.move_to first_child, :left
+            else
+              node.move_to target, :child
+            end
+          else
+            raise "unknown position: #{position}, target: #{target.name}, node: #{node.name}"
+          end
+          json_response.redirect_to = request.referer.to_s
+        rescue ActiveRecord::ActiveRecordError
+          json_response.success = false
+          json_response.error_messages = [$!.message]
+        end
       end
     end
   end
@@ -85,6 +97,10 @@ class ThingsController < ApplicationController
   def show
     respond_to do |format|
       format.html {}
+      process_json_request(format) do
+        self.formats << :html
+        json_response.html = render_to_string partial: 'things/thing_show'
+      end
     end
   end
 
