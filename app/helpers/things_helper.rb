@@ -8,6 +8,7 @@ module ThingsHelper
   def icon_add; 'cube'; end
   def icon_delete; 'minus-square'; end
   def icon_home; 'home'; end
+  def icon_move; 'arrow-circle-o-right'; end
 
   def thing_label(thing)
     "#{thing.name} <i class='c-count d-#{thing.id}-contained'>#{thing.children.count}</i>".html_safe
