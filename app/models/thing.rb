@@ -2,7 +2,7 @@ class Thing < ActiveRecord::Base
   acts_as_nested_set depth_column: :tree_depth
   include PrefixNameSearch
 
-  has_many :thing_tags
+  has_many :thing_tags, dependent: :destroy
   has_many :tags, through: :thing_tags
 
   ROOT_NAME = "<none>"
