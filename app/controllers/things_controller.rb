@@ -59,7 +59,7 @@ class ThingsController < ApplicationController
     end
     respond_to do |format|
       process_json_request(format) do
-        json_response.redirect_to = thing_path(show_node)
+        json_response.redirect_to = request.referer.to_s
       end
     end
   end
@@ -173,6 +173,8 @@ class ThingsController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_thing
       @thing = Thing.find(params[:id])
+    rescue
+      redirect_to thing_path(Thing.world)
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
