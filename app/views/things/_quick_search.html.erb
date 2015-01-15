@@ -1,10 +1,12 @@
 <div id="quick-search" class="ui-widget">
   <form action="<%= things_path %>" >
-    <input type="text" name="query" val="">
-    <input type="checkbox" name="search_tags" title="search tags">
+    <%= text_field_tag :query, params[:query] || params[:tags] %>
     <%= link_to '#', class: "btn btn-sm btn-primary f-submit" do %>
       <%= icon('search') %>
     <% end %>
+    <br>
+    <input type="checkbox" name="search_tags" title="search tags" id="search_tags">
+    <label for="search_tags">Search Tags Only</label>
     <input type="submit" name="commit" value="Search" class="hide">
   </form>
 </div>
