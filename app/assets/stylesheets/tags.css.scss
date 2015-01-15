@@ -1,3 +1,6 @@
+@import "compass";
+@import "select2";
+
 #tags-heading {
   h2 {
     margin-top: 0;
@@ -13,6 +16,20 @@
       margin-left: 1em;
     }
   }
-
-
 }
+
+.tag-select {
+  @include select2-tag(#c8efd1);
+}
+
+.tag-select {
+  display: inline-block;
+  margin-bottom: 5px;
+  select {
+    display: none;
+  }
+  select, ul {
+    min-width: 100%;
+  }
+}
+

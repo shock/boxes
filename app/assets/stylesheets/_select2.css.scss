@@ -31,18 +31,3 @@
     }
   }
 }
-
-.tag-select {
-  @include select2-tag(#c8efd1);
-}
-
-.tag-select {
-  display: inline-block;
-  margin-bottom: 5px;
-  select {
-    display: none;
-  }
-  select, ul {
-    min-width: 100%;
-  }
-}
