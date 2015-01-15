@@ -3,6 +3,7 @@
 //= require raj
 //= require_self
 //= require ./things
+//= require ./tags
 //= require ./jquery-ui
 //= require select2
 //= require select2-bootstrap
@@ -57,12 +58,6 @@ body.development {
 .alert {
   position: absolute;
   right: 15px;
-}
-
-form#new_tag {
-  position: absolute;
-  top: 2.4em;
-  left: 10em;
 }
 
 // Prevent user select on items we don't want

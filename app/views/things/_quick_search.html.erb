@@ -1,6 +1,7 @@
 <div id="quick-search" class="ui-widget">
   <form action="<%= things_path %>" >
     <input type="text" name="query" val="">
+    <input type="checkbox" name="search_tags" title="search tags">
     <%= link_to '#', class: "btn btn-sm btn-primary f-submit" do %>
       <%= icon('search') %>
     <% end %>

@@ -4,12 +4,17 @@ class ThingsController < ApplicationController
   # GET /things
   # GET /things.json
   def index
-    if query = params[:query] || tag_list = params[:tags]
-      tag_list = query.dup unless tag_list
-      query = query.squish
-      @things = Thing.root.descendants.where("name iLIKE '%#{query.gsub('*', '%')}%' OR description iLIKE '%#{query.gsub('*', '%')}%'")
-      tags = Tag.where(name: tag_list.split(/[^\w]/).map(&:squish).map(&:downcase)).all
-      @things += tags.map(&:things).flatten
+    if query = params[:query] || @tag_list = params[:tags]
+      @search = true
+      @things = []
+      if @tag_list || params[:search_tags]
+        @tag_list ||= query
+        @tags = Tag.where(name: @tag_list.split(/[^\w]/).map(&:squish).map(&:downcase)).all
+        @things += @tags.map(&:things).flatten
+      else
+        query = query.squish
+        @things += Thing.root.descendants.where("name iLIKE '%#{query.gsub('*', '%')}%' OR description iLIKE '%#{query.gsub('*', '%')}%'")
+      end
       @things = @things.uniq
     else
       redirect_to Thing.world and return

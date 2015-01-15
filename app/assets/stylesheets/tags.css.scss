@@ -1,3 +1,18 @@
-// Place all the styles related to the tags controller here.
-// They will automatically be included in application.css.
-// You can use Sass (SCSS) here: http://sass-lang.com/
+#tags-heading {
+  h2 {
+    margin-top: 0;
+  }
+  form#new_tag {
+    position: absolute;
+    top: 0.2em;
+    left: 7.4em;
+    #tag_name {
+      width: 10em;
+    }
+    input[type="submit"] {
+      margin-left: 1em;
+    }
+  }
+
+
+}
