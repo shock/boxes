@@ -19,7 +19,7 @@ class ThingsController < ApplicationController
     else
       redirect_to Thing.world and return
     end
-    @things = @things.sort_by(&:lft)
+    @things = @things.sort_by(&:name)
     respond_to do |format|
       format.html {}
       process_json_request(format) do
