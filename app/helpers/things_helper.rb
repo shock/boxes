@@ -26,6 +26,9 @@ module ThingsHelper
           <i class="fa fa-cube primary"></i>
         </a>
       </em>
+      <em class="show-actions">
+        <a href="#"><i class="fa fa-bars"></i></a>
+      </em>
     }
   end
 

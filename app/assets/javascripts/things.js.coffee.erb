@@ -99,3 +99,9 @@ $(document).on 'click', 'a.a-close-widget', ->
   false
 
 $(document).on 'click', 'a.a-move-thing', Things.moveHandler
+
+$(document).on 'click', '.show-actions', (e) ->
+  el = $(this)
+  el.hide()
+  el.prev().show()
+  false
