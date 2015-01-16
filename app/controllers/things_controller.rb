@@ -135,7 +135,6 @@ class ThingsController < ApplicationController
         if @thing.save
           update_tags
           format.html {
-            flash[:success] = 'Thing was successfully created.'
             redirect_to thing_path(@thing.parent)
           }
           format.json { render :show, status: :created, location: @thing }
@@ -155,7 +154,6 @@ class ThingsController < ApplicationController
         if @thing.update(thing_params)
           update_tags
           format.html {
-            flash[:success] = 'Thing was successfully updated.'
             redirect_to :back
           }
           format.json { render :show, status: :ok, location: @thing }
@@ -175,7 +173,6 @@ class ThingsController < ApplicationController
     @thing.destroy
     respond_to do |format|
       format.html {
-        flash[:success] = 'Thing was successfully destroyed.'
         redirect_to thing_path(parent)
       }
       format.json { head :no_content }
