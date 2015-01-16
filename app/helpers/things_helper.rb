@@ -34,7 +34,7 @@ module ThingsHelper
     actions = thing_actions(thing)
     # json.label "#{thing_label(thing)} #{actions}"
     json.label "#{thing.name} #{actions}"
-    children = thing.children
+    children = container_sort(thing.children)
     unless children.empty?
       index = children_to_open.index(thing.id)
       load_children_on_demand = index == nil
@@ -53,5 +53,25 @@ module ThingsHelper
 
   def tag_html(tag_name)
     "<span>•</span>#{tag_name}".html_safe
+  end
+
+  # primary sort of containers first, secondary alpha sort
+  def container_sort(things)
+    things = things.sort do |a,b|
+      if a.children.length > 0
+        if b.children.length > 0
+          a.name < b.name ? -1 : 1
+        else
+          -1
+        end
+      else
+        if b.children.length > 0
+          1
+        else
+          a.name < b.name ? -1 : 1
+        end
+      end
+    end
+    things
   end
 end

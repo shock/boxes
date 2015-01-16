@@ -1,6 +1,7 @@
 class Thing < ActiveRecord::Base
   acts_as_nested_set depth_column: :tree_depth
   include PrefixNameSearch
+  include ThingsHelper
 
   has_many :thing_tags, dependent: :destroy
   has_many :tags, through: :thing_tags
@@ -34,7 +35,10 @@ class Thing < ActiveRecord::Base
   validates :name, presence: true
 
   alias :container :parent
-  alias :contained :children
+
+  def contained
+    container_sort(self.children)
+  end
 
   hstore_attr :width, :default => 0
   hstore_attr :height, :default => 0
