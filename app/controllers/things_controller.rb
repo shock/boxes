@@ -73,7 +73,7 @@ class ThingsController < ApplicationController
           else
             raise "unknown position: #{position}, target: #{target.name}, node: #{node.name}"
           end
-          json_response.redirect_to = request.referer.to_s
+          json_response.redirect_to = thing_path(target)
         rescue ActiveRecord::ActiveRecordError
           json_response.success = false
           json_response.error_messages = [$!.message]
@@ -136,7 +136,7 @@ class ThingsController < ApplicationController
           update_tags
           format.html {
             flash[:success] = 'Thing was successfully created.'
-            redirect_to :back
+            redirect_to thing_path(@thing.parent)
           }
           format.json { render :show, status: :created, location: @thing }
         else
