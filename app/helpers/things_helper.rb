@@ -28,7 +28,7 @@ module ThingsHelper
           <i class="fa fa-cube primary"></i>
         </a>
       </em>
-      <em class="show-actions">
+      <em class="show-actions action">
         <a title="Toggle Marked" class="#{id}_marked" data-remote="true" href="/things/#{id}/toggle_marked">
           <i class="fa fa-check-square dimmed #{"marked" if thing.marked}"></i>
         </a>

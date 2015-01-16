@@ -28,7 +28,7 @@ class _Tree
     node = e.node
 
     # load the clicked unless the click was in the actions <em>
-    unless $(click_event.target).parents("em.actions")[0]
+    unless $(click_event.target).parents(".action")[0]
       # click was not in actions
       if @selected_node && @selected_node.id == node.id
         # the node was already selected, so load it's page
