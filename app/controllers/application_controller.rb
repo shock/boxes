@@ -9,7 +9,10 @@ class ApplicationController < ActionController::Base
   include Raj::ControllerConcern
 
   before_filter :update_client_json
+  before_filter :init_recent_searches
   around_filter :profile_request
+
+private
 
   def profile_request
     unless rp = params[:_rp].present?
@@ -36,5 +39,9 @@ class ApplicationController < ActionController::Base
       end
 
     )
+  end
+
+  def init_recent_searches
+    session[:recent_searches] ||= []
   end
 end

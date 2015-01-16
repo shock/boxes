@@ -1,13 +1,31 @@
 <div id="quick-search" class="ui-widget">
   <form action="<%= things_path %>" >
-    <%= text_field_tag :query, params[:query] || params[:tags] %>
-    <%= link_to '#', class: "btn btn-sm btn-primary f-submit" do %>
-      <%= icon('search') %>
-    <% end %>
-    <br>
+    <div class="row">
+      <div class="col-xs-9">
+        <%= text_field_tag :query, params[:query] || params[:tags], class: "" %>
+      </div>
+      <div class="col-xs-1">
+        <%= link_to '#', class: "btn btn-sm btn-primary f-submit" do %>
+          <%= icon('search') %>
+        <% end %>
+      </div>
+    </div>
     <input type="checkbox" name="search_tags" title="search tags" id="search_tags" <%= 'checked="checked"' if params[:search_tags] %>>
-    <label for="search_tags">Search Tags Only</label>
+    <label for="search_tags" class="control-label">Search Tags Only</label>
     <input type="submit" name="commit" value="Search" class="hide">
   </form>
+  <hr>
+  <div id="recent-searches">
+    <h4>Recent Searches</h4>
+    <ul>
+      <% session[:recent_searches].each do |search_params| %>
+        <% if search_params["search_tags"] %>
+          <li class="tag"><%= link_to tag_html(search_params["query"]), things_path(search_params) %></li>
+        <% else %>
+          <li><%= link_to search_params["query"], things_path(search_params) %></li>
+        <% end %>
+      <% end %>
+    </ul>
+  </div>
 </div>
-<span class="ui-autocomplete-faux" style="display:none;"></span></br>
+<span class="ui-autocomplete-faux" style="display:none;"></span>

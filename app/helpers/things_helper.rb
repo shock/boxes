@@ -51,4 +51,7 @@ module ThingsHelper
     json
   end
 
+  def tag_html(tag_name)
+    "<span>•</span>#{tag_name}".html_safe
+  end
 end

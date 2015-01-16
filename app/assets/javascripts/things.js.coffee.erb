@@ -87,6 +87,8 @@ class _Things
 
 $(document).on "page:change", ->
   window.inlineWidget = new InlineWidget
+  el_selector = '#quick-search > form input[name="query"]'
+  $(el_selector).autoWordComplete()
 
 window.Things = new _Things
 

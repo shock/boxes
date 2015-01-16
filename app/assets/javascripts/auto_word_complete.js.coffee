@@ -218,8 +218,3 @@ $.fn.autoWordComplete = ->
     el.autocomplete autocomplete_options
 
   bindHandlers $(this)
-
-el_selector = '#quick-search > form > input[name="query"]'
-
-
-$(el_selector).autoWordComplete()

@@ -25,7 +25,9 @@ class ThingsController < ApplicationController
     end
     @things = @things.sort_by(&:name)
     respond_to do |format|
-      format.html {}
+      format.html {
+        process_recent_searches
+      }
       process_json_request(format) do
         self.formats << :html
         json_response.html = render_to_string partial: 'things/thing_index'
@@ -209,4 +211,22 @@ class ThingsController < ApplicationController
         ThingTag.create!(:tag_id => tag_id, :thing => @thing)
       end
     end
+
+    def process_recent_searches
+      max_history = 10
+      rs = session[:recent_searches] || []
+      if params[:query].present?
+        search_params = {
+          "query" => params[:query],
+          "search_tags" => params[:search_tags]
+        }
+        rs = rs - [search_params]
+        rs.unshift(search_params)
+        if rs.length > max_history
+          rs = rs.slice(0,max_history)
+        end
+        session[:recent_searches] = rs
+      end
+    end
+
 end
