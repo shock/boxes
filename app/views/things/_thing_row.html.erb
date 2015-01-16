@@ -12,6 +12,9 @@
     <%= render partial: "things/actions", locals: {thing: thing} %>
   </span>
   <span class="show-actions">
+    <%= link_to(toggle_marked_thing_path(thing), title: 'Toggle Marked', class: "#{thing.id}_marked", remote: true) do %>
+      <%= icon(icon_marked, '', class: thing.marked ? "dimmed marked" : "dimmed") %>
+    <% end %>
     <a href="#"><%= icon('bars') %></a>
   </span>
 </div>
