@@ -12,6 +12,34 @@
 @import "font_awesome";
 @import "select2";
 
+body {
+  font-size: 2.3em;
+}
+@media (min-width: 768px) {
+  body {
+    font-size: 2.2em;
+  }
+}
+@media (min-width: 992px) {
+  body {
+    font-size: 2.1em;
+  }
+}
+@media (min-width: 1024) {
+  body {
+    font-size: 1.9em;
+  }
+}
+@media (min-width: 1200px) {
+  body {
+    font-size: 1.8em;
+  }
+}
+
+.navbar > .container .navbar-brand, .navbar > .container-fluid .navbar-brand {
+  margin-left: 0;
+}
+
 .op25 {
   opacity: 0.25;
 }
@@ -38,8 +66,19 @@
 
 #quick-search {
   input[type="text"] {
-    position: relative;
-    top: 0.1em;
+    // position: relative;
+    // top: 0.1em;
+    width: 100%;
+  }
+  label {
+    font-size: 0.8em;
+    font-weight: normal;
+  }
+  hr {
+    margin-top: 10px;
+    margin-bottom: 10px;
+    border: 0;
+    border-top: 1px solid #ddd;
   }
 }
 
