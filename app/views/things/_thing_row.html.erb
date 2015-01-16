@@ -1,11 +1,14 @@
 <div class="child <%= odd_even %>">
-  <a href="<%= url_for(thing) %>" title="<%= thing.description %>"><%= thing.name %></a> <span class="num-contained c-count" title="number of contained things"><%= thing.num_contained %></span>
+  <a href="<%= url_for(thing) %>" title="<%= thing.description %>"><%= thing.name %></a>
+  <% if thing.num_contained > 0 %>
+    <span class="num-contained c-count" title="number of contained things"><%= thing.num_contained %></span>
+  <% end %>
   <% if defined?(show_container) && show_container %>
     <% if thing.parent_id && thing.container && thing.container.tree_depth > 0 %> <
       <a href="<%= url_for(thing.container) %>" title="<%= thing.container.description %>"><%= thing.container.name %></a> <span class="num-contained c-count" title="number of contained things"><%= thing.container.num_contained %></span>
     <% end -%>
   <% end -%>
-  <span class="actions action">
+  <span class="thing-actions action">
     <%= render partial: "things/actions", locals: {thing: thing} %>
   </span>
 </div>

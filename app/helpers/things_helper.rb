@@ -17,7 +17,7 @@ module ThingsHelper
   def thing_actions(thing)
     id = thing.id
     %Q{
-      <em class="actions action">
+      <em class="thing-actions action">
         <a title="Toggle Marked" class="#{id}_marked" data-remote="true" href="/things/#{id}/toggle_marked">
           <i class="fa fa-check-square dimmed #{"marked" if thing.marked}"></i>
         </a><a title="Edit #{thing.name}" class="a-edit-thing" href="/things/#{id}/edit">
