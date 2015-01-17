@@ -1,3 +1,4 @@
+<% cache(thing_show_cache_key(@thing)) do %>
 <div class="thing-heading">
   <div class="name-bar">
     <%= link_to(edit_thing_path(@thing, ref: CGI::escape(request.fullpath)), title: "Edit #{@thing.name}",
@@ -65,3 +66,4 @@
   </div>
 
 </div>
+<% end %>

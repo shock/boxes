@@ -82,4 +82,17 @@ module ThingsHelper
     end
     things
   end
+
+  # cache_keys
+  def thing_cache_key(thing, context="")
+    "things/#{thing.id}/#{thing.updated_at}/#{context}"
+  end
+
+  def thing_show_cache_key(thing)
+    fragment_cache_key(thing_cache_key(thing, "show"))
+  end
+
+  def thing_json_cache_key(thing, context="")
+    json_cache_key(thing_cache_key(thing, context))
+  end
 end

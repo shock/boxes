@@ -26,4 +26,11 @@ module ApplicationHelper
     bs_btn(icon(icon_name, text, icon_options), btn_options)
   end
 
+  def fragment_cache_key(key)
+    "fragments/#{key}"
+  end
+
+  def json_cache_key(key)
+    "json/#{key}"
+  end
 end
