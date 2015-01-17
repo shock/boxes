@@ -8,14 +8,16 @@ class Thing < ActiveRecord::Base
 
   ROOT_NAME = "<none>"
 
+  self.world_name = "The World"
+
   def self.root
     find_or_create_by(name: ROOT_NAME, parent_id: nil)
   end
 
   def self.world
-    world = find_by(name:"The World")
+    world = find_by(name: world_name)
     return world if world
-    world = create(name: "The World", parent_id: self.root.id)
+    world = create(name: world_name, parent_id: self.root.id)
     world.move_to_child_of(self.root)
   end
 
@@ -113,5 +115,9 @@ private
 
   def touch_ancestors
     self.ancestors.update_all(updated_at: self.updated_at)
+  end
+
+  def protect_world
+    raise "Can't modify The World!" if self.name == self.class.world_name
   end
 end
