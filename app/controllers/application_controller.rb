@@ -12,6 +12,24 @@ class ApplicationController < ActionController::Base
   before_filter :init_recent_searches
   around_filter :profile_request
 
+  def recent_searches_cache_key
+    "recent-searches"
+  end
+
+  def recent_searches
+    recent_searches = Rails.cache.read(recent_searches_cache_key) || []
+    logger.debug("Recent Searches Accessor: #{recent_searches}")
+    recent_searches
+  end
+  helper_method :recent_searches
+
+  def recent_searches=(list)
+    logger.debug("Recent Searches Writer: #{list}")
+    Rails.cache.write(recent_searches_cache_key, list)
+    self.recent_searches
+  end
+  helper_method :recent_searches=
+
 private
 
   def profile_request
@@ -42,6 +60,6 @@ private
   end
 
   def init_recent_searches
-    session[:recent_searches] ||= []
+    self.recent_searches ||= []
   end
 end

@@ -211,7 +211,7 @@ class ThingsController < ApplicationController
 
     def process_recent_searches
       max_history = 10
-      rs = session[:recent_searches] || []
+      rs = recent_searches || []
       if params[:query].present?
         search_params = {
           "query" => params[:query],
@@ -222,7 +222,7 @@ class ThingsController < ApplicationController
         if rs.length > max_history
           rs = rs.slice(0,max_history)
         end
-        session[:recent_searches] = rs
+        self.recent_searches = rs
       end
     end
 
