@@ -18,21 +18,21 @@ module ThingsHelper
     id = thing.id
     %Q{
       <em class="thing-actions action">
-        <a title="Toggle Marked" class="#{id}_marked" data-remote="true" href="/things/#{id}/toggle_marked">
-          <i class="fa fa-check-square dimmed #{"marked" if thing.marked}"></i>
-        </a>
         <a title="Edit #{thing.name}" class="a-edit-thing" href="/things/#{id}/edit">
-          <i class="fa fa-pencil-square success"></i>
+          <i class="fa fa-pencil-square default"></i>
         </a>
         <a title="Add Contained Thing" class="a-new-thing" href="/things/new?parent_id=#{id}">
           <i class="fa fa-cube primary"></i>
         </a>
-      </em>
-      <em class="show-actions action">
         <a title="Toggle Marked" class="#{id}_marked" data-remote="true" href="/things/#{id}/toggle_marked">
           <i class="fa fa-check-square dimmed #{"marked" if thing.marked}"></i>
         </a>
+      </em>
+      <em class="show-actions action">
         <a href="#"><i class="fa fa-bars"></i></a>
+        <a title="Toggle Marked" class="#{id}_marked" data-remote="true" href="/things/#{id}/toggle_marked">
+          <i class="fa fa-check-square dimmed #{"marked" if thing.marked}"></i>
+        </a>
       </em>
     }
   end

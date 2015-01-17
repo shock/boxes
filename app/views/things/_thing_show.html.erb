@@ -11,7 +11,7 @@
       </span>
       <span class="action">
         <%= link_to(move_to_thing_path(@thing), title: 'Move To Selected', class: 'a-move-thing', :"data-id" => @thing.id) do %>
-          <%= icon(icon_move, '', class: "success") %>
+          <%= icon(icon_move, '', class: "warning") %>
         <% end %>
       </span>
       <span class="action">
