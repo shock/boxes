@@ -32,12 +32,14 @@ problems, please contact customer service.  \n\nClick 'OK' to reload the page."]
         yield
         status = json_response.delete(:status) || 200
         render :json => json_response, :status => status
-        begin
-          logger.debug "\n\033[1;33mJSON RESPONSE:\033[0m\n"
-          logger.debug "\033[1;33m#{json_response.to_json}\033[0m"
-          logger.debug ""
-        rescue
-          logger.debug $!.inspect rescue nil
+        if Raj.log_json_responses
+          begin
+            logger.debug "\n\033[1;33mJSON RESPONSE:\033[0m\n"
+            logger.debug "\033[1;33m#{json_response.to_json}\033[0m"
+            logger.debug ""
+          rescue
+            logger.debug $!.inspect rescue nil
+          end
         end
       rescue Exception => ex
         raise ex
