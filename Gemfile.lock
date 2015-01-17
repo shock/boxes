@@ -74,6 +74,7 @@ GEM
       sass (~> 3.2.19)
     compass-rails (2.0.0)
       compass (>= 0.12.2)
+    dalli (2.7.2)
     debug_inspector (0.0.2)
     debugger-linecache (1.2.0)
     diff-lcs (1.2.5)
@@ -100,6 +101,7 @@ GEM
       nokogiri (>= 1.5.9)
     mail (2.6.3)
       mime-types (>= 1.16, < 3)
+    memcachier (0.0.2)
     method_source (0.8.2)
     mime-types (2.4.3)
     mini_portile (0.6.1)
@@ -216,11 +218,13 @@ DEPENDENCIES
   bootstrap-sass (~> 3.3.1)
   coffee-rails (~> 4.1.0)
   compass-rails
+  dalli
   flag_shih_tzu
   font-awesome-sass (~> 4.2.0)
   hirb
   jbuilder (~> 2.0)
   jquery-rails
+  memcachier
   pg
   pry
   pry-byebug

@@ -49,6 +49,8 @@ gem 'raj', path: "vendor/engines/raj"
 
 gem 'rails_12factor', group: :production
 
+gem 'dalli'
+gem 'memcachier'
 
 
 group :development, :test do
