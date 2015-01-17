@@ -27,7 +27,7 @@ class Thing < ActiveRecord::Base
   end
 
   before_save :default_root, :normalize_name
-  after_save :move_to_parent
+  after_save :move_to_parent, :touch_ancestors
 
   include FlagShihTzu
   include HstorePropertiesConcern
@@ -109,5 +109,9 @@ private
     return unless parent_id_changed?
     parent = self.class.find(self.parent_id)
     self.move_to_child_of parent
+  end
+
+  def touch_ancestors
+    self.ancestors.update_all(updated_at: self.updated_at)
   end
 end
