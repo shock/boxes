@@ -38,25 +38,27 @@ module ThingsHelper
   end
 
   def json_ltree_builder( json, thing, children_to_open=[] )
-    json.id thing.id
-    actions = thing_actions(thing)
-    # json.label "#{thing_label(thing)} #{actions}"
-    json.label "#{thing.name} #{actions}"
-    children = container_sort(thing.children)
-    unless children.empty?
-      index = children_to_open.index(thing.id)
-      load_children_on_demand = index == nil
-      # load_children_on_demand ||= (index == children_to_open.length - 1)
-      json.load_on_demand load_children_on_demand
-      unless load_children_on_demand
-        json.children do
-          json.array! children do |child|
-            json_ltree_builder( json, child, children_to_open )
+    json.cache! thing_json_cache_key(thing, "tree/builder/#{children_to_open.join("-")}") do
+      json.id thing.id
+      actions = thing_actions(thing)
+      # json.label "#{thing_label(thing)} #{actions}"
+      json.label "#{thing.name} #{actions}"
+      children = container_sort(thing.children)
+      unless children.empty?
+        index = children_to_open.index(thing.id)
+        load_children_on_demand = index == nil
+        # load_children_on_demand ||= (index == children_to_open.length - 1)
+        json.load_on_demand load_children_on_demand
+        unless load_children_on_demand
+          json.children do
+            json.array! children do |child|
+              json_ltree_builder( json, child, children_to_open )
+            end
           end
         end
       end
+      json
     end
-    json
   end
 
   def tag_html(tag_name)
