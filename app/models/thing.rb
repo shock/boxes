@@ -8,6 +8,7 @@ class Thing < ActiveRecord::Base
 
   ROOT_NAME = "<none>"
 
+  cattr_accessor :world_name
   self.world_name = "The World"
 
   def self.root
@@ -28,8 +29,9 @@ class Thing < ActiveRecord::Base
     orphaned.move_to_child_of(self.world)
   end
 
-  before_save :default_root, :normalize_name
+  before_save :default_root, :normalize_name, :protect_world
   after_save :move_to_parent, :touch_ancestors
+  before_destroy :protect_world, :touch_self, :touch_ancestors
 
   include FlagShihTzu
   include HstorePropertiesConcern
@@ -113,8 +115,15 @@ private
     self.move_to_child_of parent
   end
 
+  def touch_self
+    self.updated_at = Time.now
+  end
+
   def touch_ancestors
     self.ancestors.update_all(updated_at: self.updated_at)
+    # this next line has to be here for the destroy case because acts_as_nested_set
+    # destroys the parent relationship from the ancestors before our hook is called!
+    Thing.where(id: self.parent_id).update_all(updated_at: self.updated_at) if self.parent_id
   end
 
   def protect_world
