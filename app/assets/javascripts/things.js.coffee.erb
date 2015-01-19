@@ -85,7 +85,8 @@ class _Things
 
   updateValues: (data) ->
 
-$(document).on "ready page:load", ->
+# $(document).on "ready page:load", ->
+$(document).on "page:change", ->
   window.inlineWidget = new InlineWidget
   el_selector = '#quick-search > form input[name="query"]'
   $(el_selector).autoWordComplete()

@@ -59,7 +59,8 @@ $(document).on 'click', '#forward-button', ->
   history.forward()
   false
 
-$(document).on "ready page:load", ->
+# $(document).on "ready page:load", ->
+$(document).on "page:change", ->
   raj_loader = $('.raj-loader').raj_loader()
   raj_loader.triggerLoad()
   window.raj_mt_loader = $('.raj-mt-loader').raj_loader()
