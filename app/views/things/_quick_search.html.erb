@@ -18,7 +18,7 @@
   <div id="recent-searches">
     <h4>Recent Searches</h4>
     <ul>
-      <% recent_searches.each do |search_params| %>
+      <% time_sorted_recent_searches.each do |search_params, att| %>
         <% if search_params["search_tags"] %>
           <li class="tag"><%= link_to tag_html(search_params["query"]), things_path(search_params) %></li>
         <% else %>

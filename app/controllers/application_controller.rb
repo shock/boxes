@@ -5,30 +5,13 @@ class ApplicationController < ActionController::Base
   # For APIs, you may want to use :null_session instead.
   protect_from_forgery with: :exception
 
+  include RecentSearches
+
   include Raj::JsonHelper
   include Raj::ControllerConcern
 
   before_filter :update_client_json
-  before_filter :init_recent_searches
   around_filter :profile_request
-
-  def recent_searches_cache_key
-    "recent-searches"
-  end
-
-  def recent_searches
-    recent_searches = Rails.cache.read(recent_searches_cache_key) || []
-    logger.debug("Recent Searches Accessor: #{recent_searches}")
-    recent_searches
-  end
-  helper_method :recent_searches
-
-  def recent_searches=(list)
-    logger.debug("Recent Searches Writer: #{list}")
-    Rails.cache.write(recent_searches_cache_key, list)
-    self.recent_searches
-  end
-  helper_method :recent_searches=
 
 private
 
@@ -57,9 +40,5 @@ private
       end
 
     )
-  end
-
-  def init_recent_searches
-    self.recent_searches ||= []
   end
 end

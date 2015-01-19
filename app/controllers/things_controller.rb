@@ -4,20 +4,20 @@ class ThingsController < ApplicationController
   # GET /things
   # GET /things.json
   def index
-    query = params[:query] if params[:query].present?
+    @query = params[:query] if params[:query].present?
     @tag_list = params[:tags] if params[:tags].present?
-    if query || @tag_list
+    if @query || @tag_list
       @search = true
       @things = []
 
       if @tag_list || params[:search_tags]
         params[:search_tags] = true
-        @tag_list ||= query
+        @tag_list ||= @query
         @tags = Tag.where(name: @tag_list.split(/[^\w]/).map(&:squish).map(&:downcase)).all
         @things += @tags.map(&:things).flatten
       else
-        query = query.squish
-        @things += Thing.root.descendants.where("name iLIKE '%#{query.gsub('*', '%')}%' OR description iLIKE '%#{query.gsub('*', '%')}%'")
+        @query = @query.squish.downcase
+        @things += Thing.root.descendants.where("name iLIKE '%#{@query.gsub('*', '%')}%' OR description iLIKE '%#{@query.gsub('*', '%')}%'")
       end
       @things = @things.uniq
     else
@@ -26,7 +26,7 @@ class ThingsController < ApplicationController
     @things = @things.sort_by(&:name)
     respond_to do |format|
       format.html {
-        process_recent_searches
+        process_recent_searches(@tag_list || @query, params[:search_tags])
       }
       process_json_request(format) do
         self.formats << :html
@@ -188,43 +188,26 @@ class ThingsController < ApplicationController
     end
   end
 
-  private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_thing
-      @thing = Thing.find(params[:id])
-    rescue
-      redirect_to thing_path(Thing.world)
-    end
+private
+  # Use callbacks to share common setup or constraints between actions.
+  def set_thing
+    @thing = Thing.find(params[:id])
+  rescue
+    redirect_to thing_path(Thing.world)
+  end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def thing_params
-      params.require(:thing).permit(:name, :parent_id, :description, :acquired_on, :cost, :value)
-    end
+  # Never trust parameters from the scary internet, only allow the white list through.
+  def thing_params
+    params.require(:thing).permit(:name, :parent_id, :description, :acquired_on, :cost, :value)
+  end
 
-    def update_tags
-      @thing.touch
-      tag_ids = (params.delete(:tags) || "").split(',')
-      ThingTag.delete_all(:thing_id => @thing.id)
-      tag_ids.each do |tag_id|
-        ThingTag.create!(:tag_id => tag_id, :thing => @thing)
-      end
+  def update_tags
+    @thing.touch
+    tag_ids = (params.delete(:tags) || "").split(',')
+    ThingTag.delete_all(:thing_id => @thing.id)
+    tag_ids.each do |tag_id|
+      ThingTag.create!(:tag_id => tag_id, :thing => @thing)
     end
-
-    def process_recent_searches
-      max_history = 10
-      rs = recent_searches || []
-      if params[:query].present?
-        search_params = {
-          "query" => params[:query],
-          "search_tags" => params[:search_tags]
-        }
-        rs = rs - [search_params]
-        rs.unshift(search_params)
-        if rs.length > max_history
-          rs = rs.slice(0,max_history)
-        end
-        self.recent_searches = rs
-      end
-    end
+  end
 
 end
