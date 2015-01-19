@@ -87,7 +87,7 @@ module ThingsHelper
 
   # cache_keys
   def thing_cache_key(thing, context="")
-    "things/#{thing.id}/#{thing.updated_at}/#{context}"
+    "things/#{thing.id}/#{thing.self_and_ancestors.sort_by(&:updated_at).last.updated_at}/#{context}"
   end
 
   def thing_show_cache_key(thing)
