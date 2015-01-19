@@ -202,6 +202,7 @@ class ThingsController < ApplicationController
     end
 
     def update_tags
+      @thing.touch
       tag_ids = (params.delete(:tags) || "").split(',')
       ThingTag.delete_all(:thing_id => @thing.id)
       tag_ids.each do |tag_id|
