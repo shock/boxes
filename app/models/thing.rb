@@ -31,6 +31,7 @@ class Thing < ActiveRecord::Base
 
   before_save :default_root, :normalize_name, :protect_world
   after_save :move_to_parent, :touch_ancestors
+  before_update :protect_world
   before_destroy :protect_world, :touch_self, :touch_ancestors
 
   include FlagShihTzu
@@ -127,6 +128,6 @@ private
   end
 
   def protect_world
-    raise "Can't modify The World!" if self.name == self.class.world_name
+    raise "Can't modify The World!" if self.id == self.class.world.id
   end
 end
