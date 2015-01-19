@@ -14,8 +14,9 @@
 #= require jquery_ujs
 #= require bootstrap-sprockets
 #= require turbolinks
-#= require tree.jquery
 #= require jquery-ui
+#= require jquery-cookie
+#= require tree.jquery
 #= require select2
 #= require raj/base
 #= require_tree .
@@ -58,7 +59,7 @@ $(document).on 'click', '#forward-button', ->
   history.forward()
   false
 
-$(document).on "page:change", ->
+$(document).on "ready page:load", ->
   raj_loader = $('.raj-loader').raj_loader()
   raj_loader.triggerLoad()
   window.raj_mt_loader = $('.raj-mt-loader').raj_loader()
