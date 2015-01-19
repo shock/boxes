@@ -59,8 +59,8 @@ class _Tree
     highlightNode(node)
 
 
-# $(document).on "ready page:change", (e) ->
-$(document).on "page:change", (e) ->
+$(document).on "ready page:load", (e) ->
+# $(document).on "page:change", (e) ->
   window.$tree = $('#tree')
   window.Tree = new _Tree
   $tree.tree
