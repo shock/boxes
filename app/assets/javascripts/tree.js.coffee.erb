@@ -28,7 +28,8 @@ class _Tree
     node = e.node
 
     # load the clicked unless the click was in the actions <em>
-    unless $(click_event.target).parents(".action")[0]
+    target = $(click_event.target)
+    unless target.parents(".action")[0] ? target.hasClass("action")
       # click was not in actions
       if @selected_node && @selected_node.id == node.id
         # the node was already selected, so load it's page
@@ -38,7 +39,8 @@ class _Tree
       else
         handleOpenClose()
 
-    @selected_node = node
+      @selected_node = node
+    false
 
   eventNodeMove: (e) =>
     moved_node = e.move_info.moved_node
@@ -53,11 +55,12 @@ class _Tree
       data:
         position: position
         target_id: target_node.id
+    false
 
   eventNodeOpen: (e) =>
     node = e.node
     highlightNode(node)
-
+    false
 
 # $(document).on "ready page:load", (e) ->
 $(document).on "page:change", (e) ->
@@ -73,7 +76,10 @@ $(document).on "page:change", (e) ->
 
   $tree.bind 'tree.click', (e) ->
     Tree.eventNodeClick(e)
+    false
   $tree.bind 'tree.move', (e) ->
     Tree.eventNodeMove(e)
+    false
   $tree.bind 'tree.open', (e) ->
     Tree.eventNodeOpen(e)
+    false
