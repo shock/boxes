@@ -15,6 +15,8 @@ class AsyncHtmlLoader
     jqXHR.success (data) =>
       html = data.html
       el.html(html)
+      RAJ.response_data ?= {}
+      $.extend(RAJ.response_data, data.data) if data.data?
     jqXHR.error =>
       el.html("<span>Error loading content.</span>")
 
