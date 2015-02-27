@@ -3,6 +3,9 @@ class Thing < ActiveRecord::Base
   include PrefixNameSearch
   include ThingsHelper
 
+  audited
+  has_associated_audits
+
   has_many :thing_tags, dependent: :destroy
   has_many :tags, through: :thing_tags
 

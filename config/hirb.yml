@@ -11,3 +11,16 @@
         - tree_depth
         - created
         - updated
+  Audit: &audit
+    :options:
+      :fields:
+        - id
+        - a_id
+        - a_type
+        - asc_id
+        - asc_type
+        - user
+        - action
+        - changes
+        - v
+        - created

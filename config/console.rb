@@ -44,6 +44,18 @@ module BoxesConsoleHelpers
     def updated; BoxesConsoleHelpers.simple_time(updated_at) rescue "nil"; end
   end
 
+  module Audit
+    extend ActiveSupport::Concern
+
+    def a_id; auditable_id; end
+    def a_type; auditable_type; end
+    def asc_id; associated_id; end
+    def asc_type; associated_type; end
+    def user; username; end
+    def v; version; end
+    def changes; audited_changes; end
+  end
+
 end
 
 class Object
@@ -83,6 +95,7 @@ class Object
     Hirb::View.resize
 
     ActiveRecord::Base.send(:include, BoxesConsoleHelpers::ActiveRecord)
+    Audit.send(:include, BoxesConsoleHelpers::Audit)
 
     silence_warnings {
       # Shortcut aliases for common AR classes
