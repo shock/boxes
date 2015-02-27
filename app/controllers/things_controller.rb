@@ -27,6 +27,7 @@ class ThingsController < ApplicationController
             @things = @things.uniq
             @things = @things.sort_by(&:name)
           else
+            @marked_things_only = true
             @things = Thing.marked.order(:name).all
           end
         else

@@ -1,11 +1,11 @@
 <% if @search %>
-<h4><% if params[:marked_only] %>
-  <span class="d-marked-count"><%= @things.count %></span>
+<h4><% if @marked_things_only %>
+  <span class="d-marked-count"><%= @things.count %></span> things are marked.
   <% else %>
-    <%= @things.count %>
+    <%= @things.count %> <%= "marked" if params[:marked_only] %>
+    found, matching <%= params[:search_tags] ? "tags" : "name" %>: '<%= @query || "*" %>'
   <% end %>
-  found, matching <%= params[:search_tags] ? "tags" : "name" %>: '<%= @query || "*" %>'</h4>
-<% end %>
+<% end %></h4>
 <div id="things-list">
 <% @things.each do |thing| %>
   <%= render :partial=>'thing_row', locals: {thing: thing, odd_even: (cycle("odd","even")), show_container:  true} %>

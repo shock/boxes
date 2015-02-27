@@ -1,5 +1,5 @@
 <div class="row">
-  <div id="thing-index" class="things col-md-4 raj-loader" data-raj-url="<%= things_path %>"
+  <div id="thing-index" class="things col-md-4 <%= @marked_things_only ? "raj-mt-loader" : "raj-loader" %>" data-raj-url="<%= things_path %>"
     data-raj-params='<%=
       data = {
         query: params[:query]
