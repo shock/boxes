@@ -32,7 +32,7 @@ module RecentSearches
 
   def process_recent_searches(params)
     query = params[:query]
-    search_tags = params[:search_tags].present?
+    search_tags = true if params[:search_tags].present?
     max_history = 10
     rs = recent_searches
     if query.present?
