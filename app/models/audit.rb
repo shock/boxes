@@ -1,3 +1,3 @@
-class Audit < ActiveRecord::Base
-  serialize :audited_changes
+class Audit < Audited::Adapters::ActiveRecord::Audit
+  # serialize :audited_changes
 end
