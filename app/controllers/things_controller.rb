@@ -10,25 +10,28 @@ class ThingsController < ApplicationController
       }
       process_json_request(format) do
         @query = params[:query] if params[:query].present?
-        if @query or params[:search]
+        if @query || params[:marked_only]
           @search = true
           @things = []
 
-          if params[:search_tags]
-            params[:search_tags] = true
-            @tags = Tag.where(name: @query.split(/[^\w]/).map(&:squish).map(&:downcase)).all
-            @things += @tags.map(&:things).flatten
+          if @query
+            if params[:search_tags]
+              params[:search_tags] = true
+              @tags = Tag.where(name: @query.split(/[^\w]/).map(&:squish).map(&:downcase)).all
+              @things += @tags.map(&:things).flatten
+            else
+              @query = @query.squish.downcase
+              @things += Thing.root.descendants.where("name iLIKE '%#{@query.gsub('*', '%')}%' OR description iLIKE '%#{@query.gsub('*', '%')}%'")
+            end
+            @things = @things.select{|t| t.marked} if params[:marked_only]
+            @things = @things.uniq
+            @things = @things.sort_by(&:name)
           else
-            @query = @query.squish.downcase
-            @things += Thing.root.descendants.where("name iLIKE '%#{@query.gsub('*', '%')}%' OR description iLIKE '%#{@query.gsub('*', '%')}%'")
+            @things = Thing.marked.order(:name).all
           end
-          # byebug
-          @things = @things.select{|t| t.marked} if params[:marked_only]
-          @things = @things.uniq
         else
           redirect_to Thing.world and return
         end
-        @things = @things.sort_by(&:name)
 
         self.formats << :html
         json_response.html = render_to_string partial: 'things/thing_index'
@@ -187,6 +190,26 @@ class ThingsController < ApplicationController
     @marked_count = Thing.marked.count
     respond_to do |format|
       format.js {}
+    end
+  end
+
+  def bulk_update_tags
+    thing_ids = params[:selected_ids]
+    tag_ids = (params.delete(:tags) || "").split(',')
+    verb = params[:tag_action]
+    case verb
+    when "add"
+      things_ids.each do |thing_id|
+        tag_ids.each do |tag_id|
+          ThingTag.create(:tag_id => tag_id, :thing_id => thing_id)
+        end
+      end
+    when "remove"
+      things_ids.each do |thing_id|
+        tag_ids.each do |tag_id|
+          ThingTag.find(:tag_id => tag_id, :thing_id => thing_id).destroy rescue nil
+        end
+      end
     end
   end
 

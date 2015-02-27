@@ -1,5 +1,10 @@
 <% if @search %>
-<h4><%= @things.count %> found, matching <%= params[:search_tags] ? "tags" : "name" %>: '<%= params[:query] %>'</h4>
+<h4><% if params[:marked_only] %>
+  <span class="d-marked-count"><%= @things.count %></span>
+  <% else %>
+    <%= @things.count %>
+  <% end %>
+  found, matching <%= params[:search_tags] ? "tags" : "name" %>: '<%= @query || "*" %>'</h4>
 <% end %>
 <div id="things-list">
 <% @things.each do |thing| %>

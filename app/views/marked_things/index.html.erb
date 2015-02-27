@@ -1,5 +1,5 @@
 <div class="row">
-  <div class="things marked col-md-4 raj-mt-loader" data-raj-url="<%= marked_things_path %>">
+  <div class="things marked col-md-4 raj-mt-loader" data-raj-url="<%= things_path(marked_only: true) %>">
   </div>
   <div class="col-md-4">
     <div class="select-actions">
@@ -12,9 +12,11 @@
         title: "Del Selected", class: "btn btn-danger btn-sm a-destroy-marked"}
       (link_options[:disabled] = 'disabled') if @things.empty?
       link_to "Del", destroy_marked_things_path, link_options %>
+      <%= render "things/tagger" %>
     </div>
     <div id="tree" data-url="/things/tree.json?current=<%= Thing.world.id %>"></div>
   </div>
-    <%= render :partial=>'things/quick_search' %>
   <div class="col-md-4">
+    <%= render :partial=>'things/quick_search' %>
+  </div>
 </div>
