@@ -2,10 +2,10 @@
   <div id="thing-index" class="things col-md-4 raj-loader" data-raj-url="<%= things_path %>"
     data-raj-params='<%=
       data = {
-        query: params[:query],
-        tags: params[:tags],
+        query: params[:query]
       }
       data[:search_tags] = true if params[:search_tags]
+      data[:marked_only] = true if params[:marked_only]
       data.to_json
     %>'>
   </div>

@@ -30,7 +30,9 @@ module RecentSearches
     end.reverse
   end
 
-  def process_recent_searches(query, search_tags)
+  def process_recent_searches(params)
+    query = params[:query]
+    search_tags = params[:search_tags].present?
     max_history = 10
     rs = recent_searches
     if query.present?

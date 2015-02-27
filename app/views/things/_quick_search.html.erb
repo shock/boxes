@@ -11,7 +11,9 @@
       </div>
     </div>
     <input type="checkbox" name="search_tags" title="search tags" id="search_tags" <%= 'checked="checked"' if params[:search_tags] %>>
-    <label for="search_tags" class="control-label">Search Tags Only</label>
+    <label for="search_tags" class="control-label">Tags Only</label>
+    <input type="checkbox" name="marked_only" title="search tags" id="marked_only" <%= 'checked="checked"' if params[:marked_only] %>>
+    <label for="marked_only" class="control-label">Marked Only</label>
     <input type="submit" name="commit" value="Search" class="hide">
   </form>
   <hr>

@@ -4,31 +4,32 @@ class ThingsController < ApplicationController
   # GET /things
   # GET /things.json
   def index
-    @query = params[:query] if params[:query].present?
-    @tag_list = params[:tags] if params[:tags].present?
-    if @query || @tag_list
-      @search = true
-      @things = []
-
-      if @tag_list || params[:search_tags]
-        params[:search_tags] = true
-        @tag_list ||= @query
-        @tags = Tag.where(name: @tag_list.split(/[^\w]/).map(&:squish).map(&:downcase)).all
-        @things += @tags.map(&:things).flatten
-      else
-        @query = @query.squish.downcase
-        @things += Thing.root.descendants.where("name iLIKE '%#{@query.gsub('*', '%')}%' OR description iLIKE '%#{@query.gsub('*', '%')}%'")
-      end
-      @things = @things.uniq
-    else
-      redirect_to Thing.world and return
-    end
-    @things = @things.sort_by(&:name)
     respond_to do |format|
       format.html {
-        process_recent_searches(@tag_list || @query, params[:search_tags])
+        process_recent_searches(params)
       }
       process_json_request(format) do
+        @query = params[:query] if params[:query].present?
+        if @query or params[:search]
+          @search = true
+          @things = []
+
+          if params[:search_tags]
+            params[:search_tags] = true
+            @tags = Tag.where(name: @query.split(/[^\w]/).map(&:squish).map(&:downcase)).all
+            @things += @tags.map(&:things).flatten
+          else
+            @query = @query.squish.downcase
+            @things += Thing.root.descendants.where("name iLIKE '%#{@query.gsub('*', '%')}%' OR description iLIKE '%#{@query.gsub('*', '%')}%'")
+          end
+          # byebug
+          @things = @things.select{|t| t.marked} if params[:marked_only]
+          @things = @things.uniq
+        else
+          redirect_to Thing.world and return
+        end
+        @things = @things.sort_by(&:name)
+
         self.formats << :html
         json_response.html = render_to_string partial: 'things/thing_index'
         json_response.data.selected_ids = @things.map(&:id)

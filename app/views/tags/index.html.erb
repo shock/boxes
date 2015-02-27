@@ -35,7 +35,7 @@
       <tbody>
         <% @tags.each do |tag| %>
           <tr>
-            <td><%= link_to things_path(tags: tag.name) do %> <%= tag.name %> <span class='c-count'><%=tag.things.count%></span><% end %></td>
+            <td><%= link_to things_path(query: tag.name, search_tags: true) do %> <%= tag.name %> <span class='c-count'><%=tag.things.count%></span><% end %></td>
             <td><%= link_to 'Edit', edit_tag_path(tag) %></td>
             <td><%= link_to 'Destroy', tag, method: :delete, data: { confirm: 'Are you sure?' } %></td>
           </tr>

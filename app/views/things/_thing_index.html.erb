@@ -1,5 +1,5 @@
 <% if @search %>
-<h4>Matching <%= @tag_list ? "tags: '#{@tag_list}'" : "name: '#{params[:query]}'" %></h4>
+<h4><%= @things.count %> found, matching <%= params[:search_tags] ? "tags" : "name" %>: '<%= params[:query] %>'</h4>
 <% end %>
 <div id="things-list">
 <% @things.each do |thing| %>

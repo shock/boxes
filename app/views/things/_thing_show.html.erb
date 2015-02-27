@@ -39,7 +39,7 @@
 
   <div id="tags">
     <ul><% @thing.tags.order(:name).each do |tag| %>
-      <li><a href="<%= things_path(tags: tag.name)%>"><%= tag_html(tag.name) %></a></li><% end %>
+      <li><a href="<%= things_path(query: tag.name, search_tags: 'on')%>"><%= tag_html(tag.name) %></a></li><% end %>
     </ul>
   </div>
 
