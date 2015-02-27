@@ -35,6 +35,7 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 # Boxes gems
 
 gem 'compass-rails'
+gem "audited-activerecord", "~> 4.0"
 gem 'autoprefixer-rails'
 gem 'awesome_nested_set'
 gem 'bootstrap-sass', '~> 3.3.1'
