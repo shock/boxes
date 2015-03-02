@@ -5,35 +5,17 @@ class ThingsController < ApplicationController
   # GET /things.json
   def index
     respond_to do |format|
+      @query = params[:query].squish.downcase if params[:query].present?
+      if @query || params[:marked_only].present?
+        @things = cached_query(params)
+      else
+        redirect_to Thing.world and return
+      end
+
       format.html {
         process_recent_searches(params)
       }
       process_json_request(format) do
-        @query = params[:query] if params[:query].present?
-        if @query || params[:marked_only]
-          @search = true
-          @things = []
-
-          if @query
-            if params[:search_tags]
-              params[:search_tags] = true
-              @tags = Tag.where(name: @query.split(/[^\w]/).map(&:squish).map(&:downcase)).all
-              @things += @tags.map(&:things).flatten
-            else
-              @query = @query.squish.downcase
-              @things += Thing.root.descendants.where("name iLIKE '%#{@query.gsub('*', '%')}%' OR description iLIKE '%#{@query.gsub('*', '%')}%'")
-            end
-            @things = @things.select{|t| t.marked} if params[:marked_only]
-            @things = @things.uniq
-            @things = @things.sort_by(&:name)
-          else
-            @marked_things_only = true
-            @things = Thing.marked.order(:name).all
-          end
-        else
-          redirect_to Thing.world and return
-        end
-
         self.formats << :html
         json_response.html = render_to_string partial: 'things/thing_index'
         json_response.data.selected_ids = @things.map(&:id)
@@ -230,10 +212,44 @@ private
   def update_tags
     @thing.touch
     tag_ids = (params.delete(:tags) || "").split(',')
-    ThingTag.delete_all(:thing_id => @thing.id)
+    ThingTag.where(:thing_id => @thing.id).destroy_all
     tag_ids.each do |tag_id|
       ThingTag.create!(:tag_id => tag_id, :thing => @thing)
     end
   end
+
+  def things_query_cache_key(params)
+    cache_key = ["things_query_v1"]
+    cache_key << params[:query]
+    cache_key << params[:search_tags].present?
+    cache_key << params[:marked_only].present?
+    cache_key << Thing.world.updated_at.to_s
+    cache_key = cache_key.map(&:to_s).join(" • ")
+  end
+  helper_method :things_query_cache_key
+
+  def cached_query(params)
+    cache_key = things_query_cache_key(params)
+    @search = true
+    @things = []
+    @marked_things_only = !@query
+    params[:search_tags] = true if params[:search_tags]
+    @things = Rails.cache.fetch(cache_key) do
+      if @query
+        if params[:search_tags]
+          tags = Tag.where(name: @query.split(/[^\w]/).map(&:squish).map(&:downcase)).all
+          @things += tags.map(&:things).flatten
+        else
+          @things += Thing.root.descendants.where("name iLIKE '%#{@query.gsub('*', '%')}%' OR description iLIKE '%#{@query.gsub('*', '%')}%'")
+        end
+        @things = @things.select{|t| t.marked} if params[:marked_only]
+        @things = @things.uniq
+        @things = @things.sort_by(&:name)
+      else
+        @things = Thing.marked.order(:name).all
+      end
+    end
+  end
+
 
 end

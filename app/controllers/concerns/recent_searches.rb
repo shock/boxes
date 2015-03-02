@@ -7,7 +7,7 @@ module RecentSearches
   end
 
   def recent_searches_cache_key
-    "recent-searches-v5"
+    "recent-searches-v6"
   end
 
   def recent_searches
