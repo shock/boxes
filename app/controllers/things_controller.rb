@@ -176,23 +176,94 @@ class ThingsController < ApplicationController
     end
   end
 
-  def bulk_update_tags
+  def bulk_update
     thing_ids = params[:selected_ids]
-    tag_ids = (params.delete(:tags) || "").split(',')
-    verb = params[:tag_action]
+    verb = params[:verb]
     case verb
-    when "add"
-      things_ids.each do |thing_id|
-        tag_ids.each do |tag_id|
-          ThingTag.create(:tag_id => tag_id, :thing_id => thing_id)
+    when "move"
+      new_parent = Thing.find(params[:parent_id])
+      Thing.transaction do
+        @things = Thing.where(id: thing_ids)
+        @things.each do |thing|
+          thing.update!(parent: new_parent)
+        end
+        respond_to do |format|
+          process_json_request(format) do
+          end
+          format.html do
+            flash[:success] = "#{@things.count} objects moved into #{new_parent.name}."
+            redirect_to :back
+          end
         end
       end
-    when "remove"
-      things_ids.each do |thing_id|
-        tag_ids.each do |tag_id|
-          ThingTag.find(:tag_id => tag_id, :thing_id => thing_id).destroy rescue nil
+    when "unmark-selected"
+      Thing.transaction do
+        @things = Thing.where(id: thing_ids)
+        @things.each do |thing|
+          thing.marked = false
+          thing.save!
+        end
+        respond_to do |format|
+          process_json_request(format) do
+          end
+          format.html do
+            flash[:success] = "#{@things.count} objects have been unmarked."
+            redirect_to :back
+          end
         end
       end
+    when "destroy-selected"
+      Thing.transaction do
+        @things = Thing.where(id: thing_ids)
+        @things.each do |thing|
+          thing.children.each do |child|
+            child.update!(parent: Thing.orphaned)
+          end
+          thing.destroy
+        end
+        respond_to do |format|
+          process_json_request(format) do
+          end
+          format.html do
+            flash[:success] = "#{@things.count} objects have been destroyed."
+            redirect_to :back
+          end
+        end
+      end
+    when "add-tags"
+      tag_ids = (params.delete(:tag_ids) || "").split(',')
+      thing_ids.each do |thing_id|
+        tag_ids.each do |tag_id|
+          if ThingTag.where(:tag_id => tag_id, :thing_id => thing_id).empty?
+            ThingTag.create(:tag_id => tag_id, :thing_id => thing_id)
+          end
+        end
+      end
+      respond_to do |format|
+        process_json_request(format) do
+        end
+        format.html do
+          flash[:success] = "Tags have been added."
+          redirect_to :back
+        end
+      end
+    when "remove-tags"
+      tag_ids = (params.delete(:tag_ids) || "").split(',')
+      thing_ids.each do |thing_id|
+        tag_ids.each do |tag_id|
+          ThingTag.where(:tag_id => tag_id, :thing_id => thing_id).destroy_all
+        end
+      end
+      respond_to do |format|
+        process_json_request(format) do
+        end
+        format.html do
+          flash[:success] = "Tags have been removed."
+          redirect_to :back
+        end
+      end
+    else
+      raise "Unknown bulk_update verb: #{verb}"
     end
   end
 

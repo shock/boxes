@@ -14,6 +14,8 @@ class Thing < ActiveRecord::Base
   cattr_accessor :world_name
   self.world_name = "The World"
 
+  attr :override_destroy
+
   def self.root
     find_or_create_by(name: ROOT_NAME, parent_id: nil)
   end
@@ -35,7 +37,7 @@ class Thing < ActiveRecord::Base
   before_save :default_root, :normalize_name, :protect_world
   after_save :move_to_parent, :touch_ancestors
   before_update :protect_world
-  before_destroy :protect_world, :touch_self, :touch_ancestors
+  before_destroy :protect_world, :protect_parents, :touch_self, :touch_ancestors
 
   include FlagShihTzu
   include HstorePropertiesConcern
@@ -132,5 +134,9 @@ private
 
   def protect_world
     raise "Can't modify The World!" if self.id == self.class.world.id
+  end
+
+  def protect_parents
+    raise "Can't destroy a parent without override." unless self.children.empty? || self.override_destroy
   end
 end

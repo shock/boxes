@@ -1,1 +1,13 @@
-<%= link_to "Tags", "#", class: "btn btn-primary btn-sm a-tagger" %>
+<div class="bulk-tags">
+  <div class="row">
+    <div class="col-md-12">
+      <div class="tag-select"> <%= hidden_field_tag :bulk_tags, '', class: '' -%> </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-12">
+      <%= link_to "Add", bulk_update_things_path, class: "a-add-tags btn btn-sm btn-success" %>
+      <%= link_to "Remove", bulk_update_things_path, class: "a-remove-tags btn btn-sm btn-default" %>
+    </div>
+  </div>
+</div>

@@ -31,6 +31,8 @@ module Boxes
     # Do not swallow errors in after_commit/after_rollback callbacks.
     config.active_record.raise_in_transactional_callbacks = true
 
+    ActiveSupport::Cache::Store.logger = Rails.logger
+
     def load_console
       super
       require "#{config.root}/config/console"

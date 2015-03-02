@@ -65,3 +65,4 @@ $(document).on "page:change", ->
   raj_loader.triggerLoad()
   window.raj_mt_loader = $('.raj-mt-loader').raj_loader()
   window.raj_mt_loader.triggerLoad()
+  Tags.setupSelect2Tags()

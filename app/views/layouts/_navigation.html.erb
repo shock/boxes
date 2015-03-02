@@ -9,7 +9,7 @@
         </button>
       <% end %>
       <a class="navbar-brand" href="<%= thing_path(Thing.world) %>"><%= icon(icon_home, '', class: '') %></a>
-      <a href="<%= marked_things_path %>" class="navbar-brand"><%= icon(icon_marked, '', class: '') %>
+      <a href="<%= things_path(marked_only: true) %>" class="navbar-brand"><%= icon(icon_marked, '', class: '') %>
         <span class="d-marked-count"><%= Thing.marked.count %></span></a>
       <a href="<%= tags_path %>" class="navbar-brand"><%= icon('tags', '', class: '') %></a>
       <a href="#" id="back-button" class="navbar-brand" title="back"><%= icon('arrow-left', '', class: '') %></a>

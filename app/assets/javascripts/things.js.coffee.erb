@@ -37,17 +37,7 @@ class InlineWidget
       $(this).hide()
       false
 
-    $("div.tag-select input").each ->
-      el = $(this)
-      select2_data = Boxes.get_select2_tags_data()
-      placeholder = "Click here to add tags"
-      el.select2
-        placeholder: placeholder
-        allowClear: true
-        minimumInputLength: 0
-        minimumResultsForSearch: -1
-        multiple: true
-        data: select2_data
+    Tags.setupSelect2Tags()
 
 class _Things
 
@@ -106,3 +96,76 @@ $(document).on 'click', '.show-actions', (e) ->
   el.hide()
   el.prev().show()
   false
+
+$(document).on 'click', 'a.a-tagger', (e) ->
+  $(".bulk-tags").toggle()
+  false
+
+$(document).on 'click', 'a.a-move-selected', ->
+  $tree = $('#tree')
+  if selected_node = Tree.selected_node
+    container_id = selected_node.id
+    jqXHR = $.raj.handleAjaxRequest
+      type: 'post'
+      dataType: 'json'
+      url: $(this).attr('href')
+      data:
+        parent_id: container_id
+        verb: 'move'
+        selected_ids: RAJ.response_data.selected_ids
+    jqXHR.success (data)->
+        window.location = window.location
+  else
+    alert("Choose a container using the tree control to move selected objects inside of it.")
+  return false
+
+$(document).on 'click', 'a.a-unmark-selected', ->
+  jqXHR = $.raj.handleAjaxRequest
+    type: 'post'
+    dataType: 'json'
+    url: $(this).attr('href')
+    data:
+      verb: 'unmark-selected'
+      selected_ids: RAJ.response_data.selected_ids
+  jqXHR.success (data)->
+      window.location = window.location
+  return false
+
+$(document).on 'click', 'a.a-destroy-selected', ->
+  jqXHR = $.raj.handleAjaxRequest
+    type: 'post'
+    dataType: 'json'
+    url: $(this).attr('href')
+    data:
+      verb: 'destroy-selected'
+      selected_ids: RAJ.response_data.selected_ids
+  jqXHR.success (data)->
+      window.location = window.location
+  return false
+
+$(document).on 'click', 'a.a-add-tags', ->
+  jqXHR = $.raj.handleAjaxRequest
+    type: 'post'
+    dataType: 'json'
+    url: $(this).attr('href')
+    data:
+      verb: 'add-tags'
+      selected_ids: RAJ.response_data.selected_ids
+      tag_ids: $("#bulk_tags").val()
+  jqXHR.success (data)->
+      window.location = window.location
+  return false
+
+$(document).on 'click', 'a.a-remove-tags', ->
+  jqXHR = $.raj.handleAjaxRequest
+    type: 'post'
+    dataType: 'json'
+    url: $(this).attr('href')
+    data:
+      verb: 'remove-tags'
+      selected_ids: RAJ.response_data.selected_ids
+      tag_ids: $("#bulk_tags").val()
+  jqXHR.success (data)->
+      window.location = window.location
+  return false
+

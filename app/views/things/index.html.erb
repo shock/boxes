@@ -10,6 +10,19 @@
     %>'>
   </div>
   <div class="col-md-4">
+    <div class="select-actions">
+      <%= link_to "Move", bulk_update_things_path, class: "a-move-selected btn btn-sm btn-info" %>
+      <%= link_options = {data: {confirm: "Are you sure you want to unmark all selected objects?"},
+        title: "Unselect All", class: "btn btn-warning btn-sm a-unmark-selected"}
+      (link_options[:disabled] = 'disabled') if @things.empty?
+      link_to "Clear", bulk_update_things_path, link_options %>
+      <%= link_options = {data: {confirm: "Are you sure you want to delete all selected objects?"},
+        title: "Del Selected", class: "btn btn-danger btn-sm a-destroy-selected"}
+      (link_options[:disabled] = 'disabled') if @things.empty?
+      link_to "Del", bulk_update_things_path, link_options %>
+      <%= link_to "Tags", "#", class: "btn btn-primary btn-sm a-tagger" %>
+    </div>
+    <%= render "things/tagger" %>
     <div id="tree" data-url="/things/tree.json?current=<%= Thing.world.id %>"></div>
   </div>
   <div class="col-md-4">

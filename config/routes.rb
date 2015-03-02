@@ -9,6 +9,7 @@ Rails.application.routes.draw do
     collection do
       get :tree
       get :name_search
+      post :bulk_update
     end
   end
 
