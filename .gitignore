@@ -12,3 +12,6 @@
 !/log/.keep
 /tmp
 *.sublime*
+.DS_Store
+*/.DS_Store
+**/.DS_Store
