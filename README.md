@@ -9,11 +9,11 @@ In theory, you should just be able to create the DB, load the schema, then boot 
  * All Ajax calls should be done using RAJ (Rails and AJAS).
  * RAJ links use the class name convention "a-*" to denote they're Ajax links
  * Data display elements updated by returned JSON use the class name convention "d-*"
- * * This allows all elements on the page with that data to be updated in a single query
+ ** This allows all elements on the page with that data to be updated in a single query
 
 ### The UI
 
- * First, see if you can figure out out.  Tough, right?
+ * First, see if you can figure out.  Tough, right?
  * Second, on a wide enough display, the left column is a table showing the contained things for the current container.
  * The middle column is a traversable and collapsible tree showing the entire hierarchy of the DB (with controls once you figure them out).  Clicking on a tree node twice, loads it into the left column as the parent.
  * The right column is a search column with options for searching.  You might have to be a little smarter than a dumbass to figure out the options.
