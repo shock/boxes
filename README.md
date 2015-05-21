@@ -1,4 +1,8 @@
+# WIP
+
 ## Containers
+
+In theory, you should just be able to create the DB, load the schema, then boot the app.  There are some hard-coded row-creations (instead of seeding) that happen if the rows don't exist when the app loads, but I haven't tested them in a while...
 
 ### Javascript Conventions
 
