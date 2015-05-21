@@ -6,10 +6,10 @@ In theory, you should just be able to create the DB, load the schema, then boot 
 
 ### Javascript Conventions
 
- * All Ajax calls should be done using RAJ (Rails and AJAS).
+ * All Ajax calls should be done using RAJ (Rails and AJAJ).
  * RAJ links use the class name convention "a-*" to denote they're Ajax links
- * Data display elements updated by returned JSON use the class name convention "d-*"
- ** This allows all elements on the page with that data to be updated in a single query
+ * Data display elements updated by returned JSON use the class name convention "d-_*_"
+ * * This allows all elements on the page with that data to be updated in a single query
 
 ### The UI
 
@@ -20,4 +20,4 @@ In theory, you should just be able to create the DB, load the schema, then boot 
  * The top-nav takes you: "home" (The World), selections (a feature involving the checkboxes), tags, and browser buttons (forward back) for when the app is loaded full screen on a mobile device. 
 
  
-Note that data is loaded by AJAS in the first two columns each page load, so clicking the back button will always return current state from the DB.
+Note that data is loaded by AJAJ in the first two columns each page load, so clicking the back/forward buttons will always return current state from the DB.
