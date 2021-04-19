@@ -9,9 +9,9 @@ Gem::Specification.new do |s|
   s.version     = Raj::VERSION
   s.authors     = ["shock"]
   s.email       = ["github@wdoughty.net"]
-  s.homepage    = "TODO"
-  s.summary     = "TODO: Summary of Raj."
-  s.description = "TODO: Description of Raj."
+  s.homepage    = ""
+  s.summary     = ": Summary of Raj."
+  s.description = ": Description of Raj."
   s.license     = "MIT"
 
   s.files = Dir["{app,config,db,lib}/**/*", "MIT-LICENSE", "Rakefile", "README.rdoc"]
