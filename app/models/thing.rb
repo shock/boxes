@@ -34,7 +34,7 @@ class Thing < ActiveRecord::Base
     orphaned.move_to_child_of(self.world)
   end
 
-  before_save :default_root, :normalize_name, :protect_world
+  before_save :default_root, :normalize_name#, :protect_world
   after_save :move_to_parent, :touch_ancestors
   before_update :protect_world
   before_destroy :protect_world, :protect_parents, :touch_self, :touch_ancestors
