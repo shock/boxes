@@ -97,6 +97,7 @@ body.development {
 .alert {
   position: absolute;
   right: 15px;
+  z-index: 1000;
 }
 
 // Prevent user select on items we don't want

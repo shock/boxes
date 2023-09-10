@@ -2,7 +2,7 @@
   <form action="<%= things_path %>" >
     <div class="row">
       <div class="col-xs-9">
-        <%= text_field_tag :query, params[:query] || params[:tags], class: "" %>
+        <%= text_field_tag :query, params[:query] || params[:tags] || params[:thing_tags], class: "" %>
       </div>
       <div class="col-xs-1">
         <%= link_to '#', class: "btn btn-sm btn-primary f-submit" do %>

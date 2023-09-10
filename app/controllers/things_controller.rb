@@ -282,7 +282,7 @@ private
 
   def update_tags
     @thing.touch
-    tag_ids = (params.delete(:tags) || "").split(',')
+    tag_ids = (params.delete(:thing_tags) || "").split(',')
     ThingTag.where(:thing_id => @thing.id).destroy_all
     tag_ids.each do |tag_id|
       ThingTag.create!(:tag_id => tag_id, :thing => @thing)
