@@ -295,7 +295,7 @@ private
     cache_key << params[:search_tags].present?
     cache_key << params[:marked_only].present?
     cache_key << Thing.world.updated_at.to_s
-    cache_key = cache_key.map(&:to_s).join(" • ")
+    cache_key = cache_key.map(&:to_s).map(&:squish).join(" • ")
   end
   helper_method :things_query_cache_key
 
@@ -308,7 +308,7 @@ private
     @things = Rails.cache.fetch(cache_key) do
       if @query
         if params[:search_tags]
-          tags = Tag.where(name: @query.split(/[^\w]/).map(&:squish).map(&:downcase)).all
+          tags = Tag.where(name: @query.split(/[^\w,\-]/).map(&:squish).map(&:downcase)).all
           @things += tags.map(&:things).flatten
         else
           @things += Thing.root.descendants.where("name iLIKE '%#{@query.gsub('*', '%')}%' OR description iLIKE '%#{@query.gsub('*', '%')}%'")

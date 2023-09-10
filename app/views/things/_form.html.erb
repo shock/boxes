@@ -27,7 +27,7 @@
 <div class="form-group">
   <%= f.label :tags, class: "col-lg-3 control-label" %>
   <div class="col-lg-9 tag-select">
-    <%= hidden_field_tag :tags, @thing.tags.map(&:id).join(','), class: '' -%>
+    <%= hidden_field_tag :thing_tags, @thing.tags.map(&:id).join(','), class: '' -%>
   </div>
 </div>
 <div id="more">
