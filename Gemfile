@@ -45,7 +45,6 @@ gem 'flag_shih_tzu'
 gem 'font-awesome-sass', '~> 4.2.0'
 gem 'hirb'
 gem 'select2-rails'
-gem 'pry', require: false
 
 gem 'raj', path: "vendor/engines/raj"
 # For production on Heroku
@@ -57,6 +56,7 @@ gem 'memcachier'
 
 
 group :development, :test do
+  gem 'pry', require: false
   gem 'ruby-prof'
   gem 'quiet_assets'
   gem 'pry-byebug'

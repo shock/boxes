@@ -1,0 +1,25 @@
+# Ignore everything
+*
+
+# Allow specific directories and files
+!Gemfile
+!Gemfile.lock
+!vendor/
+!bin/
+!public/
+!lib/
+!db/
+!config/
+!app/
+
+# Ignore unnecessary files even in allowed directories
+**/.DS_Store
+**/*.log
+**/tmp/
+**/.git/
+**/.gitignore
+**/test/
+**/spec/
+**/.bundle/
+**/vendor/bundle/
+**/.env*
