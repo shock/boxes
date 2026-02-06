@@ -3,6 +3,9 @@
 # Source the .env file in the directory above the directory this script is in
 DIR=$(dirname "$0")
 
+# Build the Docker image (will use cache if nothing changed)
+"$DIR/docker_build.sh"
+
 # Example DATABASE_URL:
 # DATABASE_URL=postgres://username:password@host.docker.internal:5432/database_name
 

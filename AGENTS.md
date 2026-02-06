@@ -27,17 +27,15 @@
 
 The project uses Ruby 2.6.6 which doesn't compile natively on ARM64 (M1 Mac), so Docker with x86 emulation is required.
 
-**Build script**: `script/docker_build.sh`
-```bash
-./script/docker_build.sh
-```
-This precompiles assets and builds a Docker image with `--platform linux/amd64`.
+**Quick start**: Just run `./script/docker_start.sh` - it handles everything (builds image if needed, starts container).
 
-**Start script**: `script/docker_start.sh`
-```bash
-./script/docker_start.sh
-```
-This stops/removes old containers and starts a new one with:
+**How it works**:
+- Build script (`docker_build.sh`) builds image with `--platform linux/amd64`
+- Asset precompile happens inside container during build (cached if nothing changed)
+- Start script (`docker_start.sh`) calls build script, then starts container
+- Works with Colima or Docker Desktop
+
+**Container setup**:
 - Port mapping: 3000:3000
 - Environment variables from `.env` file (must include `DATABASE_URL`)
 - Volume mount for live code updates

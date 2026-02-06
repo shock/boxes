@@ -4,12 +4,14 @@
 # Allow specific directories and files
 !Gemfile
 !Gemfile.lock
+!Rakefile
 !vendor/
 !bin/
 !public/
 !lib/
 !db/
 !config/
+!config.ru
 !app/
 
 # Ignore unnecessary files even in allowed directories

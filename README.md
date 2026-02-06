@@ -6,7 +6,14 @@ Eventually, I want to rewrite this app in React or another SPA framework, and ma
 
 ## Docker
 
-This project still uses ruby 2.6.6 and rails 4.2.8.  I can't get ruby 2.6.6 to run build on my M1 Mac, so I used Docker to get a Linux container running on my Mac.  See notes in the ./docker directory.  Scripts to build and run the container are in ./script.
+This project still uses Ruby 2.6.6 and Rails 4.2.8.  Ruby 2.6.6 doesn't compile on ARM64 (M1 Mac), so Docker with x86 emulation is required.  The Dockerfile has been updated to use Debian archive repositories (since Debian 10 buster is EOL) and the build process now compiles assets inside the container.
+
+To start the app, just run:
+```bash
+./script/docker_start.sh
+```
+
+This will build the Docker image (cached if nothing changed) and start the container.  Works with Colima or Docker Desktop.  Database runs on the host machine - ensure `.env` file has `DATABASE_URL` with `host.docker.internal` as the hostname.
 
 # Notes
 
