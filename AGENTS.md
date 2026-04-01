@@ -49,6 +49,20 @@ The project uses Ruby 2.6.6 which doesn't compile natively on ARM64 (M1 Mac), so
 
 **Access**: http://localhost:3000
 
+### Docker Image Registry
+
+The Docker image is available in a local Docker registry at `localdock.lan`:
+
+- **Image name**: `localdock.lan/boxes4_ruby_2_6_6:latest`
+- **Registry**: Local SSL-enabled registry running on standard HTTPS port
+- **Pull command**: `docker pull localdock.lan/boxes4_ruby_2_6_6:latest`
+
+To push updates to the local registry:
+```bash
+docker tag boxes4_ruby_2_6_6:latest localdock.lan/boxes4_ruby_2_6_6:latest
+docker push localdock.lan/boxes4_ruby_2_6_6:latest
+```
+
 ## Core Domain Models
 
 ### Main Models (in `/app/models/`)

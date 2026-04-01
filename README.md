@@ -15,6 +15,19 @@ To start the app, just run:
 
 This will build the Docker image (cached if nothing changed) and start the container.  Works with Colima or Docker Desktop.  Database runs on the host machine - ensure `.env` file has `DATABASE_URL` with `host.docker.internal` as the hostname.
 
+### Docker Image Registry
+
+The Docker image is also available in a local Docker registry at `localdock.lan`:
+
+- **Image**: `localdock.lan/boxes4_ruby_2_6_6:latest`
+- **Pull**: `docker pull localdock.lan/boxes4_ruby_2_6_6:latest`
+
+To push updates to the local registry:
+```bash
+docker tag boxes4_ruby_2_6_6:latest localdock.lan/boxes4_ruby_2_6_6:latest
+docker push localdock.lan/boxes4_ruby_2_6_6:latest
+```
+
 # Notes
 
 ## Database
