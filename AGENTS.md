@@ -29,6 +29,8 @@ The project uses Ruby 2.6.6 which doesn't compile natively on ARM64 (M1 Mac), so
 
 **Quick start**: Just run `./script/docker_start.sh` - it handles everything (builds image if needed, starts container).
 
+**To stop**: Run `./script/docker_stop.sh` to gracefully stop and remove the container.
+
 **How it works**:
 - Build script (`docker_build.sh`) builds image with `--platform linux/amd64`
 - Asset precompile happens inside container during build (cached if nothing changed)
@@ -114,9 +116,12 @@ Located in `/app/controllers/`:
 
 Scripts in `/script/`:
 
+- **docker_stop.sh** - Stop and remove the Docker container
 - **pg_backup.sh** - Database backup
 - **pg_restore.sh** - Database restore
 - **dump_database.sh** - Legacy database dump script
+
+A cronjob on `m2macair` runs `/opt/local/bin/pg_backup.sh` every minute to continuously back up the PostgreSQL database.
 
 ### Database Setup
 
